@@ -70,6 +70,10 @@
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition-fast);
         }
+        
+        .nav.scrolled { /* Added for compatibility with original JS */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
 
         @media (prefers-color-scheme: dark) {
             .nav {
@@ -302,14 +306,16 @@
             padding-left: 20px;
         }
 
-        /* Map Section */
-        #map-section {
-            background-color: var(--bg-light);
+        /* Original Map Section Styles */
+        #map-section .container { /* Use new container padding */
+             padding: 100px 20px;
         }
 
         .map-container {
             position: relative;
             height: 600px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
             overflow: hidden;
             margin-top: 40px;
@@ -321,6 +327,30 @@
             height: 100%;
         }
 
+        .map-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 113, 227, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .map-controls {
             position: absolute;
             bottom: 20px;
@@ -329,22 +359,23 @@
             display: flex;
             gap: 10px;
             padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50px;
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
         }
         
         @media (prefers-color-scheme: dark) {
             .map-controls {
-                background: rgba(30, 30, 30, 0.9);
+                background: rgba(30, 30, 30, 0.8);
             }
         }
 
         .map-btn {
-            padding: 10px 20px;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
+            padding: 8px 16px;
+            background: white;
+            border: none;
+            border-radius: 20px;
             font-size: 14px;
             font-weight: 500;
             color: var(--text-primary);
@@ -355,62 +386,62 @@
         .map-btn:hover {
             background: var(--primary-color);
             color: white;
-            border-color: var(--primary-color);
         }
 
         .map-btn.active {
             background: var(--primary-color);
             color: white;
-            border-color: var(--primary-color);
         }
         
         /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
+            width: 48px;
+            height: 48px;
             position: relative;
-            z-index: 1001;
+            cursor: pointer;
+            z-index: 1001; /* Ensure it's clickable */
         }
-
+        
         .mobile-menu-toggle span {
             display: block;
-            width: 100%;
-            height: 2px;
+            width: 18px;
+            height: 1.5px;
             background: var(--text-primary);
             position: absolute;
-            left: 0;
-            transition: all 0.3s ease-in-out;
+            left: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .mobile-menu-toggle span:nth-child(1) { top: 4px; }
-        .mobile-menu-toggle span:nth-child(2) { top: 11px; }
-        .mobile-menu-toggle span:nth-child(3) { top: 18px; }
+        
+        .mobile-menu-toggle span:nth-child(1) { top: 19px; }
+        .mobile-menu-toggle span:nth-child(2) { top: 24px; }
+        .mobile-menu-toggle span:nth-child(3) { top: 29px; }
 
-        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg); top: 11px; }
+        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg); top: 24px; }
         .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 11px; }
+        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 24px; }
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
-                top: 0;
+                top: 65px;
+                left: 0;
                 right: 0;
-                width: 70%;
-                height: 100vh;
                 background: var(--bg-light);
                 flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 30px;
-                transform: translateX(100%);
-                transition: transform 0.3s ease-in-out;
-                padding-top: 65px;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-120%); /* Start off screen */
+                opacity: 0;
+                transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                border-bottom: 1px solid var(--border-color);
             }
 
             .nav-menu.active {
-                transform: translateX(0);
+                transform: translateY(0);
+                opacity: 1;
             }
 
             .mobile-menu-toggle {
@@ -420,7 +451,7 @@
             .map-controls {
                 flex-wrap: wrap;
                 justify-content: center;
-                width: 90%;
+                max-width: 90%;
             }
         }
     </style>
@@ -607,31 +638,70 @@
     <section id="map-section" class="container">
         <div class="section-header">
             <h2>路线地图</h2>
-            <p>交互式地图，清晰展示每日的行车路线与关键地点。</p>
+            <p>探索这段穿越北疆的壮丽旅程</p>
         </div>
         <div class="map-container">
-            <div id="map"></div>
+            <div id="map">
+                <div class="map-loading" id="mapLoading">
+                    <div class="loading-spinner"></div>
+                    <p>地图加载中...</p>
+                </div>
+            </div>
             <div class="map-controls">
-                <button class="map-btn active" id="btn-full">完整路线</button>
-                <button class="map-btn" data-day="1">第1天</button>
-                <button class="map-btn" data-day="2">第2天</button>
-                <button class="map-btn" data-day="3">第3天</button>
-                <button class="map-btn" data-day="4">第4天</button>
-                <button class="map-btn" data-day="5">第5天</button>
-                <button class="map-btn" data-day="6">第6天</button>
-                <button class="map-btn" data-day="7">第7天</button>
+                <button class="map-btn active" id="btn-full" onclick="showFullRoute()">完整路线</button>
+                <button class="map-btn" onclick="showDayRoute(1)">第1天</button>
+                <button class="map-btn" onclick="showDayRoute(2)">第2天</button>
+                <button class="map-btn" onclick="showDayRoute(3)">第3天</button>
+                <button class="map-btn" onclick="showDayRoute(4)">第4天</button>
+                <button class="map-btn" onclick="showDayRoute(5)">第5天</button>
+                <button class="map-btn" onclick="showDayRoute(6)">第6天</button>
+                <button class="map-btn" onclick="showDayRoute(7)">第7天</button>
             </div>
         </div>
     </section>
 
     <script>
-        // Mobile Menu
+        // NOTE: This is the original script, restored to ensure map functionality.
+        // Some functions like createParticles and toggleDay are not used by the new design
+        // but are kept for the integrity of the original map script.
+
+        // 生成粒子效果
+        function createParticles() {
+            // This function is not visually used in the new design but kept for script integrity.
+            const particlesContainer = document.getElementById('particles'); // This element does not exist in the new design.
+            if (!particlesContainer) return;
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 移动菜单切换
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navMenu = document.getElementById('navMenu');
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileMenuToggle.classList.toggle('active');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
+
+        // 点击菜单项后关闭移动菜单
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenuToggle.classList.remove('active');
@@ -639,9 +709,20 @@
             });
         });
 
-        // Baidu Map
+        // 切换日程详情 (This function is no longer called by the itinerary cards)
+        function toggleDay(dayNum) {
+            // This function will not work as intended as details-# and toggle-# elements are not in the new design.
+            // It is kept because the map's showDayRoute function might be called from it in other contexts.
+        }
+
+        // 百度地图相关变量
         let map;
         let driving;
+        let markers = [];
+        let routes = [];
+        let currentActiveBtn = null;
+        
+        // 主要地点坐标
         const locations = {
             '漠河机场': {lng: 122.432, lat: 52.911},
             '漠河市区': {lng: 122.539, lat: 52.972},
@@ -654,6 +735,8 @@
             '满洲里': {lng: 117.378, lat: 49.597},
             '海拉尔': {lng: 119.736, lat: 49.213}
         };
+
+        // 每日路线
         const dailyRoutes = {
             1: ['漠河机场', '漠河市区'],
             2: ['漠河市区', '北极村', '北红村'],
@@ -664,68 +747,171 @@
             7: ['满洲里', '海拉尔']
         };
 
+        // 初始化地图
         function initMap() {
             try {
                 map = new BMap.Map("map");
-                map.centerAndZoom(new BMap.Point(120.5, 51.5), 6);
+                const centerPoint = new BMap.Point(120.5, 51.5);
+                map.centerAndZoom(centerPoint, 6);
                 map.enableScrollWheelZoom(true);
+                
+                map.addControl(new BMap.NavigationControl({
+                    anchor: BMAP_ANCHOR_TOP_LEFT,
+                    type: BMAP_NAVIGATION_CONTROL_LARGE
+                }));
+                map.addControl(new BMap.ScaleControl({
+                    anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+                }));
+                
                 driving = new BMap.DrivingRoute(map, {
-                    renderOptions: { map: map, autoViewport: true, enableDragging: true },
-                    policy: BMAP_DRIVING_POLICY_LEAST_TIME
+                    renderOptions: {
+                        map: map,
+                        autoViewport: true,
+                        enableDragging: true
+                    },
+                    policy: BMAP_DRIVING_POLICY_DEFAULT
                 });
+                
+                document.getElementById('mapLoading').style.display = 'none';
+                
+                Object.entries(locations).forEach(([name, coords]) => {
+                    const point = new BMap.Point(coords.lng, coords.lat);
+                    const marker = new BMap.Marker(point);
+                    
+                    const label = new BMap.Label(name, {
+                        offset: new BMap.Size(20, -10)
+                    });
+                    label.setStyle({
+                        color: '#333',
+                        fontSize: '12px',
+                        backgroundColor: 'rgba(255,255,255,0.9)',
+                        border: '1px solid #ccc',
+                        borderRadius: '3px',
+                        padding: '2px 5px',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+                    });
+                    
+                    marker.setLabel(label);
+                    map.addOverlay(marker);
+                    markers.push(marker);
+                    
+                    marker.addEventListener("click", function() {
+                        const info = new BMap.InfoWindow(`<div style="padding: 10px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+                            <h4 style="margin-bottom: 8px;">${name}</h4>
+                            <p style="margin: 4px 0; color: #666;">经度: ${coords.lng}</p>
+                            <p style="margin: 4px 0; color: #666;">纬度: ${coords.lat}</p>
+                        </div>`);
+                        map.openInfoWindow(info, point);
+                    });
+                });
+
                 showFullRoute();
-            } catch (e) {
-                console.error("Map initialization failed:", e);
-                document.getElementById('map').innerHTML = '<p>地图加载失败，请刷新重试。</p>';
+                
+            } catch (error) {
+                console.error('地图初始化失败：', error);
+                document.getElementById('mapLoading').innerHTML = '地图加载失败，请刷新页面重试';
             }
         }
-        
-        function clearRoutesAndMarkers() {
-            map.clearOverlays();
+
+        // 清除路线
+        function clearRoutes() {
+            driving.clearResults();
         }
 
-        function setActiveButton(activeBtn) {
-            document.querySelectorAll('.map-btn').forEach(btn => btn.classList.remove('active'));
-            if(activeBtn) activeBtn.classList.add('active');
-        }
-
-        function searchRoute(points) {
-            clearRoutesAndMarkers();
-            if (points.length < 2) {
-                const point = new BMap.Point(points[0].lng, points[0].lat);
-                map.centerAndZoom(point, 12);
-                const marker = new BMap.Marker(point);
-                map.addOverlay(marker);
-                marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-                return;
+        // 设置活动按钮
+        function setActiveButton(btn) {
+            document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
+            if (btn) {
+                if (typeof btn === 'string') {
+                    document.getElementById(btn).classList.add('active');
+                } else {
+                    btn.classList.add('active');
+                }
             }
-            const start = new BMap.Point(points[0].lng, points[0].lat);
-            const end = new BMap.Point(points[points.length - 1].lng, points[points.length - 1].lat);
-            const waypoints = points.slice(1, -1).map(p => new BMap.Point(p.lng, p.lat));
-            driving.search(start, end, { waypoints: waypoints });
         }
-        
+
+        // 显示完整路线
         function showFullRoute() {
-            const fullRoutePoints = ['漠河机场', '漠河市区', '北极村', '北红村', '根河', '额尔古纳', '恩和', '室韦', '满洲里', '海拉尔'].map(name => locations[name]);
-            searchRoute(fullRoutePoints);
+            clearRoutes();
+            setActiveButton('btn-full');
+            
+            const fullRoute = ['漠河机场', '漠河市区', '北极村', '北红村', '根河', '额尔古纳', '恩和', '室韦', '满洲里', '海拉尔'];
+            const waypoints = [];
+            for (let i = 1; i < fullRoute.length - 1; i++) {
+                const coords = locations[fullRoute[i]];
+                waypoints.push(new BMap.Point(coords.lng, coords.lat));
+            }
+            
+            const start = new BMap.Point(locations[fullRoute[0]].lng, locations[fullRoute[0]].lat);
+            const end = new BMap.Point(locations[fullRoute[fullRoute.length - 1]].lng, locations[fullRoute[fullRoute.length - 1]].lat);
+            
+            driving.search(start, end, {waypoints: waypoints});
         }
 
-        document.getElementById('btn-full').addEventListener('click', (e) => {
-            setActiveButton(e.target);
-            showFullRoute();
+        // 显示某一天的路线
+        function showDayRoute(day) {
+            clearRoutes();
+            setActiveButton(event.target);
+            
+            const dayRoute = dailyRoutes[day];
+            
+            if (dayRoute.length > 1) {
+                const waypoints = [];
+                for (let i = 1; i < dayRoute.length - 1; i++) {
+                    const coords = locations[dayRoute[i]];
+                    waypoints.push(new BMap.Point(coords.lng, coords.lat));
+                }
+                
+                const start = new BMap.Point(locations[dayRoute[0]].lng, locations[dayRoute[0]].lat);
+                const end = new BMap.Point(locations[dayRoute[dayRoute.length - 1]].lng, locations[dayRoute[dayRoute.length - 1]].lat);
+                
+                driving.search(start, end, {waypoints: waypoints});
+
+            } else {
+                const coords = locations[dayRoute[0]];
+                const point = new BMap.Point(coords.lng, coords.lat);
+                map.centerAndZoom(point, 12);
+                
+                const marker = new BMap.Marker(point);
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+                map.addOverlay(marker);
+                setTimeout(() => map.removeOverlay(marker), 3000);
+            }
+        }
+
+        // 页面加载完成后初始化
+        window.onload = function() {
+            createParticles();
+            
+            if (typeof BMap !== 'undefined') {
+                initMap();
+            } else {
+                console.error('百度地图API未能正确加载');
+                document.getElementById('mapLoading').innerHTML = '百度地图API加载失败，请检查网络连接';
+            }
+        };
+
+        // 处理API加载错误
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'SCRIPT' && e.target.src.includes('api.map.baidu.com')) {
+                console.error('百度地图脚本加载失败');
+                document.getElementById('mapLoading').innerHTML = '地图服务暂时不可用，请稍后再试';
+            }
         });
 
-        document.querySelectorAll('.map-btn[data-day]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                setActiveButton(e.target);
-                const day = e.target.getAttribute('data-day');
-                const routeNames = dailyRoutes[day];
-                const routePoints = routeNames.map(name => locations[name]);
-                searchRoute(routePoints);
+        // 平滑滚动到指定部分
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
-
-        window.onload = initMap;
     </script>
 </body>
 </html>
