@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>漠河与内蒙古边境自驾探险之旅</title>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=N4BtpP9TDw5VDImqI9oEazOeiPlPQtoH"></script>
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #50E3C2;
+            --text-primary: #333;
+            --text-secondary: #777;
+            --bg-primary: #f4f7f6;
+            --bg-light: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+            --border-radius: 12px;
+            --transition-fast: all 0.3s ease;
+            --transition-slow: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #4A90E2;
+                --secondary-color: #50E3C2;
+                --text-primary: #f0f0f0;
+                --text-secondary: #aaa;
+                --bg-primary: #121212;
+                --bg-light: #1E1E1E;
+                --border-color: #333;
+                --shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav {
+                background: rgba(30, 30, 30, 0.8);
+            }
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 65px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1594960503348-18eac54b1f6e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Overview Section */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .overview-card {
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition-slow);
+            border: 1px solid var(--border-color);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .overview-card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .overview-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .overview-card p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        /* Itinerary Section - Flipped Card Style */
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 400px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .flip-card-front {
+            background-color: var(--bg-light);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+            overflow-y: auto;
+            align-items: flex-start;
+            text-align: left;
+        }
+        
+        .card-day {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .flip-card-back h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            padding-bottom: 5px;
+            width: 100%;
+        }
+        
+        .flip-card-back p, .flip-card-back ul {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .flip-card-back ul {
+            padding-left: 20px;
+        }
+
+        /* Map Section */
+        #map-section {
+            background-color: var(--bg-light);
+        }
+
+        .map-container {
+            position: relative;
+            height: 600px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .map-controls {
+                background: rgba(30, 30, 30, 0.9);
+            }
+        }
+
+        .map-btn {
+            padding: 10px 20px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .map-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .map-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text-primary);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .mobile-menu-toggle span:nth-child(1) { top: 4px; }
+        .mobile-menu-toggle span:nth-child(2) { top: 11px; }
+        .mobile-menu-toggle span:nth-child(3) { top: 18px; }
+
+        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg); top: 11px; }
+        .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 11px; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background: var(--bg-light);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                padding-top: 65px;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .map-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <div class="nav-logo">北境探索</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#overview">旅程概览</a></li>
+                <li><a href="#itinerary">详细行程</a></li>
+                <li><a href="#map-section">路线地图</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>漠河与内蒙古边境自驾探险之旅</h1>
+            <p>8月27日-9月2日 · 7天6夜 · 探索中国最北端的壮丽风光与边境文化</p>
+        </div>
+    </section>
+
+    <section id="overview" class="container">
+        <div class="section-header">
+            <h2>旅程亮点</h2>
+            <p>在夏末秋初的黄金季节，体验北疆独特的自然奇观与多元文化。</p>
+        </div>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="overview-card-icon">🌲</div>
+                <h3>漠河"北极"体验</h3>
+                <p>探索中国最北点，访问北极村，并参观神秘的驯鹿园。</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-card-icon">🌾</div>
+                <h3>呼伦贝尔大草原</h3>
+                <p>驰骋于金秋时节的无垠草原，体验蒙古包生活和骑马的乐趣。</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-card-icon">🏘️</div>
+                <h3>俄罗斯风情</h3>
+                <p>漫步于恩和民族乡，感受满洲里独特的边境城市魅力。</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-card-icon">🦌</div>
+                <h3>原住民文化</h3>
+                <p>深入了解鄂伦春族与鄂温克族的传统生活与独特习俗。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="itinerary" class="container">
+        <div class="section-header">
+            <h2>详细行程安排</h2>
+            <p>精心设计的7天行程，带您深度体验北疆的每一寸土地。</p>
+        </div>
+        <div class="itinerary-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 1</div>
+                        <div class="card-title">抵达漠河</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>📍 抵达与安顿</h4>
+                        <p><strong>17:05</strong> 抵达漠河机场，办理租车。驱车前往市区（约20-30分钟）。</p>
+                        <h4>🏨 住宿建议</h4>
+                        <ul>
+                            <li>漠河银麓酒店</li>
+                            <li>艺龙酒店</li>
+                        </ul>
+                        <h4>🍽️ 餐饮推荐</h4>
+                        <p>品尝以野果、蘑菇、河鱼为特色的漠河本地菜肴。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 2</div>
+                        <div class="card-title">漠河深度探索</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>🏞️ 核心景点</h4>
+                        <ul>
+                            <li><strong>北极沙洲:</strong> 中国最北点。</li>
+                            <li><strong>最北邮局:</strong> 寄出来自北极的祝福。</li>
+                            <li><strong>鄂温克驯鹿园:</strong> 与可爱的驯鹿亲密接触。</li>
+                            <li><strong>龙江第一湾:</strong> 俯瞰壮丽江湾。</li>
+                        </ul>
+                        <h4>🏡 住宿</h4>
+                        <p>夜宿北红村，体验地道火炕民宿与农家菜。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 3</div>
+                        <div class="card-title">森林大穿越</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>🌲 穿越之旅</h4>
+                        <p>从北红村出发，经满归镇，最终抵达根河。全程约300公里，预计4-5小时。</p>
+                         <h4>🏞️ 景点</h4>
+                        <p>体验从漠河到内蒙古的景观过渡，欣赏根河湿地公园的生态美景。</p>
+                        <h4>🏨 住宿</h4>
+                        <p>推荐根河敖鲁古雅酒店，邻近景区。</p>
+                    </div>
+                </div>
+            </div>
+             <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 4</div>
+                        <div class="card-title">湿地与俄罗斯风情</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>💧 额尔古纳湿地</h4>
+                        <p>参观亚洲最大的湿地，感受其壮丽景色。</p>
+                        <h4>🏘️ 恩和民族乡</h4>
+                        <p>沉浸在俄罗斯文化中，欣赏独特的木刻楞建筑，体验俄式生活。</p>
+                        <h4>🏡 住宿</h4>
+                        <p>入住恩和的俄式木刻楞民宿，如卓娅、玛璐夏等。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 5</div>
+                        <div class="card-title">边境与草原</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>🏛️ 室韦风光</h4>
+                        <p>漫步额尔古纳河畔，远眺对岸的俄罗斯村庄。</p>
+                         <h4>🌾 草原驰骋</h4>
+                        <p>穿越呼伦贝尔大草原的金色腹地，抵达边境城市满洲里。</p>
+                        <h4>🏨 住宿</h4>
+                        <p>满洲里套娃酒店或满洲里大饭店。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 6</div>
+                        <div class="card-title">满洲里深度体验</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>🎪 城市游览</h4>
+                        <p>参观宏伟的套娃广场和庄严的满洲里国门。</p>
+                        <h4>🐎 草原活动</h4>
+                        <p>体验骑马，拜访牧民家庭，品尝正宗的内蒙古羊肉盛宴。</p>
+                        <h4>🏡 住宿</h4>
+                        <p>入住蒙古包，感受游牧民族的传统生活方式。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-day">Day 7</div>
+                        <div class="card-title">告别草原</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>🌅 晨光与早餐</h4>
+                        <p>享用丰盛的内蒙古早餐，欣赏莫尔格勒河的“九曲十八弯”。</p>
+                        <h4>✈️ 返程安排</h4>
+                        <p>从满洲里前往海拉尔（约1-2小时），下午可在市区购买纪念品。</p>
+                        <p><strong>17:35</strong> 于海拉尔机场搭乘航班返程，结束愉快的旅途。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="map-section" class="container">
+        <div class="section-header">
+            <h2>路线地图</h2>
+            <p>交互式地图，清晰展示每日的行车路线与关键地点。</p>
+        </div>
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-controls">
+                <button class="map-btn active" id="btn-full">完整路线</button>
+                <button class="map-btn" data-day="1">第1天</button>
+                <button class="map-btn" data-day="2">第2天</button>
+                <button class="map-btn" data-day="3">第3天</button>
+                <button class="map-btn" data-day="4">第4天</button>
+                <button class="map-btn" data-day="5">第5天</button>
+                <button class="map-btn" data-day="6">第6天</button>
+                <button class="map-btn" data-day="7">第7天</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Baidu Map
+        let map;
+        let driving;
+        const locations = {
+            '漠河机场': {lng: 122.432, lat: 52.911},
+            '漠河市区': {lng: 122.539, lat: 52.972},
+            '北极村': {lng: 122.377, lat: 53.484},
+            '北红村': {lng: 122.186, lat: 53.436},
+            '根河': {lng: 121.520, lat: 50.780},
+            '额尔古纳': {lng: 120.191, lat: 50.244},
+            '恩和': {lng: 120.033, lat: 51.283},
+            '室韦': {lng: 120.747, lat: 51.123},
+            '满洲里': {lng: 117.378, lat: 49.597},
+            '海拉尔': {lng: 119.736, lat: 49.213}
+        };
+        const dailyRoutes = {
+            1: ['漠河机场', '漠河市区'],
+            2: ['漠河市区', '北极村', '北红村'],
+            3: ['北红村', '根河'],
+            4: ['根河', '额尔古纳', '恩和'],
+            5: ['恩和', '室韦', '满洲里'],
+            6: ['满洲里'],
+            7: ['满洲里', '海拉尔']
+        };
+
+        function initMap() {
+            try {
+                map = new BMap.Map("map");
+                map.centerAndZoom(new BMap.Point(120.5, 51.5), 6);
+                map.enableScrollWheelZoom(true);
+                driving = new BMap.DrivingRoute(map, {
+                    renderOptions: { map: map, autoViewport: true, enableDragging: true },
+                    policy: BMAP_DRIVING_POLICY_LEAST_TIME
+                });
+                showFullRoute();
+            } catch (e) {
+                console.error("Map initialization failed:", e);
+                document.getElementById('map').innerHTML = '<p>地图加载失败，请刷新重试。</p>';
+            }
+        }
+        
+        function clearRoutesAndMarkers() {
+            map.clearOverlays();
+        }
+
+        function setActiveButton(activeBtn) {
+            document.querySelectorAll('.map-btn').forEach(btn => btn.classList.remove('active'));
+            if(activeBtn) activeBtn.classList.add('active');
+        }
+
+        function searchRoute(points) {
+            clearRoutesAndMarkers();
+            if (points.length < 2) {
+                const point = new BMap.Point(points[0].lng, points[0].lat);
+                map.centerAndZoom(point, 12);
+                const marker = new BMap.Marker(point);
+                map.addOverlay(marker);
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+                return;
+            }
+            const start = new BMap.Point(points[0].lng, points[0].lat);
+            const end = new BMap.Point(points[points.length - 1].lng, points[points.length - 1].lat);
+            const waypoints = points.slice(1, -1).map(p => new BMap.Point(p.lng, p.lat));
+            driving.search(start, end, { waypoints: waypoints });
+        }
+        
+        function showFullRoute() {
+            const fullRoutePoints = ['漠河机场', '漠河市区', '北极村', '北红村', '根河', '额尔古纳', '恩和', '室韦', '满洲里', '海拉尔'].map(name => locations[name]);
+            searchRoute(fullRoutePoints);
+        }
+
+        document.getElementById('btn-full').addEventListener('click', (e) => {
+            setActiveButton(e.target);
+            showFullRoute();
+        });
+
+        document.querySelectorAll('.map-btn[data-day]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                setActiveButton(e.target);
+                const day = e.target.getAttribute('data-day');
+                const routeNames = dailyRoutes[day];
+                const routePoints = routeNames.map(name => locations[name]);
+                searchRoute(routePoints);
+            });
+        });
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
