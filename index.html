@@ -480,14 +480,15 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
 <script>
 /* ========== 行程数据 ========== */
 const DAYS=[
-{n:"D1",date:"9-17",wk:"周四",title:"抵达漠河",meta:"13 km · 机场→市区",
+{n:"D1",date:"9-17",wk:"周四",title:"抵达漠河",meta:"18:30 落地 · 13 km",
  drone:{lv:"no",t:"漠河古莲机场净空区，全域禁飞"},
  tags:["轻松"],
- items:["下午/傍晚落地<b>漠河古莲机场</b>，<b>神州机场店直接取车</b>（两辆）",
-  "机场 → 漠河市区约 13 km，20–30 分钟",
-  "<b>不要当晚赶去北极村</b>——80 km 林区路且已天黑",
-  "晚餐：铁锅炖 / 山野菜 / 冷水鱼",
-  "睡前：两车加满油、下载离线地图、核对 6 人身份证、<b>测试对讲机</b>"],
+ items:["<b>18:30 落地漠河古莲机场</b>——<b>此时天已全黑</b>（9 月中下旬漠河约 17:30 日落）",
+  "<b>神州机场店取车</b>。⚠️ 支线机场柜台常按航班开门，<b>务必提前致电确认 18:30 后有人值守</b>，并把航班号报给门店，万一晚点也有人等",
+  "机场 → 漠河市区约 13 km，夜路但路况好，20–30 分钟",
+  "<b>当晚只安排晚餐和休息</b>，绝不可能再去北极村（80 km 林区夜路）",
+  "晚餐约 19:30，铁锅炖 / 山野菜 / 冷水鱼——<b>时间偏晚，建议提前订位或请酒店留餐</b>",
+  "睡前：加满油、下载离线地图、核对身份证随身携带。<b>明早 07:00 出发，早点睡</b>"],
  stay:"漠河市区（银麓 / 艺龙，北极星广场一带）",nav:["漠河古莲机场","漠河市"]},
 
 {n:"D2",date:"9-18",wk:"周五",title:"北极村 → 龙江第一湾 → 北红村",meta:"约 230 km · 4.5 h",
@@ -553,6 +554,7 @@ const DAYS=[
   "中午：海拉尔午餐（约 60 km），采购特产（牛肉干、奶酪、蓝莓制品）",
   "下午：海拉尔东山机场<b>神州机场店还车</b>（机场店较快，预留 1 h），搭机返南京",
   "备选：时间宽裕可看世界反法西斯战争海拉尔纪念园"],
+ timeline:"按下午航班倒推：08:00 黑山头出发 → 10:00 到莫尔格勒河 → 12:00 离开 → 13:00 海拉尔午餐采购 → 15:30 机场还车。<b>若航班早于 15:00 起飞，莫尔格勒河须压缩到 1 小时或直接放弃</b>，改 07:00 出发直奔海拉尔。",
  stay:"—",nav:["莫尔格勒河","海拉尔东山机场"]}
 ];
 
@@ -622,6 +624,7 @@ function renderDays(){
         ${d.alert?`<div class="alert gold" style="margin-top:12px;margin-bottom:0">${d.alert}</div>`:""}
         <ul>${d.items.map(x=>"<li>"+x+"</li>").join("")}</ul>
         ${d.tip?`<div class="alert info" style="font-size:12.5px"><b>💡 小窍门　</b>${d.tip}</div>`:""}
+        ${d.timeline?`<div class="alert gold" style="font-size:12.5px"><b>⏱ 时间倒推　</b>${d.timeline}</div>`:""}
         ${d.tags?`<div class="tagrow">${d.tags.map(t=>`<span class="tag ${t.includes("🏆")?"gold":(t.includes("出发")||t.includes("硬")||t.includes("便道"))?"red":""}">${t}</span>`).join("")}</div>`:""}
         <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
         ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
