@@ -1,0 +1,18 @@
+{
+  "name": "呼伦贝尔·漠河自驾 2026（反向）",
+  "short_name": "反向2026",
+  "description": "2026 年 9 月 17-23 日 海拉尔进、漠河出 反向行程手册",
+  "start_url": "./r.html",
+  "display": "standalone",
+  "background_color": "#1F4037",
+  "theme_color": "#1F4037",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
