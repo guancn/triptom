@@ -1,0 +1,13 @@
+{
+  "name": "漠河·呼伦贝尔自驾 2026",
+  "short_name": "漠河2026",
+  "description": "2026 年 9 月 17-23 日 漠河至海拉尔边境自驾行程手册",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1F4037",
+  "theme_color": "#1F4037",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

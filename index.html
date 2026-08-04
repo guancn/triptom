@@ -1,672 +1,559 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>漠河与内蒙古边境自驾探险之旅</title>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=N4BtpP9TDw5VDImqI9oEazOeiPlPQtoH"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-background: #0a101f;
-            --color-surface: #10192b;
-            --color-primary: #5fb4a2;
-            --color-text-heading: #f1f1f1;
-            --color-text-body: #c3c8d4;
-            --color-border: rgba(255, 255, 255, 0.1);
-            --color-shadow: rgba(0, 0, 0, 0.2);
-            
-            --font-serif: 'Noto Serif SC', serif;
-            --font-sans: 'Noto Sans SC', sans-serif;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1F4037">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="漠河2026">
+<title>漠河·呼伦贝尔自驾 2026 | 行程手册</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --forest:#1F4037; --forest-d:#12261F; --forest-l:#2F5D4E;
+  --gold:#B8860B; --gold-l:#D9A62E; --paper:#FBF9F4;
+  --ink:#23282b; --muted:#6B7078; --line:#E6E1D6; --red:#A63A2E;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--paper); color:var(--ink); line-height:1.7; font-size:15px;
+  padding-bottom:calc(64px + var(--safe-b));
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
 
-            --shadow-md: 0 4px 15px var(--color-shadow);
-            --shadow-lg: 0 8px 30px var(--color-shadow);
-            --border-radius: 8px;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+/* ---------- Header ---------- */
+header{
+  background:linear-gradient(155deg,var(--forest-d),var(--forest) 55%,var(--forest-l));
+  color:#fff; padding:22px 18px 16px; position:relative; overflow:hidden;
+}
+header::after{
+  content:"";position:absolute;inset:auto 0 -30px 0;height:110px;
+  background:radial-gradient(ellipse at 25% 100%,rgba(217,166,46,.30),transparent 62%),
+             radial-gradient(ellipse at 85% 95%,rgba(184,134,11,.22),transparent 58%);
+}
+.h-in{position:relative;z-index:2}
+.h-kick{font-size:10px;letter-spacing:.38em;color:var(--gold-l);font-weight:700;margin-bottom:8px}
+h1{margin:0;font-size:23px;font-weight:700;letter-spacing:.02em;line-height:1.35}
+.h-sub{font-size:12.5px;color:#B9CCC0;margin-top:6px;letter-spacing:.06em}
+.status{
+  margin-top:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:11px;
+  backdrop-filter:blur(6px);
+}
+.status .big{font-size:25px;font-weight:800;color:var(--gold-l);line-height:1}
+.status .txt{font-size:12.5px;color:#D8E4DC;line-height:1.5}
+.status .txt b{color:#fff;display:block;font-size:14px;margin-bottom:1px}
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* ---------- Sections ---------- */
+main{padding:16px 14px 8px;max-width:720px;margin:0 auto}
+.page{display:none;animation:fade .22s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{
+  font-size:16px;color:var(--forest);margin:4px 0 12px;padding-bottom:7px;
+  border-bottom:2px solid var(--gold);letter-spacing:.03em;display:flex;align-items:center;gap:8px;
+}
+h2.sec span.i{font-size:17px}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* ---------- Day cards ---------- */
+.day{
+  background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:11px;margin-bottom:11px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(31,64,55,.05);transition:border-color .2s;
+}
+.day.today{border-left-color:var(--red);box-shadow:0 2px 12px rgba(166,58,46,.14)}
+.day.hero{border-left-color:var(--forest)}
+.day-h{padding:13px 15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.dno{
+  background:var(--forest);color:#fff;font-size:13px;font-weight:800;
+  padding:3px 9px;border-radius:6px;letter-spacing:.03em;flex-shrink:0;
+}
+.day.today .dno{background:var(--red)}
+.d-tt{flex:1;min-width:0}
+.d-tt .t{font-size:15px;font-weight:700;color:var(--forest);line-height:1.4}
+.d-tt .m{font-size:11.5px;color:var(--muted);margin-top:2px}
+.chev{color:var(--muted);font-size:12px;transition:transform .25s;flex-shrink:0}
+.day.open .chev{transform:rotate(90deg)}
+.day-b{display:none;padding:0 15px 14px;border-top:1px dashed var(--line)}
+.day.open .day-b{display:block}
+.day-b ul{margin:11px 0;padding-left:17px}
+.day-b li{margin-bottom:6px;font-size:14px}
+.day-b li::marker{color:var(--gold)}
+.day-b ul ul{margin:5px 0;font-size:13px;color:#4A5055}
 
-        body {
-            background-color: var(--color-background);
-            color: var(--color-text-body);
-            font-family: var(--font-sans);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--color-background); }
-        ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7cc9b8; }
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.tag{
+  font-size:11px;padding:3px 9px;border-radius:20px;
+  background:#F1F0E9;color:var(--forest);border:1px solid var(--line);white-space:nowrap;
+}
+.tag.gold{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
+.tag.red{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 120px 24px;
-        }
+.stay{
+  background:#F7F5EF;border-radius:8px;padding:9px 12px;margin-top:11px;font-size:13px;
+}
+.stay b{color:var(--forest);font-size:11px;letter-spacing:.1em;display:block;margin-bottom:2px}
 
-        h1, h2, h3, h4 {
-            font-family: var(--font-serif);
-            color: var(--color-text-heading);
-            font-weight: 700;
-        }
+/* ---------- Alerts ---------- */
+.alert{
+  border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13.5px;
+  border:1px solid; line-height:1.65;
+}
+.alert.warn{background:#FDF3F1;border-color:#EFC9C1;color:#7A2C22}
+.alert.info{background:#F1F7F2;border-color:#C6DCCB;color:#1F4037}
+.alert.gold{background:#FDF8EC;border-color:#E8D5A0;color:#6E5106}
+.alert h4{margin:0 0 5px;font-size:14.5px;font-weight:800}
+.alert p{margin:0 0 6px}
+.alert p:last-child{margin-bottom:0}
+.alert .src{font-size:11px;opacity:.72;border-top:1px dashed currentColor;padding-top:6px;margin-top:8px}
 
-        /* Navigation */
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            z-index: 1000;
-            background: rgba(10, 16, 31, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--color-border);
-            transition: var(--transition);
-        }
-        .nav.scrolled {
-            background: rgba(10, 16, 31, 0.9);
-            border-bottom-color: transparent;
-            box-shadow: var(--shadow-md);
-        }
-        .nav-container {
-            max-width: 1100px; margin: 0 auto; padding: 0 24px;
-            height: 70px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .nav-logo {
-            font-size: 24px; font-weight: 700;
-            font-family: var(--font-serif);
-            color: var(--color-text-heading);
-        }
-        .nav-menu {
-            display: flex; list-style: none; gap: 45px;
-        }
-        .nav-menu a {
-            color: var(--color-text-body); text-decoration: none;
-            font-size: 16px; font-weight: 400;
-            position: relative; padding: 5px 0;
-            transition: var(--transition);
-        }
-        .nav-menu a:hover { color: var(--color-primary); }
-        .nav-menu a::after {
-            content: ''; position: absolute;
-            bottom: -2px; left: 50%;
-            transform: translateX(-50%); width: 0; height: 2px;
-            background: var(--color-primary);
-            transition: var(--transition);
-        }
-        .nav-menu a:hover::after { width: 100%; }
+/* ---------- Buttons ---------- */
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.btn{
+  min-width:0;text-align:center;text-decoration:none;
+  background:var(--forest);color:#fff;border-radius:9px;padding:10px 6px;
+  font-size:12.5px;font-weight:600;border:none;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.btn:active{opacity:.75}
+.btn.g{background:var(--gold)}
+.btn.o{background:#fff;color:var(--forest);border:1.5px solid var(--forest)}
+.btn.r{background:var(--red)}
 
-        /* Hero Section */
-        .hero {
-            height: 100vh; min-height: 700px;
-            position: relative; display: flex;
-            align-items: center; justify-content: center;
-            text-align: center; color: white;
-            padding: 24px; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(10, 16, 31, 0.6), var(--color-background)), url('https://images.unsplash.com/photo-1594960503348-18eac54b1f6e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            filter: brightness(0.9); z-index: -1;
-        }
-        .hero-content {
-            max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-family: var(--font-serif);
-            line-height: 1.2; margin-bottom: 24px;
-            text-shadow: 0 3px 6px var(--color-shadow);
-        }
-        .hero p {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            font-weight: 300; color: var(--color-text-body);
-            text-shadow: 0 2px 4px var(--color-shadow);
-        }
+/* 应急拨号 */
+.calls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.call{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 12px;
+  text-decoration:none;display:block;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.call:active{background:#F7F5EF}
+.call .n{font-size:21px;font-weight:800;color:var(--red);letter-spacing:.02em}
+.call .l{font-size:12px;color:var(--muted);margin-top:3px}
+.call.g .n{color:var(--forest)}
 
-        /* Section Header */
-        .section-header {
-            text-align: center; margin-bottom: 80px;
-        }
-        .section-header h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 20px;
-        }
-        .section-header p {
-            font-size: 1.1rem; max-width: 600px; margin: 0 auto;
-        }
+/* ---------- Checklist ---------- */
+.ck-group{margin-bottom:18px}
+.ck-group h3{
+  font-size:13.5px;color:var(--forest);margin:0 0 8px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.ck-group h3 .cnt{font-size:11px;color:var(--muted);font-weight:500}
+.ck{
+  display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:9px;padding:11px 13px;margin-bottom:7px;cursor:pointer;font-size:14px;
+}
+.ck input{
+  appearance:none;width:19px;height:19px;border:2px solid var(--line);border-radius:5px;
+  margin:2px 0 0;flex-shrink:0;position:relative;background:#fff;
+}
+.ck input:checked{background:var(--forest);border-color:var(--forest)}
+.ck input:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+.ck.done{opacity:.5}
+.ck.done .lb{text-decoration:line-through}
+.lb{flex:1;line-height:1.55}
+.lb small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.reset{
+  width:100%;background:none;border:1px solid var(--line);color:var(--muted);
+  border-radius:9px;padding:11px;font-size:13px;margin-top:4px;
+}
 
-        /* Overview Section */
-        #overview { background-color: var(--color-surface); }
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .overview-card {
-            background: var(--color-background);
-            border-radius: var(--border-radius);
-            padding: 40px 30px; text-align: center;
-            border: 1px solid var(--color-border);
-            transition: var(--transition);
-            transform-style: preserve-3d;
-        }
-        .overview-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            border-color: var(--color-primary);
-            box-shadow: 0 15px 35px rgba(95, 180, 162, 0.1);
-        }
-        .overview-card-icon {
-            font-size: 48px; margin-bottom: 20px; line-height: 1;
-        }
-        .overview-card h3 { font-size: 22px; margin-bottom: 15px; }
-        .overview-card p { font-size: 16px; }
-        
-        /* Itinerary Section - Interactive Accordion */
-        .itinerary-accordion {
-            max-width: 800px; margin: 0 auto;
-            display: flex; flex-direction: column; gap: 20px;
-        }
-        .timeline-item {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            overflow: hidden;
-        }
-        .timeline-item.active {
-            border-color: rgba(95, 180, 162, 0.5);
-            box-shadow: var(--shadow-lg);
-        }
-        .timeline-header {
-            padding: 25px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .timeline-header h3 {
-            font-size: 24px;
-            font-weight: 500;
-        }
-        .timeline-day {
-            font-family: var(--font-sans);
-            font-size: 14px; letter-spacing: 1px;
-            font-weight: 600; color: var(--color-primary);
-        }
-        .timeline-toggle {
-            width: 30px; height: 30px;
-            border: 2px solid var(--color-text-body);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
-        }
-        .timeline-toggle::before, .timeline-toggle::after {
-            content: '';
-            position: absolute;
-            width: 14px; height: 2px;
-            background-color: var(--color-text-body);
-            transition: var(--transition);
-        }
-        .timeline-toggle::after { transform: rotate(90deg); }
-        .timeline-item.active .timeline-toggle {
-            transform: rotate(135deg);
-            border-color: var(--color-primary);
-        }
-        .timeline-item.active .timeline-toggle::before,
-        .timeline-item.active .timeline-toggle::after {
-            background-color: var(--color-primary);
-        }
-        
-        .timeline-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s ease-in-out;
-        }
-        .timeline-body {
-            padding: 0 30px 30px 30px;
-            border-top: 1px solid var(--color-border);
-        }
-        .timeline-body h4 {
-            font-size: 18px;
-            margin: 25px 0 15px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--color-border);
-            display: inline-block;
-        }
-        .timeline-body p, .timeline-body ul {
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .timeline-body ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .timeline-body li {
-            padding-left: 20px;
-            position: relative;
-        }
-        .timeline-body li::before {
-            content: '•';
-            position: absolute; left: 0;
-            color: var(--color-primary); font-size: 1.2em;
-            line-height: 1;
-        }
-        .info-card {
-            background: rgba(95, 180, 162, 0.05);
-            border-left: 3px solid var(--color-primary);
-            border-radius: 0 4px 4px 0;
-            padding: 15px 20px;
-            margin-top: 10px;
-        }
-        .info-card strong {
-            color: var(--color-primary);
-        }
+/* ---------- Info blocks ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px 15px;margin-bottom:12px}
+.card h3{margin:0 0 9px;font-size:14.5px;color:var(--forest);font-weight:700}
+.card p{margin:0 0 7px;font-size:13.5px}
+.card p:last-child{margin-bottom:0}
+.card ol,.card ul{margin:8px 0 0;padding-left:18px;font-size:13.5px}
+.card li{margin-bottom:5px}
+.kv{display:flex;font-size:13px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv:last-child{border:none}
+.kv .k{width:96px;color:var(--muted);flex-shrink:0}
+.kv .v{flex:1}
+mark{background:linear-gradient(transparent 56%,#F5E3B0 56%);color:inherit;padding:0 1px}
+strong{color:var(--forest)}
 
-        /* Map Section */
-        #map-section { background-color: var(--color-surface); }
-        .map-container {
-            position: relative; height: 600px;
-            border-radius: var(--border-radius);
-            overflow: hidden; margin-top: 40px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--color-border);
-        }
-        #map { width: 100%; height: 100%; }
-        .map-loading {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 17px; text-align: center;
-        }
-        .loading-spinner {
-            display: block; margin: 0 auto 15px auto;
-            width: 30px; height: 30px;
-            border: 3px solid rgba(95, 180, 162, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--color-primary);
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .map-controls {
-            position: absolute; bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            display: flex; gap: 10px; padding: 10px;
-            background: rgba(16, 25, 43, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--color-border);
-            border-radius: 50px; box-shadow: var(--shadow-md);
-        }
-        .map-btn {
-            padding: 10px 22px; background: transparent;
-            border: 1px solid var(--color-text-body);
-            border-radius: 30px; font-size: 14px;
-            font-weight: 500; color: var(--color-text-body);
-            cursor: pointer; transition: var(--transition);
-        }
-        .map-btn:hover {
-            background: var(--color-primary);
-            color: var(--color-background);
-            border-color: var(--color-primary);
-        }
-        .map-btn.active {
-            background: var(--color-primary);
-            color: var(--color-background);
-            border-color: var(--color-primary);
-            font-weight: 600;
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-toggle { display: none; }
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block; width: 48px; height: 48px;
-                position: relative; cursor: pointer; z-index: 1001;
-            }
-            .mobile-menu-toggle span {
-                display: block; width: 22px; height: 2px;
-                background: var(--color-text-heading);
-                position: absolute; left: 13px;
-                transition: var(--transition);
-            }
-            .mobile-menu-toggle span:nth-child(1) { top: 18px; }
-            .mobile-menu-toggle span:nth-child(2) { top: 24px; }
-            .mobile-menu-toggle span:nth-child(3) { top: 30px; }
-            .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg); top: 24px; }
-            .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
-            .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); top: 24px; }
-
-            .nav-menu {
-                position: fixed; top: 70px; right: 0;
-                width: 100%; background: var(--color-background);
-                flex-direction: column; align-items: center;
-                padding: 40px 0; gap: 30px;
-                transform: translateY(-120%);
-                transition: var(--transition);
-            }
-            .nav-menu.active { transform: translateY(0); }
-            .map-controls { flex-wrap: wrap; justify-content: center; max-width: 90%; }
-            .timeline-header h3 { font-size: 20px; }
-        }
-    </style>
+/* ---------- Bottom nav ---------- */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);display:flex;
+  padding-bottom:var(--safe-b);
+}
+nav button{
+  flex:1;background:none;border:none;padding:9px 2px 8px;
+  font-size:10.5px;color:var(--muted);font-family:inherit;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+nav button .ic{font-size:19px;line-height:1;filter:grayscale(1) opacity(.55)}
+nav button.on{color:var(--forest);font-weight:700}
+nav button.on .ic{filter:none}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px;line-height:1.8}
+</style>
 </head>
 <body>
-    <nav class="nav" id="nav">
-        <div class="nav-container">
-            <div class="nav-logo">北境探索</div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#overview">旅程概览</a></li>
-                <li><a href="#itinerary">详细行程</a></li>
-                <li><a href="#map-section">路线地图</a></li>
-            </ul>
-            <div class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>漠河·内蒙古 边境探险</h1>
-            <p>七日六夜，驰骋于华夏北端，邂逅森林、草原与无垠星河</p>
-        </div>
-    </section>
+<header>
+  <div class="h-in">
+    <div class="h-kick">Y U A N · N O R T H　2 0 2 6</div>
+    <h1>漠河 · 呼伦贝尔<br>边境自驾</h1>
+    <div class="h-sub">9 月 17 日 — 23 日 ｜ 6 人 · 2 车 ｜ 约 1350 km</div>
+    <div class="status" id="status"></div>
+  </div>
+</header>
 
-    <section id="overview" class="container">
-        <div class="section-header">
-            <h2>旅程亮点</h2>
-            <p>从大兴安岭的林海雪原到呼伦贝尔的广袤草原，这是一场融合自然奇观与多元文化的深度探索。</p>
-        </div>
-        <div class="overview-grid">
-            <div class="overview-card">
-                <div class="overview-card-icon">🌲</div><h3>寻觅最北</h3><p>在漠河“北极村”的地标打卡，与鄂温克族的驯鹿亲密接触。</p>
-            </div>
-            <div class="overview-card">
-                <div class="overview-card-icon">🌾</div><h3>草原驰骋</h3><p>金秋时节，深入呼伦贝尔草原腹地，体验蒙古包的游牧生活。</p>
-            </div>
-            <div class="overview-card">
-                <div class="overview-card-icon">🏘️</div><h3>异域风情</h3><p>漫步恩和与满洲里，感受木刻楞建筑与套娃广场的俄式魅力。</p>
-            </div>
-            <div class="overview-card">
-                <div class="overview-card-icon">🦌</div><h3>文化探源</h3><p>探访最后的狩猎部落，了解鄂伦春与鄂温克族的古老传承。</p>
-            </div>
-        </div>
-    </section>
+<main>
+  <!-- ============ 行程 ============ -->
+  <section class="page on" id="p-trip">
+    <h2 class="sec"><span class="i">🗺</span>逐日行程</h2>
+    <div id="days"></div>
+    <div class="alert info" style="margin-top:14px">
+      <h4>路线总览</h4>
+      <p>漠河 → 北极村 → 龙江第一湾 → 北红村 → 满归 → 根河 → 额尔古纳 → 白桦林 → 恩和 → 室韦 → 黑山头 → 海拉尔</p>
+      <p style="margin-top:6px;font-size:12.5px;opacity:.85">点击每一天可展开详情。当天会自动标红置顶。</p>
+    </div>
+  </section>
 
-    <section id="itinerary" class="container">
-        <div class="section-header">
-            <h2>行程规划</h2>
-            <p>精心设计每一天的路线，只为沉浸北疆极致魅力。</p>
-        </div>
-        <div class="itinerary-accordion">
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 1</div><h3>初抵漠河</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p><strong>17:05</strong> 抵达漠河古莲机场，办理提车手续。随后驱车前往漠河市区，准备开启北境之旅。</p>
-                        <div class="info-card"><strong>路线：</strong>漠河机场 → 漠河市区 | <strong>距离：</strong>13公里 | <strong>用时：</strong>约20-30分钟</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>推荐漠河银麓酒店、艺龙酒店等，提前预定以确保房源。</li>
-                            <li><strong>餐饮：</strong>晚餐可品尝当地特色铁锅炖或山野风味菜肴。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-             <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 2</div><h3>北极寻踪</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>上午从漠河市区出发，前往北极村。游览北极沙洲、最北邮局（寄一张来自最北的明信片）、最北哨所等标志性地点。下午探访鄂温克驯鹿园，之后挑战龙江第一湾的998级台阶，俯瞰Ω形江湾全景。</p>
-                        <div class="info-card"><strong>总路程：</strong>约230公里 | <strong>驾驶时间：</strong>约4.5小时</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>夜宿北红村，体验地道的东北火炕民宿，感受淳朴民风。</li>
-                            <li><strong>餐饮：</strong>品尝民宿主人准备的农家菜，食材新鲜，风味独特。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 3</div><h3>林海穿越</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>开启激动人心的森林穿越之旅，驾车从北红村出发，经满归镇，最终抵达内蒙古根河市。沿途尽览大兴安岭原始森林的壮阔风光。</p>
-                        <div class="info-card"><strong>路线：</strong>北红村 → 根河 | <strong>距离：</strong>约300公里 | <strong>用时：</strong>约4-5小时</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>推荐根河市区的敖鲁古雅酒店，环境舒适，交通便利。</li>
-                            <li><strong>餐饮：</strong>在满归镇或根河市区品尝林区特色小吃。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 4</div><h3>湿地与俄乡</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>上午参观被誉为“亚洲第一湿地”的额尔古纳湿地，感受其开阔与壮美。下午抵达恩和俄罗斯民族乡，沉浸在独特的木刻楞建筑和俄式文化氛围中。</p>
-                        <div class="info-card"><strong>路线：</strong>根河 → 额尔古纳 → 恩和 | <strong>距离：</strong>约150公里 | <strong>用时：</strong>约2-3小时</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>入住恩和特色的俄式木刻楞民宿，如卓娅、玛璐夏等。</li>
-                            <li><strong>餐饮：</strong>品尝正宗的俄式大餐，如“大列巴”、苏伯汤、自制蓝莓酱。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 5</div><h3>边境风光</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>上午从恩和出发，沿风景如画的中俄边境公路，经室韦口岸，一路向西。下午驰骋于呼伦贝尔大草原的金色腹地，傍晚抵达“亚洲之窗”满洲里。</p>
-                        <div class="info-card"><strong>路线：</strong>恩和 → 室韦 → 满洲里 | <strong>距离：</strong>约270公里 | <strong>用时：</strong>约3-4小时</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>满洲里选择众多，可体验套娃主题酒店或选择满洲里大饭店。</li>
-                            <li><strong>餐饮：</strong>在满洲里寻觅一家正宗的俄式西餐厅，或品尝蒙餐。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 6</div><h3>草原牧歌</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>上午游览满洲里国门和巨大的套娃广场。下午深入草原，体验骑马、射箭等活动，拜访牧民家庭，了解游牧生活。晚上参加篝火晚会，在歌声与舞蹈中感受草原的热情。</p>
-                        <div class="info-card"><strong>贴士：</strong>参观边境区域时，请务必遵守相关管理规定，注意安全。</div>
-                        <h4>住宿餐饮</h4>
-                        <ul>
-                            <li><strong>住宿：</strong>夜宿草原上的蒙古包，体验独特的游牧民族传统生活。</li>
-                            <li><strong>餐饮：</strong>品尝丰盛的烤全羊、手把肉等传统内蒙古盛宴。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div><div class="timeline-day">DAY 7</div><h3>归途曲水</h3></div><div class="timeline-toggle"></div>
-                </div>
-                <div class="timeline-details">
-                    <div class="timeline-body">
-                        <h4>行程安排</h4>
-                        <p>在草原的晨光中享用蒙式早餐。之后驱车前往海拉尔，途中驻足欣赏“天下第一曲水”——莫尔格勒河的蜿蜒之美，为旅程画上完美句号。</p>
-                        <div class="info-card"><strong>路线：</strong>满洲里/草原 → 海拉尔 | <strong>距离：</strong>约200公里 | <strong>用时：</strong>约2-3小时</div>
-                        <h4>返程</h4>
-                        <ul>
-                            <li><strong>17:35</strong> 抵达海拉尔东山机场，办理还车及登机手续，结束难忘的北境之旅。</li>
-                            <li>如有富余时间，可在海拉尔市区购买当地特产作为纪念。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ============ 路况 ============ -->
+  <section class="page" id="p-road">
+    <h2 class="sec"><span class="i">⚠️</span>路况与提醒</h2>
 
-    <section id="map-section" class="container">
-        <div class="section-header">
-            <h2>路线总览</h2>
-            <p>通过交互式地图，清晰地查看我们为您规划的完整自驾路线及每日行程。</p>
-        </div>
-        <div class="map-container">
-            <div id="map"><div class="map-loading" id="mapLoading"><div class="loading-spinner"></div><p>地图加载中...</p></div></div>
-            <div class="map-controls">
-                <button class="map-btn active" id="btn-full" onclick="showFullRoute()">完整路线</button>
-                <button class="map-btn" onclick="showDayRoute(1)">第1天</button><button class="map-btn" onclick="showDayRoute(2)">第2天</button>
-                <button class="map-btn" onclick="showDayRoute(3)">第3天</button><button class="map-btn" onclick="showDayRoute(4)">第4天</button>
-                <button class="map-btn" onclick="showDayRoute(5)">第5天</button><button class="map-btn" onclick="showDayRoute(6)">第6天</button>
-                <button class="map-btn" onclick="showDayRoute(7)">第7天</button>
-            </div>
-        </div>
-    </section>
+    <div class="alert warn">
+      <h4>⛔ S204 满归—根河段封闭施工，便道通行</h4>
+      <p>满西大桥等 <b>7 座危桥同时拆除重建</b>，桥位从 K12+169 排到 K103+578，<mark>封闭至 2026 年 10 月 30 日，全段封闭施工、利用便道通行</mark>。我们 9 月 20 日（D4）通过，正在施工期内。</p>
+      <p>6 月曾因汛期洪水冲毁临时便道而紧急封闭加固——<b>这条便道雨后会断</b>。</p>
+      <p style="margin-top:8px"><b>D4 出发前一天务必拨 12328 核实通行状态。</b></p>
+      <div class="src">来源：根河市交通运输局 2026-04-08 封闭施工公告、2026-06-16 应急抢险公告</div>
+    </div>
 
-    <script>
-        // --- Interactive Accordion for Itinerary ---
-        const accordionItems = document.querySelectorAll('.timeline-item');
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.timeline-header');
-            const details = item.querySelector('.timeline-details');
+    <div class="alert warn">
+      <h4>⛔ 绕行的莫尔道嘎方向同样封闭</h4>
+      <p>S302 金河至莫尔道嘎 K0+000–K18+200 段封闭至 10 月 30 日，官方绕行路线是「金河→S204→根河→X325→莫尔道嘎」——<mark>绕一圈还是要走那条施工便道</mark>。莫尔道嘎森林公园本次放弃。</p>
+    </div>
 
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Close all other items
-                accordionItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.timeline-details').style.maxHeight = null;
-                });
+    <div class="card">
+      <h3>⛽ 两处强制加满点</h3>
+      <div class="kv"><div class="k">D3 满归</div><div class="v">S204 便道段之前<b>最后一个加油站</b>，之后 210 km 无补给</div></div>
+      <div class="kv"><div class="k">D6 室韦</div><div class="v">X904 边境公路 <b>150+ km 全程无加油站</b></div></div>
+      <p style="margin-top:9px;font-size:12.5px;color:var(--muted)">两车一起加，绝不分开行动。</p>
+    </div>
 
-                // Open the clicked item if it wasn't already open
-                if (!isActive) {
-                    item.classList.add('active');
-                    details.style.maxHeight = details.scrollHeight + "px";
-                }
-            });
-        });
+    <div class="alert gold">
+      <h4>🌲 秋季森林防火期 9/15 – 11/15</h4>
+      <p>全程都在防火期内。防火区内<b>禁止烧荒、吸烟、野炊、燃放烟花爆竹</b>，入山人员车辆须接受防火检查。<mark>篝火晚会、野外烧烤一律取消。</mark></p>
+      <p>发现火情立即拨 <b>12119</b>。</p>
+    </div>
 
-        // --- Navigation and Map (Original, Functional Script) ---
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('nav');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        });
+    <div class="alert warn">
+      <h4>🌇 天黑比夏天早 1.5 小时</h4>
+      <p>9 月下旬 <b>17:30 前后日落</b>，林区路 16:30 已明显昏暗。长途段一律 <b>07:00–07:30 出发、17:00 前抵达</b>。</p>
+      <p><b>严禁跑夜路</b>——狍子、野猪横穿是真实风险。</p>
+    </div>
 
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navMenu = document.getElementById('navMenu');
-        mobileMenuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+    <div class="card">
+      <h3>🚗 六人两车 · 车队规范</h3>
+      <ol>
+        <li><b>对讲机是刚需</b>——S204 便道段、X904 边境公路全程无手机信号</li>
+        <li>固定车序，前车控速；砂石路拉开 <b>150–200 m</b> 防溅石打玻璃</li>
+        <li><b>岔路必等</b>——路口、检查站、加油站都停车会合</li>
+        <li>每天出发前约定 2–3 个集合点，失联就在下个集合点等</li>
+        <li>6 人至少 4 人能开，D4 便道日必须轮换</li>
+        <li>两车都要上<b>玻璃单独破碎险</b>——这条线打玻璃高发</li>
+      </ol>
+    </div>
 
-        let map, driving;
-        const locations = {
-            '漠河机场': {lng: 122.432, lat: 52.911}, '漠河市区': {lng: 122.539, lat: 52.972},
-            '北极村': {lng: 122.377, lat: 53.484}, '北红村': {lng: 122.186, lat: 53.436},
-            '根河': {lng: 121.520, lat: 50.780}, '额尔古纳': {lng: 120.191, lat: 50.244},
-            '恩和': {lng: 120.033, lat: 51.283}, '室韦': {lng: 120.747, lat: 51.123},
-            '满洲里': {lng: 117.378, lat: 49.597}, '海拉尔': {lng: 119.736, lat: 49.213}
-        };
-        const dailyRoutes = {
-            1: ['漠河机场', '漠河市区'], 2: ['漠河市区', '北极村', '北红村'],
-            3: ['北红村', '根河'], 4: ['根河', '额尔古纳', '恩和'],
-            5: ['恩和', '室韦', '满洲里'], 6: ['满洲里'], 7: ['满洲里', '海拉尔']
-        };
+    <div class="alert info">
+      <h4>🛂 边防证：本线路无需办理</h4>
+      <p><b>实测确认：12367 小程序目前只开放新疆、西藏两地申领</b>，无内蒙古、黑龙江选项。</p>
+      <p>执行口径上，国内游客走呼伦贝尔常规环线（海拉尔—额尔古纳—室韦—黑山头）不强制办证；漠河北极村、北红村、乌苏里浅滩历来<mark>凭身份证通行</mark>。</p>
+      <p><b>真正的硬门槛是身份证原件，6 人一个都不能少。</b></p>
+    </div>
 
-        function initMap() {
-            try {
-                map = new BMap.Map("map");
-                map.centerAndZoom(new BMap.Point(120.5, 51.5), 6);
-                map.enableScrollWheelZoom(true);
-                map.setMapStyleV2({ styleId: 'e28c64d22375abe4e45e5335a4d65657' });
-                driving = new BMap.DrivingRoute(map, {
-                    renderOptions: { map: map, autoViewport: true, enableDragging: true },
-                    policy: BMAP_DRIVING_POLICY_DEFAULT
-                });
-                document.getElementById('mapLoading').style.display = 'none';
-                showFullRoute();
-            } catch (error) {
-                console.error('地图初始化失败：', error);
-                document.getElementById('mapLoading').innerHTML = '地图加载失败，请刷新页面重试';
-            }
-        }
-        function clearRoutes() { map.clearOverlays(); }
-        function setActiveButton(btn) {
-            document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
-            if (btn && btn.target) {
-                btn.target.classList.add('active');
-            } else if (typeof btn === 'string') {
-                const el = document.getElementById(btn);
-                if (el) el.classList.add('active');
-            }
-        }
-        function showFullRoute() {
-            clearRoutes();
-            setActiveButton('btn-full');
-            const fullRoute = ['漠河机场', '漠河市区', '北极村', '北红村', '根河', '额尔古纳', '恩和', '室韦', '满洲里', '海拉尔'];
-            const waypoints = fullRoute.slice(1, -1).map(loc => new BMap.Point(locations[loc].lng, locations[loc].lat));
-            const start = new BMap.Point(locations[fullRoute[0]].lng, locations[fullRoute[0]].lat);
-            const end = new BMap.Point(locations[fullRoute[fullRoute.length - 1]].lng, locations[fullRoute[fullRoute.length - 1]].lat);
-            driving.search(start, end, { waypoints: waypoints });
-        }
-        function showDayRoute(day) {
-            clearRoutes();
-            setActiveButton(event);
-            const dayRoute = dailyRoutes[day];
-            if (dayRoute.length > 1) {
-                const waypoints = dayRoute.slice(1, -1).map(loc => new BMap.Point(locations[loc].lng, locations[loc].lat));
-                const start = new BMap.Point(locations[dayRoute[0]].lng, locations[dayRoute[0]].lat);
-                const end = new BMap.Point(locations[dayRoute[dayRoute.length - 1]].lng, locations[dayRoute[dayRoute.length - 1]].lat);
-                driving.search(start, end, { waypoints: waypoints });
-            } else {
-                const point = new BMap.Point(locations[dayRoute[0]].lng, locations[dayRoute[0]].lat);
-                map.centerAndZoom(point, 12);
-                const marker = new BMap.Marker(point);
-                marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-                map.addOverlay(marker);
-            }
-        }
-        window.onload = function() {
-            if (typeof BMap !== 'undefined') initMap();
-            else document.getElementById('mapLoading').innerHTML = '地图API加载失败，请检查网络连接';
-        };
-    </script>
+    <div class="card">
+      <h3>🚫 边境线红线</h3>
+      <ul>
+        <li><b>不越界</b>——室韦、黑山头、乌苏里浅滩听从执勤指引</li>
+        <li><b>禁飞无人机</b>——边境管制区，别抱侥幸</li>
+        <li><b>不碾压草原</b>——只在硬化路边停车，牧民索赔 500–2000 元</li>
+        <li><b>关闭数据漫游</b>——边境公路手机会漫游到俄罗斯网络</li>
+        <li>X904 限速 60–80，<b>区间测速密集</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 清单 ============ -->
+  <section class="page" id="p-pack">
+    <h2 class="sec"><span class="i">✅</span>清单（可勾选）</h2>
+    <div class="alert gold" style="font-size:12.5px">
+      勾选状态保存在本机浏览器，关掉页面也不会丢。六个人各自勾各自的。
+    </div>
+    <div id="checklists"></div>
+    <button class="reset" onclick="resetCk()">清空所有勾选</button>
+  </section>
+
+  <!-- ============ 应急 ============ -->
+  <section class="page" id="p-sos">
+    <h2 class="sec"><span class="i">🆘</span>应急与实用</h2>
+    <div class="calls">
+      <a class="call" href="tel:110"><div class="n">110</div><div class="l">报警</div></a>
+      <a class="call" href="tel:120"><div class="n">120</div><div class="l">急救</div></a>
+      <a class="call" href="tel:122"><div class="n">122</div><div class="l">交通事故</div></a>
+      <a class="call" href="tel:12119"><div class="n">12119</div><div class="l">森林火警</div></a>
+      <a class="call g" href="tel:12328"><div class="n">12328</div><div class="l">路况咨询</div></a>
+      <a class="call g" href="tel:12367"><div class="n">12367</div><div class="l">出入境咨询</div></a>
+    </div>
+
+    <div class="card">
+      <h3>📞 出发前要打的电话</h3>
+      <div class="kv"><div class="k">9/19</div><div class="v"><b>12328</b> 核实 S204 便道通行状态（D4 前一天）</div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">租车门店确认<b>跨省异地还车</b>可行性与总价（两辆车）</div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">黑山头住宿确认 <b>9 月下旬是否营业、有无供暖</b></div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">北红村、室韦民宿确认<b>供暖</b>与独立卫浴</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🌡 天气与穿着</h3>
+      <p>9 月下旬漠河白天 <b>10–15℃</b>，<mark>夜间接近 0℃</mark>，部分年份月底初雪霜冻；草原早晚 0–15℃。</p>
+      <p><b>三层叠穿</b>：速干打底 + 抓绒 + 轻羽绒服。手套、毛线帽、围脖必带。</p>
+      <p>鞋要防水防滑——998 级台阶、湿地木栈道、可能的霜冻路面。</p>
+    </div>
+
+    <div class="card">
+      <h3>💰 预估费用（6 人 2 车，不含机票）</h3>
+      <div class="kv"><div class="k">租车</div><div class="v">8,000 – 14,000 元</div></div>
+      <div class="kv"><div class="k">油费路费</div><div class="v">2,400 – 3,200 元</div></div>
+      <div class="kv"><div class="k">住宿 6 晚</div><div class="v">6,000 – 10,000 元</div></div>
+      <div class="kv"><div class="k">门票</div><div class="v">约 400 元 / 人</div></div>
+      <div class="kv"><div class="k">骑马</div><div class="v">约 1,200 元</div></div>
+      <div class="kv"><div class="k">餐饮</div><div class="v">4,500 – 7,500 元</div></div>
+      <div class="kv"><div class="k"><b>合计</b></div><div class="v"><b>约 2.5 – 4 万元</b></div></div>
+    </div>
+
+    <div class="card">
+      <h3>🎫 门票速查</h3>
+      <div class="kv"><div class="k">北极村</div><div class="v">88 元<small style="color:var(--muted)">（2025 年已从 68 元上调）</small></div></div>
+      <div class="kv"><div class="k">龙江第一湾</div><div class="v">+ 乌苏里浅滩联票 约 50 元</div></div>
+      <div class="kv"><div class="k">额尔古纳湿地</div><div class="v">约 65 元（含电瓶车）</div></div>
+      <div class="kv"><div class="k">白桦林</div><div class="v">约 50 元 · 16:00 停止售票</div></div>
+      <div class="kv"><div class="k">莫尔格勒河</div><div class="v">约 80 元 · <b>须提前 7 天预约</b></div></div>
+      <div class="kv"><div class="k">黑山头骑马</div><div class="v">约 100 元 / 小时</div></div>
+    </div>
+
+    <div class="alert info">
+      <h4>📴 离线可用</h4>
+      <p>这个页面已缓存到手机，<b>林区没信号也能打开</b>。建议在 Safari / 浏览器里选「添加到主屏幕」，用起来跟 App 一样。</p>
+      <p>但导航按钮需要网络——<b>务必另外下载高德或百度的离线地图</b>。</p>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button class="on" data-p="trip"><span class="ic">🗺</span>行程</button>
+  <button data-p="road"><span class="ic">⚠️</span>路况</button>
+  <button data-p="pack"><span class="ic">✅</span>清单</button>
+  <button data-p="sos"><span class="ic">🆘</span>应急</button>
+</nav>
+
+<footer>
+  漠河 · 呼伦贝尔边境自驾 2026 &nbsp;|&nbsp; 6 人 2 车 · 七天六晚<br>
+  <span style="opacity:.7">路况依据根河市交通运输局 2026 年封闭施工公告 · 门票以景区实时公告为准</span><br>
+  <a href="2025.html" style="color:var(--muted);font-size:10.5px">查看 2025 年旧版行程 →</a>
+</footer>
+
+<script>
+/* ========== 行程数据 ========== */
+const DAYS=[
+{n:"D1",date:"9-17",wk:"周四",title:"抵达漠河",meta:"13 km · 机场→市区",
+ tags:["轻松"],
+ items:["下午/傍晚落地<b>漠河古莲机场</b>，两辆车分别办理租车手续",
+  "机场 → 漠河市区约 13 km，20–30 分钟",
+  "<b>不要当晚赶去北极村</b>——80 km 林区路且已天黑",
+  "晚餐：铁锅炖 / 山野菜 / 冷水鱼",
+  "睡前：两车加满油、下载离线地图、核对 6 人身份证、<b>测试对讲机</b>"],
+ stay:"漠河市区（银麓 / 艺龙，北极星广场一带）",nav:["漠河古莲机场","漠河市"]},
+
+{n:"D2",date:"9-18",wk:"周五",title:"北极村 → 龙江第一湾 → 北红村",meta:"约 230 km · 4.5 h",
+ tags:["07:00 出发","最满的一天"],warn:"今天景点分散、路程满，07:00 两车同时出发。",
+ items:["07:00 漠河 → 北极村（约 80 km，1.5 h）",
+  "上午：<b>北极村</b>（门票 88 元）——神州北极石、最北一家、最北邮局（寄「最北」邮戳明信片）、北极沙洲、界碑",
+  "13:00 → 鄂温克<b>驯鹿园</b>（30–40 分钟）",
+  "14:30 → <b>龙江第一湾</b>，998 级台阶登顶俯瞰 Ω 形江湾（预留 1.5 h）＋ <b>乌苏里浅滩</b>，中国最北点 N53°33′43″",
+  "17:00 前抵达北红村，入住火炕民宿",
+  "夜间：北红村几无光污染，秋分前后地磁活跃，<b>有小概率见到北极光</b>"],
+ stay:"北红村火炕民宿（6 人建议整院，确认独立卫浴）",nav:["漠河北极村","龙江第一湾","乌苏里浅滩","北红村"]},
+
+{n:"D3",date:"9-19",wk:"周六",title:"北红村 → 漠河 → 满归",meta:"约 240–280 km · 5 h",
+ tags:["林海秋色","加油日"],
+ items:["08:00 北红村出发 → 漠河（约 100–150 km，2–3 h），沿途<b>九曲十八弯</b>观景台可停",
+  "中午：漠河市区午餐，<b>两车全部加满油</b>、补给水和食物——南下前最后一个像样的补给点",
+  "下午：S219 漠满线 → 满归（约 138 km，2.5–3 h），<b>部分砂石路段</b>，控速慢行",
+  "傍晚抵达满归。大兴安岭腹地牙林线终点小镇，四面环山、秋色浓郁，值得在河边走走"],
+ alert:"⛽ 满归是 S204 便道段之前的<b>最后加油点，两车务必加满</b>。",
+ stay:"满归镇（雅仕名都宾馆 / 金雨民宿，院内可停两车）",nav:["九曲十八弯","满归镇"]},
+
+{n:"D4",date:"9-20",wk:"周日",title:"满归 → 根河 → 额尔古纳",meta:"约 335 km · 8 h",
+ tags:["施工便道日","最硬的一天"],hard:1,
+ warn:"全程最硬的一天，<b>07:00 必须出发</b>。出发前一天记得打 12328 确认便道通行。",
+ items:["07:00 满归出发，进入 <b>S204 施工便道段</b>（约 210 km，7 座桥同时施工，便道 + 冻土波浪路，<b>预留 5–6 小时</b>）<ul><li>两车拉开 150–200 m 防溅石打玻璃</li><li>遇施工指示和现场指挥无条件服从</li><li><b>无加油站、手机信号大段缺失</b></li></ul>",
+  "13:00 前后抵达根河，午餐",
+  "下午：<b>根河湿地公园</b>短停（市区旁，可看马蹄岛），约 40 分钟",
+  "根河 → 额尔古纳（约 125 km，2 h，柏油路好走），17:00 前入住"],
+ tip:"清晨施工车还没上路、扬尘最小，而且大兴安岭的秋日晨雾正在那个时段——最难受的头两小时反而可能是光线最好的两小时。",
+ stay:"额尔古纳市区（拉布大林）",nav:["根河湿地","额尔古纳市"]},
+
+{n:"D5",date:"9-21",wk:"周一",title:"额尔古纳湿地 → 白桦林 → 恩和 → 室韦",meta:"约 160 km · 最从容",
+ tags:["秋色摄影日","轻松"],
+ items:["上午：<b>额尔古纳湿地</b>（亚洲第一湿地，约 65 元，含电瓶车上山顶观景台 + 2 km 木栈道，约 2 h）。<b>建议 10 点前进</b>，秋日晨雾是全年最佳",
+  "下午：<b>额尔古纳白桦林</b>（约 40 km，约 50 元，1.5–2 h）——纯白树干配满树金叶，<b>16:00 停止售票</b>",
+  "继续北上 → <b>恩和</b>俄罗斯民族乡（约 50 km），逛木刻楞村落",
+  "傍晚 → <b>室韦 / 临江屯</b>（约 67 km），额尔古纳河畔散步，远眺对岸俄罗斯奥洛契村",
+  "晚餐：俄式家宴——大列巴、苏伯汤、蓝莓酱、俄式烤肉"],
+ stay:"室韦或临江屯木刻楞民宿（务必确认供暖；临江屯更原始，看日出佳）",
+ nav:["额尔古纳湿地","白桦林景区","恩和","室韦镇"]},
+
+{n:"D6",date:"9-22",wk:"周二",title:"X904 边境公路 → 黑山头",meta:"约 165 km · 全程风景最佳",
+ tags:["🏆 风景最高点","骑马看日落"],hero:1,
+ alert:"⛽ 出发前<b>室韦务必两车加满油——X904 边境公路 150+ km 全程无加油站</b>。",
+ items:["08:30 室韦出发，走 <b>X904 边境公路 → 黑山头，约 165 km</b>。沿额尔古纳界河而行，一侧俄罗斯、一侧丘陵草原，9 月下旬满目金黄，<b>呼伦贝尔公认最美自驾路段</b><ul><li>限速 60–80，<b>区间测速密集</b></li><li>手机可能漫游到俄罗斯网络，<b>提前关闭数据漫游</b></li><li><b>禁飞无人机</b>；严禁碾压草原（索赔 500–2000 元）</li></ul>",
+  "13:30 前后抵达黑山头，午餐，入住，休整",
+  "<b>17:30 骑马进草原看日落</b>（约 100 元/小时，2 小时日落路线，沿湿地边缘进入草原深处）——秋日斜光下的金色草原，是这个季节最好的两小时",
+  "晚间：草原星空；晚餐蒙餐（手把肉、烤羊排）"],
+ warn:"防火期内<b>无篝火晚会</b>。",
+ stay:"黑山头草原院落 / 砖砌蒙古包（须独立卫浴 + 供暖，勿选传统毡包）",
+ nav:["室韦镇","黑山头镇","黑山头口岸"]},
+
+{n:"D7",date:"9-23",wk:"周三",title:"莫尔格勒河 → 海拉尔 → 返程",meta:"约 180 km",
+ tags:["返程日"],
+ items:["08:00 黑山头出发 → 莫尔格勒河方向（约 120 km）",
+  "<b>莫尔格勒河</b>「天下第一曲水」（约 80 元，<b>须提前 7 天小程序预约</b>）——金秋草原上的九曲十八弯，2 小时",
+  "中午：海拉尔午餐（约 60 km），采购特产（牛肉干、奶酪、蓝莓制品）",
+  "下午：海拉尔东山机场<b>两辆车分别还车</b>（预留 1.5 h 办跨省还车），搭机返南京",
+  "备选：时间宽裕可看世界反法西斯战争海拉尔纪念园"],
+ stay:"—",nav:["莫尔格勒河","海拉尔东山机场"]}
+];
+
+/* ========== 清单数据 ========== */
+const CK=[
+["出发前必办",[
+ ["订机票（6 人）","南京⇄漠河多需经哈尔滨中转，海拉尔返程班次有限"],
+ ["订租车 2 辆 5 座 SUV","跨省异地还车，必须电话问门店，别只在 App 下单"],
+ ["确认含玻璃单独破碎险","砂石路打玻璃是这条线高发事故"],
+ ["订 6 晚住宿","北红村、满归、额尔古纳、室韦、黑山头"],
+ ["核对 6 人身份证在有效期内","边境检查站查的就是它"],
+ ["9/16 预约莫尔格勒河","提前 7 天开放，抢 9/23 时段票"],
+ ["9/19 打 12328 核实 S204 便道",""],
+ ["下载离线地图（高德/百度）","林区大段无信号"],
+ ["准备并测试 2 台对讲机","刚需，不是可选项"]
+]],
+["随身证件",[
+ ["身份证原件 ×6","最重要"],["驾照原件","两位主驾"],["行驶证随车",""],["银行卡 / 现金","小镇移动支付偶有不畅"]
+]],
+["保暖穿着",[
+ ["轻羽绒服","必带，夜间近 0℃"],["抓绒衣",""],["速干打底",""],
+ ["手套 · 毛线帽 · 围脖",""],["防水防滑徒步鞋","998 级台阶 + 霜冻路面"],["墨镜 + 防晒霜","草原秋季紫外线仍强"]
+]],
+["车上装备",[
+ ["对讲机 ×2 + 充电器",""],["大容量充电宝","低温掉电快"],["车充 / 多口 USB",""],
+ ["急救包",""],["强光手电",""],["拖车绳",""],["便携气泵",""],["纸巾 / 湿巾 / 垃圾袋",""],
+ ["零食和饮用水","便道段 210 km 无补给"]
+]],
+["个人物品",[
+ ["常用药 · 感冒药 · 肠胃药",""],["驱蚊液","湿地用，一小瓶足够"],["润唇膏 · 保湿霜","北方干燥"],
+ ["相机 + 备用电池","低温耗电快，电池贴身放"],["保温杯",""]
+]]
+];
+
+/* ========== 渲染 ========== */
+const TRIP_Y=2026;
+function dstr(d){const[m,dd]=d.split("-");return new Date(TRIP_Y,m-1,dd)}
+function todayIdx(){
+  const t=new Date();t.setHours(0,0,0,0);
+  return DAYS.findIndex(d=>{const x=dstr(d.date);x.setHours(0,0,0,0);return +x===+t});
+}
+function amap(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)}
+
+function renderDays(){
+  const ti=todayIdx();
+  document.getElementById("days").innerHTML=DAYS.map((d,i)=>{
+    const isT=i===ti;
+    const cls="day"+(isT?" today":"")+(d.hero?" hero":"")+(isT||(ti<0&&i===0)?" open":"");
+    return `<article class="${cls}" data-i="${i}">
+      <div class="day-h" onclick="tog(${i})">
+        <span class="dno">${d.n}</span>
+        <div class="d-tt"><div class="t">${d.title}</div>
+          <div class="m">${d.date.replace("-"," 月 ")} 日 · ${d.wk}　·　${d.meta}${isT?'　·　<b style="color:#A63A2E">今天</b>':""}</div></div>
+        <span class="chev">▶</span>
+      </div>
+      <div class="day-b">
+        ${d.warn?`<div class="alert warn" style="margin-top:12px;margin-bottom:0">${d.warn}</div>`:""}
+        ${d.alert?`<div class="alert gold" style="margin-top:12px;margin-bottom:0">${d.alert}</div>`:""}
+        <ul>${d.items.map(x=>"<li>"+x+"</li>").join("")}</ul>
+        ${d.tip?`<div class="alert info" style="font-size:12.5px"><b>💡 小窍门　</b>${d.tip}</div>`:""}
+        ${d.tags?`<div class="tagrow">${d.tags.map(t=>`<span class="tag ${t.includes("🏆")?"gold":(t.includes("出发")||t.includes("硬")||t.includes("便道"))?"red":""}">${t}</span>`).join("")}</div>`:""}
+        ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
+        <div class="btns">${d.nav.map(p=>`<a class="btn o" href="${amap(p)}" target="_blank" rel="noopener">📍 ${p}</a>`).join("")}</div>
+      </div></article>`;
+  }).join("");
+}
+function tog(i){document.querySelector(`.day[data-i="${i}"]`).classList.toggle("open")}
+
+function renderCk(){
+  const s=JSON.parse(localStorage.getItem("mtoh26ck")||"{}");
+  document.getElementById("checklists").innerHTML=CK.map(([g,items],gi)=>{
+    const done=items.filter((_,ii)=>s[gi+"-"+ii]).length;
+    return `<div class="ck-group"><h3>${g}<span class="cnt" id="c-${gi}">${done} / ${items.length}</span></h3>`+
+    items.map(([lb,sub],ii)=>{
+      const k=gi+"-"+ii,on=!!s[k];
+      return `<label class="ck${on?" done":""}" data-k="${k}">
+        <input type="checkbox" ${on?"checked":""} onchange="ckc(this,'${k}',${gi})">
+        <span class="lb">${lb}${sub?`<small>${sub}</small>`:""}</span></label>`;
+    }).join("")+"</div>";
+  }).join("");
+}
+function ckc(el,k,gi){
+  const s=JSON.parse(localStorage.getItem("mtoh26ck")||"{}");
+  if(el.checked)s[k]=1;else delete s[k];
+  localStorage.setItem("mtoh26ck",JSON.stringify(s));
+  el.closest(".ck").classList.toggle("done",el.checked);
+  const items=CK[gi][1],done=items.filter((_,ii)=>s[gi+"-"+ii]).length;
+  document.getElementById("c-"+gi).textContent=done+" / "+items.length;
+}
+function resetCk(){if(confirm("清空所有勾选？")){localStorage.removeItem("mtoh26ck");renderCk()}}
+
+function renderStatus(){
+  const t=new Date();t.setHours(0,0,0,0);
+  const s=new Date(TRIP_Y,8,17),e=new Date(TRIP_Y,8,23);
+  const ti=todayIdx();let h="";
+  if(ti>=0){
+    const d=DAYS[ti];
+    h=`<div class="big">${d.n}</div><div class="txt"><b>今天 · ${d.title}</b>${d.meta}</div>`;
+  }else if(t<s){
+    const n=Math.ceil((s-t)/864e5);
+    h=`<div class="big">${n}</div><div class="txt"><b>天后出发</b>9 月 17 日抵达漠河</div>`;
+  }else{
+    h=`<div class="big">✓</div><div class="txt"><b>旅程已结束</b>1350 km · 七天六晚</div>`;
+  }
+  document.getElementById("status").innerHTML=h;
+}
+
+document.querySelectorAll("nav button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    document.getElementById("p-"+b.dataset.p).classList.add("on");
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+});
+
+renderStatus();renderDays();renderCk();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
 </body>
 </html>
