@@ -94,6 +94,23 @@ h2.sec span.i{font-size:17px}
 .tag.gold{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
 .tag.red{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
 
+/* 无人机判定 */
+.drone{
+  display:flex;gap:9px;align-items:flex-start;border-radius:9px;
+  padding:9px 12px;margin-top:11px;font-size:12.5px;line-height:1.6;border:1px solid;
+}
+.drone .dl{font-weight:800;white-space:nowrap;flex-shrink:0}
+.drone.no{background:#FDF3F1;border-color:#EFC9C1;color:#7A2C22}
+.drone.warn{background:#FDF8EC;border-color:#E8D5A0;color:#6E5106}
+.drone.ok{background:#F1F7F2;border-color:#C6DCCB;color:#1F4037}
+.dbadge{
+  font-size:10.5px;padding:2px 7px;border-radius:5px;font-weight:700;
+  white-space:nowrap;flex-shrink:0;border:1px solid;
+}
+.dbadge.no{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
+.dbadge.warn{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
+.dbadge.ok{background:#EAF3EC;border-color:#C6DCCB;color:var(--forest)}
+
 .stay{
   background:#F7F5EF;border-radius:8px;padding:9px 12px;margin-top:11px;font-size:13px;
 }
@@ -370,6 +387,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
 /* ========== 行程数据 ========== */
 const DAYS=[
 {n:"D1",date:"9-17",wk:"周四",title:"抵达漠河",meta:"13 km · 机场→市区",
+ drone:{lv:"no",t:"漠河古莲机场净空区，全域禁飞"},
  tags:["轻松"],
  items:["下午/傍晚落地<b>漠河古莲机场</b>，两辆车分别办理租车手续",
   "机场 → 漠河市区约 13 km，20–30 分钟",
@@ -379,6 +397,7 @@ const DAYS=[
  stay:"漠河市区（银麓 / 艺龙，北极星广场一带）",nav:["漠河古莲机场","漠河市"]},
 
 {n:"D2",date:"9-18",wk:"周五",title:"北极村 → 龙江第一湾 → 北红村",meta:"约 230 km · 4.5 h",
+ drone:{lv:"no",t:"北极村·龙江第一湾·乌苏里浅滩·北红村全在中俄界河一线，严禁放飞，设备可能被没收"},
  tags:["07:00 出发","最满的一天"],warn:"今天景点分散、路程满，07:00 两车同时出发。",
  items:["07:00 漠河 → 北极村（约 80 km，1.5 h）",
   "上午：<b>北极村</b>（门票 88 元）——神州北极石、最北一家、最北邮局（寄「最北」邮戳明信片）、北极沙洲、界碑",
@@ -389,6 +408,7 @@ const DAYS=[
  stay:"北红村火炕民宿（6 人建议整院，确认独立卫浴）",nav:["漠河北极村","龙江第一湾","乌苏里浅滩","北红村"]},
 
 {n:"D3",date:"9-19",wk:"周六",title:"北红村 → 漠河 → 满归",meta:"约 240–280 km · 5 h",
+ drone:{lv:"warn",t:"九曲十八弯、S219 林区属内陆适飞空域，但防火期高火险时段可能临时管控；起飞前须查禁飞地图"},
  tags:["林海秋色","加油日"],
  items:["08:00 北红村出发 → 漠河（约 100–150 km，2–3 h），沿途<b>九曲十八弯</b>观景台可停",
   "中午：漠河市区午餐，<b>两车全部加满油</b>、补给水和食物——南下前最后一个像样的补给点",
@@ -398,6 +418,7 @@ const DAYS=[
  stay:"满归镇（雅仕名都宾馆 / 金雨民宿，院内可停两车）",nav:["九曲十八弯","满归镇"]},
 
 {n:"D4",date:"9-20",wk:"周日",title:"满归 → 根河 → 额尔古纳",meta:"约 335 km · 8 h",
+ drone:{lv:"ok",t:"根河、额尔古纳市区一带距界河较远，是全程最可能合法起飞的路段；仍须真高 120 m 以下、避开施工区与人群"},
  tags:["施工便道日","最硬的一天"],hard:1,
  warn:"全程最硬的一天，<b>07:00 必须出发</b>。出发前一天记得打 12328 确认便道通行。",
  items:["07:00 满归出发，进入 <b>S204 施工便道段</b>（约 210 km，7 座桥同时施工，便道 + 冻土波浪路，<b>预留 5–6 小时</b>）<ul><li>两车拉开 150–200 m 防溅石打玻璃</li><li>遇施工指示和现场指挥无条件服从</li><li><b>无加油站、手机信号大段缺失</b></li></ul>",
@@ -408,6 +429,7 @@ const DAYS=[
  stay:"额尔古纳市区（拉布大林）",nav:["根河湿地","额尔古纳市"]},
 
 {n:"D5",date:"9-21",wk:"周一",title:"额尔古纳湿地 → 白桦林 → 恩和 → 室韦",meta:"约 160 km · 最从容",
+ drone:{lv:"warn",t:"额尔古纳湿地为国家湿地公园、白桦林为景区，须先问景区；越往北越靠界河，恩和以北收紧，室韦禁飞"},
  tags:["秋色摄影日","轻松"],
  items:["上午：<b>额尔古纳湿地</b>（亚洲第一湿地，约 65 元，含电瓶车上山顶观景台 + 2 km 木栈道，约 2 h）。<b>建议 10 点前进</b>，秋日晨雾是全年最佳",
   "下午：<b>额尔古纳白桦林</b>（约 40 km，约 50 元，1.5–2 h）——纯白树干配满树金叶，<b>16:00 停止售票</b>",
@@ -418,6 +440,7 @@ const DAYS=[
  nav:["额尔古纳湿地","白桦林景区","恩和","室韦镇"]},
 
 {n:"D6",date:"9-22",wk:"周二",title:"X904 边境公路 → 黑山头",meta:"约 165 km · 全程风景最佳",
+ drone:{lv:"no",t:"X904 全程沿额尔古纳界河、黑山头临口岸，边境管制区绝对禁飞——风景最好的一天恰恰一点都不能飞"},
  tags:["🏆 风景最高点","骑马看日落"],hero:1,
  alert:"⛽ 出发前<b>室韦务必两车加满油——X904 边境公路 150+ km 全程无加油站</b>。",
  items:["08:30 室韦出发，走 <b>X904 边境公路 → 黑山头，约 165 km</b>。沿额尔古纳界河而行，一侧俄罗斯、一侧丘陵草原，9 月下旬满目金黄，<b>呼伦贝尔公认最美自驾路段</b><ul><li>限速 60–80，<b>区间测速密集</b></li><li>手机可能漫游到俄罗斯网络，<b>提前关闭数据漫游</b></li><li><b>禁飞无人机</b>；严禁碾压草原（索赔 500–2000 元）</li></ul>",
@@ -429,6 +452,7 @@ const DAYS=[
  nav:["室韦镇","黑山头镇","黑山头口岸"]},
 
 {n:"D7",date:"9-23",wk:"周三",title:"莫尔格勒河 → 海拉尔 → 返程",meta:"约 180 km",
+ drone:{lv:"warn",t:"莫尔格勒河须问景区；海拉尔东山机场净空区禁飞，越靠近海拉尔越严"},
  tags:["返程日"],
  items:["08:00 黑山头出发 → 莫尔格勒河方向（约 120 km）",
   "<b>莫尔格勒河</b>「天下第一曲水」（约 80 元，<b>须提前 7 天小程序预约</b>）——金秋草原上的九曲十八弯，2 小时",
@@ -471,6 +495,11 @@ const CK=[
 
 /* ========== 渲染 ========== */
 const TRIP_Y=2026;
+const DR={
+  no:{b:"🚁 禁飞",t:"🚁 禁飞"},
+  warn:{b:"🚁 需确认",t:"🚁 需确认"},
+  ok:{b:"🚁 可飞",t:"🚁 相对可飞"}
+};
 function dstr(d){const[m,dd]=d.split("-");return new Date(TRIP_Y,m-1,dd)}
 function todayIdx(){
   const t=new Date();t.setHours(0,0,0,0);
@@ -488,6 +517,7 @@ function renderDays(){
         <span class="dno">${d.n}</span>
         <div class="d-tt"><div class="t">${d.title}</div>
           <div class="m">${d.date.replace("-"," 月 ")} 日 · ${d.wk}　·　${d.meta}${isT?'　·　<b style="color:#A63A2E">今天</b>':""}</div></div>
+        <span class="dbadge ${d.drone.lv}">${DR[d.drone.lv].b}</span>
         <span class="chev">▶</span>
       </div>
       <div class="day-b">
@@ -496,6 +526,7 @@ function renderDays(){
         <ul>${d.items.map(x=>"<li>"+x+"</li>").join("")}</ul>
         ${d.tip?`<div class="alert info" style="font-size:12.5px"><b>💡 小窍门　</b>${d.tip}</div>`:""}
         ${d.tags?`<div class="tagrow">${d.tags.map(t=>`<span class="tag ${t.includes("🏆")?"gold":(t.includes("出发")||t.includes("硬")||t.includes("便道"))?"red":""}">${t}</span>`).join("")}</div>`:""}
+        <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
         ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
         <div class="btns">${d.nav.map(p=>`<a class="btn o" href="${amap(p)}" target="_blank" rel="noopener">📍 ${p}</a>`).join("")}</div>
       </div></article>`;
