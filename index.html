@@ -94,6 +94,18 @@ h2.sec span.i{font-size:17px}
 .tag.gold{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
 .tag.red{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
 
+/* 风景评级 */
+.view{
+  display:flex;gap:9px;align-items:flex-start;border-radius:9px;
+  padding:9px 12px;margin-top:9px;font-size:12.5px;line-height:1.6;
+  background:#F6F3E8;border:1px solid #E4DCC2;color:#5F4E1F;
+}
+.view .vl{font-weight:800;white-space:nowrap;flex-shrink:0}
+.stars{color:#B8860B;letter-spacing:1px;font-size:11px}
+.vbadge{
+  font-size:10.5px;padding:2px 6px;border-radius:5px;font-weight:700;
+  white-space:nowrap;flex-shrink:0;background:#FBF3DE;border:1px solid #E8D5A0;color:#8A6508;
+}
 /* 无人机判定 */
 .drone{
   display:flex;gap:9px;align-items:flex-start;border-radius:9px;
@@ -220,7 +232,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
   <div class="h-in">
     <div class="h-kick">Y U A N · N O R T H　2 0 2 6　V 2</div>
     <h1>呼伦贝尔 · 漠河<br>边境自驾</h1>
-    <div class="h-sub">9 月 16 日 — 23 日 ｜ 八天七晚 ｜ 4–5 人 · 1 辆 MPV ｜ 约 1360 km</div>
+    <div class="h-sub">9 月 16 日 — 23 日 ｜ 八天七晚 ｜ 4–5 人 · 1 辆 MPV ｜ 约 1370 km</div>
     <div class="status" id="status"></div>
   </div>
 </header>
@@ -229,10 +241,38 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
   <!-- ============ 行程 ============ -->
   <section class="page on" id="p-trip">
     <h2 class="sec"><span class="i">🗺</span>逐日行程</h2>
+
+    <div class="card" style="border-left:4px solid var(--gold);margin-bottom:14px">
+      <h3>🍁 哪几天风景最美</h3>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D6</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>大兴安岭秋色最浓</b><div style="font-size:12.5px;margin-top:2px">S219 漠满线穿越腹地原始林，金黄落叶松 + 白桦 + 墨绿樟子松。<b>路况允许随时靠边停车</b>，全程拍森林秋色的最佳机会。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D3</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>全程综合最美</b><div style="font-size:12.5px;margin-top:2px">X904「中国最美边境公路」，165 km 沿界河，一侧俄罗斯、一侧金黄丘陵草原。属草原风光，非森林秋色。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D7</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>单点最震撼</b><div style="font-size:12.5px;margin-top:2px">龙江第一湾 998 级台阶俯瞰 Ω 形江湾，官方描述秋日「山色斑斓」，全程最出片的单一机位。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--muted)">D4</b></div>
+        <div class="v"><span class="stars">★★★★☆</span> 白桦林 + 额尔古纳湿地——<b>大兴安岭秋色正式开场</b>，白桦是「兴安秋色铁三角」中最上镜的一员</div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--muted)">D5</b></div>
+        <div class="v"><span class="stars">★★★★☆</span> 腹地林海秋色浓度极高，<b>但在施工便道上，看得见拍不痛快</b></div>
+      </div>
+      <p style="margin-top:10px;font-size:12px;color:var(--muted)">
+        <b>9/16–9/23 正踩在窗口上</b>：大兴安岭秋季短暂，从 9 月初初秋到 9 月底深秋约一个月，9 月中下旬为峰值。国庆后叶大量掉落。
+      </p>
+    </div>
+
     <div id="days"></div>
     <div class="alert info" style="margin-top:14px">
       <h4>路线总览</h4>
-      <p>海拉尔 → 莫尔格勒河 → 黑山头 → X904 边境公路 → 室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河 → 满归 → 漠河 → 北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村</p>
+      <p>海拉尔 → 莫尔格勒河 → 黑山头 → X904 边境公路 → 室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河 → 满归 → 漠河 → 北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村 → 漠河</p>
       <p style="margin-top:6px;font-size:12.5px;opacity:.85">点击每一天可展开详情。当天会自动标红置顶。</p>
     </div>
   </section>
@@ -494,6 +534,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
 const DAYS=[
 {n:"D1",date:"9-16",wk:"周三",title:"抵达海拉尔",meta:"落地 · 10 km",
  drone:{lv:"no",t:"海拉尔东山机场净空区，全域禁飞"},
+ view:{s:1,t:"落地日，无景观安排。"},
  tags:["轻松"],
  items:["落地<b>海拉尔东山机场</b>（<b>⚠️ 到达时刻待确认</b>——若为傍晚，当晚只安排晚餐休息）",
   "<b>神州机场店取车（MPV）</b>。⚠️ 务必提前致电确认航班时段有人值守，并报航班号",
@@ -504,6 +545,7 @@ const DAYS=[
 
 {n:"D2",date:"9-17",wk:"周四",title:"莫尔格勒河 → 黑山头",meta:"约 190 km · 骑马看日落",
  drone:{lv:"warn",t:"莫尔格勒河须问景区；海拉尔东山机场净空区禁飞，越靠近海拉尔越严"},
+ view:{s:4,t:"<b>草原开篇。</b>莫尔格勒河「天下第一曲水」在金秋草原上蜿蜒，9 月草色转金；傍晚骑马进草原看日落，是这个季节最好的两小时。属草原风光，不是大兴安岭秋色。"},
  tags:["草原开篇","骑马看日落"],
  items:["上午：<b>莫尔格勒河</b>「天下第一曲水」（约 80 元，<b>须提前 7 天预约，即 9 月 10 日抢票</b>）——金秋草原上的九曲十八弯，2 小时",
   "中午：返回海拉尔或路上午餐",
@@ -516,6 +558,7 @@ const DAYS=[
 
 {n:"D3",date:"9-18",wk:"周五",title:"X904 边境公路 → 室韦",meta:"约 165 km · 全程风景最佳",
  drone:{lv:"no",t:"X904 全程沿额尔古纳界河、黑山头临口岸，边境管制区绝对禁飞——风景最好的一天恰恰一点都不能飞"},
+ view:{s:5,t:"<b>🏆 全程综合最美。</b>X904 被称为「中国最美边境公路」，165 km 沿额尔古纳界河而行，一侧俄罗斯村落、一侧丘陵草原，9 月下旬满目金黄。属界河草原风光，大兴安岭森林秋色在 D5–D6。"},
  tags:["🏆 风景最高点"],hero:1,
  alert:"⛽ 出发前<b>黑山头务必加满油——X904 边境公路 150+ km 全程无加油站</b>。",
  items:["08:30 黑山头出发，走 <b>X904 边境公路 → 室韦，约 165 km</b>。沿额尔古纳界河而行，一侧俄罗斯、一侧丘陵草原，9 月下旬满目金黄，<b>呼伦贝尔公认最美自驾路段</b><ul><li>限速 60–80，<b>区间测速密集</b></li><li>手机可能漫游到俄罗斯网络，<b>提前关闭数据漫游</b></li><li><b>禁飞无人机</b>；严禁碾压草原（索赔 500–2000 元）</li></ul>",
@@ -527,6 +570,7 @@ const DAYS=[
 
 {n:"D4",date:"9-19",wk:"周六",title:"恩和 → 白桦林 → 湿地 → 根河",meta:"约 285 km · 秋色摄影日",
  drone:{lv:"warn",t:"额尔古纳湿地为国家湿地公园、白桦林为景区，须先问景区；室韦一带靠界河禁飞，越往南越松"},
+ view:{s:4,t:"<b>秋色摄影日。</b>白桦林是「兴安秋色铁三角」（白桦、落叶松、樟子松）中最上镜的一员——纯白树干配满树金叶；额尔古纳湿地秋日晨雾与斑斓色彩是全年最佳。<b>大兴安岭秋色从今天正式开场。</b>"},
  tags:["秋色摄影日","07:30 出发"],
  items:["<b>07:30 出发</b>——今天景点多、路程长，早走才从容",
   "上午：室韦 → <b>恩和俄罗斯民族乡</b>（67 km），逛木刻楞村落",
@@ -538,6 +582,7 @@ const DAYS=[
 
 {n:"D5",date:"9-20",wk:"周日",title:"根河 → S204 便道 → 满归",meta:"约 210 km · 施工便道日",
  drone:{lv:"warn",t:"根河、满归一带属内陆适飞空域；但防火期高火险时段可能临时管控，起飞前查禁飞地图"},
+ view:{s:4,t:"<b>秋色浓度极高，但体验打折。</b>这 210 km 全在大兴安岭腹地林海中穿行，落叶松金黄、白桦银白，是纯正的兴安秋色。<b>可惜在施工便道上——扬尘大、几乎无法随意停车拍照</b>，看得见拍不痛快。风景归 D6。"},
  tags:["施工便道日","07:00 出发"],hard:1,
  warn:"<b>今天只有 210 km，却要开 5–6 小时。</b>8 天方案的最大红利就是把原本 348 km 的硬日拆成两天，<b>今天到满归就收工</b>。",
  alert:"⛽ <b>根河出发前必须加满油</b>——便道段 210 km 无加油站。",
@@ -551,7 +596,8 @@ const DAYS=[
 
 {n:"D6",date:"9-21",wk:"周一",title:"满归 → 漠河 → 北红村",meta:"约 288 km · 砂石路日",
  drone:{lv:"no",t:"北红村位于中俄界河一线，严禁放飞；途中漠河段可查禁飞地图后谨慎评估"},
- tags:["07:00 出发","砂石路"],
+ view:{s:5,t:"<b>🌲 大兴安岭秋色最浓的一天。</b>S219 漠满线穿越大兴安岭腹地原始林，金黄落叶松、白桦与墨绿樟子松交织——骑行圈把这条路称为「寻找醉美金秋」的路线。<b>和 D5 同样是腹地林海，但这里路况允许随时靠边停车拍照</b>，是全程拍森林秋色的最佳机会。下午北红村段还有九曲十八弯湿地。"},
+ tags:["07:00 出发","🍁 秋色最浓"],
  items:["07:00 满归出发 → S219 漠满线 → 漠河（138 km，2.5–3 h），<b>部分砂石路段，MPV 需减速</b>",
   "10:00 前后抵达漠河，<b>加满油、补给</b>（这是进北红村前最后一个像样的补给点）",
   "午餐：漠河市区",
@@ -561,30 +607,34 @@ const DAYS=[
  stay:"北红村火炕民宿（口碑差异大，确认独立卫浴与供暖）",
  nav:["漠河市","九曲十八弯","北红村"]},
 
-{n:"D7",date:"9-22",wk:"周二",title:"最北点 → 龙江第一湾 → 北极村",meta:"约 120 km · 全程最轻松",
+{n:"D7",date:"9-22",wk:"周二",title:"最北点 → 龙江第一湾 → 北极村 → 漠河",meta:"约 200 km · 单点最震撼",
  drone:{lv:"no",t:"乌苏里浅滩、龙江第一湾、北极村全在中俄界河一线，严禁放飞，设备可能被没收"},
- tags:["最轻松的一天","倒着走"],
- items:["<b>今天只有 120 km，是全程最从容的一天</b>——8 天方案的第二个红利",
-  "08:30 北红村出发 → <b>乌苏里浅滩</b>（25 km），中国最北点 N53°33′43″ 打卡",
-  "→ <b>龙江第一湾</b>（25 km），998 级台阶登顶俯瞰 Ω 形江湾（预留 1.5 h），山下午餐",
-  "14:00 → 鄂温克<b>驯鹿园</b>（30–40 分钟）",
-  "15:30 → <b>北极村</b>（70 km），16:30 抵达",
-  "<b>趁天黑前</b>（约 17:25 日落）逛神州北极石、最北一家、最北邮局（寄「最北」邮戳明信片）、北极沙洲、界碑",
-  "夜宿中国最北的村子，界江边看星空——比漠河市区光污染低得多"],
- tip:"倒着走是这条线的关键：北极村正好在漠河与龙江第一湾中间，把它当宿点，长途就被劈成两半——今天只开 120 km，明天只剩 93 km 赶飞机。",
- stay:"北极村景区内民宿（<b>订房时问清门票 88 元怎么算、次日出村是否二次购票</b>）",
- nav:["乌苏里浅滩","龙江第一湾","漠河北极村"]},
+ view:{s:5,t:"<b>单点最震撼的一天。</b>龙江第一湾登 998 级台阶俯瞰 Ω 形江湾，大兴安岭行署官方描述秋日「山色斑斓」——金黄落叶松、橙红灌木与墨绿樟子松层层铺满江湾两岸，是全程最出片的单一机位。"},
+ tags:["07:00 出发","🍁 单点最震撼"],
+ warn:"<b>07:00 出发是今天的关键。</b>行程排到北极村再回漠河，早走才能在日落（约 17:25）前抵达，避免夜路。",
+ items:["<b>07:00 北红村出发</b> → <b>乌苏里浅滩</b>（25 km），中国最北点 N53°33′43″ 打卡，<b>晨光斜射最好拍</b>",
+  "08:30 → <b>龙江第一湾</b>（25 km），998 级台阶登顶俯瞰 Ω 形江湾（<b>预留 2 h</b>，全程最震撼的机位）",
+  "11:00 山下午餐",
+  "12:00 → 鄂温克<b>驯鹿园</b>（40 分钟）",
+  "13:30 抵达<b>北极村</b>（70 km，门票 88 元）——神州北极石、最北一家、最北邮局（寄「最北」邮戳明信片）、北极沙洲、界碑，<b>游览 2.5 h</b>",
+  "<b>16:00 北极村出发</b> → 漠河（80 km，漠北公路柏油好走），<b>17:30 前抵达</b>",
+  "晚餐：漠河市区，铁锅炖 / 冷水鱼 / 山野菜——最后一顿东北菜"],
+ tip:"北极村不住、当天返回漠河，代价是北极村只能游 2.5 小时（够看完核心景点）。换来的是明早能从容逛漠河市区，且不用担心次日 93 km 赶飞机。",
+ stay:"漠河市区（银麓 / 艺龙，北极星广场一带）",
+ nav:["乌苏里浅滩","龙江第一湾","漠河北极村","漠河市"]},
 
-{n:"D8",date:"9-23",wk:"周三",title:"北极村 → 漠河机场 → 返程",meta:"约 93 km · 12:55 起飞",
- drone:{lv:"no",t:"北极村界河一线禁飞；漠河古莲机场净空区禁飞"},
- tags:["返程日","缓冲充足"],
- items:["07:30 起床，<b>补看北极村</b>晨景（若昨晚没看完）",
-  "08:00 北极村出发 → 漠河古莲机场（93 km，约 2 h）",
-  "10:00 前后抵达机场，还车前<b>把油加满</b>",
+{n:"D8",date:"9-23",wk:"周三",title:"漠河市区 → 机场 → 返程",meta:"约 20 km · 12:55 起飞",
+ drone:{lv:"no",t:"漠河古莲机场净空区禁飞"},
+ view:{s:2,t:"松苑原始森林公园是 1987 年「五·六」大火中市区唯一未被烧毁的原始林，秋日金黄，就在市区内，步行可达。"},
+ tags:["上午游漠河","缓冲充足"],
+ items:["07:30 起床，早餐后退房",
+  "<b>08:00–09:30 漠河市区游览</b>（三处都在市区，彼此很近）<ul><li><b>松苑原始森林公园</b>——1987 年大火中市区唯一幸存的原始林，秋色金黄，免费</li><li><b>北极星广场</b>——俯瞰漠河城区</li><li><b>五·六火灾纪念馆</b>——了解 1987 年那场大火，免费</li></ul>",
+  "09:40 出发 → 漠河古莲机场（13 km，20 分钟）",
+  "10:00 抵达机场，还车前<b>把油加满</b>",
   "10:30 <b>神州机场店还车</b>",
   "11:30 值机安检，<b>12:55 起飞返南京</b>"],
- timeline:"<b>12:55 起飞倒推：08:00 出发 → 10:00 到机场 → 10:30 还车 → 11:30 值机，缓冲近 3 小时。</b><br>对比 7 天方案（须 06:30 从北红村出发、零缓冲），这是 8 天方案最大的安全收益。<br><b>⚠️ 起飞时刻若非 12:55，请告知我重排。</b>",
- stay:"—",nav:["漠河北极村","漠河古莲机场"]}
+ timeline:"<b>12:55 起飞倒推：08:00 逛漠河 → 09:40 出发 → 10:00 到机场 → 10:30 还车 → 11:30 值机。</b><br>市区离机场仅 13 km，上午还能留出 1.5 小时游览，是全程最从容的返程日。<br><b>⚠️ 起飞时刻若非 12:55，请告知重排。</b>",
+ stay:"—",nav:["松苑原始森林公园","漠河古莲机场"]}
 ];
 
 /* ========== 清单数据 ========== */
@@ -644,6 +694,7 @@ function renderDays(){
         <span class="dno">${d.n}</span>
         <div class="d-tt"><div class="t">${d.title}</div>
           <div class="m">${d.date.replace("-"," 月 ")} 日 · ${d.wk}　·　${d.meta}${isT?'　·　<b style="color:#A63A2E">今天</b>':""}</div></div>
+        ${d.view&&d.view.s>=5?'<span class="vbadge">★★★★★</span>':""}
         <span class="dbadge ${d.drone.lv}">${DR[d.drone.lv].b}</span>
         <span class="chev">▶</span>
       </div>
@@ -654,6 +705,7 @@ function renderDays(){
         ${d.tip?`<div class="alert info" style="font-size:12.5px"><b>💡 小窍门　</b>${d.tip}</div>`:""}
         ${d.timeline?`<div class="alert gold" style="font-size:12.5px"><b>⏱ 时间倒推　</b>${d.timeline}</div>`:""}
         ${d.tags?`<div class="tagrow">${d.tags.map(t=>`<span class="tag ${t.includes("🏆")?"gold":(t.includes("出发")||t.includes("硬")||t.includes("便道"))?"red":""}">${t}</span>`).join("")}</div>`:""}
+        ${d.view&&d.view.s>=4?`<div class="view"><span class="vl">🍁 风景</span><span><span class="stars">${"★".repeat(d.view.s)}${"☆".repeat(5-d.view.s)}</span>　${d.view.t}</span></div>`:""}
         <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
         ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
         <div class="btns">${d.nav.map(p=>`<a class="btn o" href="${amap(p)}" target="_blank" rel="noopener">📍 ${p}</a>`).join("")}</div>
