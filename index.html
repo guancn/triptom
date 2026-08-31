@@ -682,9 +682,8 @@ function todayIdx(){
   const t=new Date();t.setHours(0,0,0,0);
   return DAYS.findIndex(d=>{const x=dstr(d.date);x.setHours(0,0,0,0);return +x===+t});
 }
-function amapQ(q){return"iosamap://viewMap?sourceApplication=mtoh&poiname="+encodeURIComponent(q)+"&dev=0"}
 function baiduQ(q){return"baidumap://map/place/search?query="+encodeURIComponent(q)+"&output=html&src=mtoh"}
-function amapWeb(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)}
+function amapWeb(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)+"&src=mtoh&callnative=1"}
 function baiduWeb(q){return"https://map.baidu.com/search/"+encodeURIComponent(q)}
 function openMap(scheme,web){
   const t=setTimeout(()=>{location.href=web},1200);
@@ -716,8 +715,8 @@ function renderDays(){
         ${d.view&&d.view.s>=4?`<div class="view"><span class="vl">🍁 风景</span><span><span class="stars">${"★".repeat(d.view.s)}${"☆".repeat(5-d.view.s)}</span>　${d.view.t}</span></div>`:""}
         <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
         ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
-        ${d.hotel?`<div class="hotel-btns"><a class="hbtn am" onclick="openMap(amapQ('${d.hotel}'),amapWeb('${d.hotel}'));return false" href="#">🏨 高德→今晚酒店</a><a class="hbtn bd" onclick="openMap(baiduQ('${d.hotel}'),baiduWeb('${d.hotel}'));return false" href="#">🏨 百度→今晚酒店</a></div>`:""}
-        <div class="navlist">${d.nav.map(p=>`<div class="navitem"><span class="navlabel">📍 ${p}</span><div class="navbtns"><a class="nbtn am" onclick="openMap(amapQ('${p}'),amapWeb('${p}'));return false" href="#">高德</a><a class="nbtn bd" onclick="openMap(baiduQ('${p}'),baiduWeb('${p}'));return false" href="#">百度</a></div></div>`).join("")}</div>
+        ${d.hotel?`<div class="hotel-btns"><a class="hbtn am" href="${amapWeb(d.hotel)}" target="_blank" rel="noopener">🏨 高德→今晚酒店</a><a class="hbtn bd" onclick="openMap(baiduQ('${d.hotel}'),baiduWeb('${d.hotel}'));return false" href="#">🏨 百度→今晚酒店</a></div>`:""}
+        <div class="navlist">${d.nav.map(p=>`<div class="navitem"><span class="navlabel">📍 ${p}</span><div class="navbtns"><a class="nbtn am" href="${amapWeb(p)}" target="_blank" rel="noopener">高德</a><a class="nbtn bd" onclick="openMap(baiduQ('${p}'),baiduWeb('${p}'));return false" href="#">百度</a></div></div>`).join("")}</div>
       </div></article>`;
   }).join("");
 }
