@@ -682,7 +682,7 @@ function todayIdx(){
   const t=new Date();t.setHours(0,0,0,0);
   return DAYS.findIndex(d=>{const x=dstr(d.date);x.setHours(0,0,0,0);return +x===+t});
 }
-function amapQ(q){return"iosamap://poi?sourceApplication=mtoh&keywords="+encodeURIComponent(q)+"&dev=0"}
+function amapQ(q){return"iosamap://viewMap?sourceApplication=mtoh&poiname="+encodeURIComponent(q)+"&dev=0"}
 function baiduQ(q){return"baidumap://map/place/search?query="+encodeURIComponent(q)+"&output=html&src=mtoh"}
 function amapWeb(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)}
 function baiduWeb(q){return"https://map.baidu.com/search/"+encodeURIComponent(q)}
