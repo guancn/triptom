@@ -128,6 +128,20 @@ h2.sec span.i{font-size:17px}
 }
 .stay b{color:var(--forest);font-size:11px;letter-spacing:.1em;display:block;margin-bottom:2px}
 
+/* ---------- 导航条目 ---------- */
+.navlist{margin-top:11px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.navitem{display:flex;align-items:center;padding:9px 12px;gap:8px;border-bottom:1px solid var(--line)}
+.navitem:last-child{border-bottom:none}
+.navlabel{flex:1;font-size:13px;color:var(--ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navbtns{display:flex;gap:5px;flex-shrink:0}
+.nbtn{font-size:11.5px;padding:5px 11px;border-radius:6px;text-decoration:none;font-weight:600;white-space:nowrap;cursor:pointer;border:1.5px solid;background:transparent}
+.nbtn.am{border-color:#0D9E5F;color:#0D9E5F}
+.nbtn.bd{border-color:#2F54EB;color:#2F54EB}
+.hotel-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.hbtn{text-align:center;text-decoration:none;border-radius:9px;padding:10px 6px;font-size:13px;font-weight:700;border:none;display:block;cursor:pointer}
+.hbtn.am{background:#0D9E5F;color:#fff}
+.hbtn.bd{background:#2F54EB;color:#fff}
+
 /* ---------- Alerts ---------- */
 .alert{
   border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13.5px;
@@ -670,7 +684,15 @@ function todayIdx(){
   const t=new Date();t.setHours(0,0,0,0);
   return DAYS.findIndex(d=>{const x=dstr(d.date);x.setHours(0,0,0,0);return +x===+t});
 }
-function amap(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)}
+function amapQ(q){return"iosamap://poi?sourceApplication=mtoh&keywords="+encodeURIComponent(q)+"&dev=0"}
+function baiduQ(q){return"baidumap://map/place/search?query="+encodeURIComponent(q)+"&output=html&src=mtoh"}
+function amapWeb(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)}
+function baiduWeb(q){return"https://map.baidu.com/search/"+encodeURIComponent(q)}
+function openMap(scheme,web){
+  const t=setTimeout(()=>{location.href=web},1200);
+  window.addEventListener('blur',()=>clearTimeout(t),{once:true});
+  location.href=scheme;
+}
 
 function renderDays(){
   const ti=todayIdx();
@@ -696,7 +718,8 @@ function renderDays(){
         ${d.view&&d.view.s>=4?`<div class="view"><span class="vl">🍁 风景</span><span><span class="stars">${"★".repeat(d.view.s)}${"☆".repeat(5-d.view.s)}</span>　${d.view.t}</span></div>`:""}
         <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
         ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
-        <div class="btns">${d.hotel?`<a class="btn g" href="${amap(d.hotel)}" target="_blank" rel="noopener" style="grid-column:1/-1">🏨 导航到今晚酒店</a>`:""}${d.nav.map(p=>`<a class="btn o" href="${amap(p)}" target="_blank" rel="noopener">📍 ${p}</a>`).join("")}</div>
+        ${d.hotel?`<div class="hotel-btns"><a class="hbtn am" onclick="openMap(amapQ('${d.hotel}'),amapWeb('${d.hotel}'));return false" href="#">🏨 高德→今晚酒店</a><a class="hbtn bd" onclick="openMap(baiduQ('${d.hotel}'),baiduWeb('${d.hotel}'));return false" href="#">🏨 百度→今晚酒店</a></div>`:""}
+        <div class="navlist">${d.nav.map(p=>`<div class="navitem"><span class="navlabel">📍 ${p}</span><div class="navbtns"><a class="nbtn am" onclick="openMap(amapQ('${p}'),amapWeb('${p}'));return false" href="#">高德</a><a class="nbtn bd" onclick="openMap(baiduQ('${p}'),baiduWeb('${p}'));return false" href="#">百度</a></div></div>`).join("")}</div>
       </div></article>`;
   }).join("");
 }
