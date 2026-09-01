@@ -53,6 +53,19 @@ h1{margin:0;font-size:23px;font-weight:700;letter-spacing:.02em;line-height:1.35
 main{padding:16px 14px 8px;max-width:720px;margin:0 auto}
 .page{display:none;animation:fade .22s ease}
 .page.on{display:block}
+.maplink{display:inline-block;margin:2px 0 8px;color:var(--gold);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--gold-l)}
+.maphd{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.map-back{color:var(--gold);font-weight:700;text-decoration:none;font-size:13px;white-space:nowrap}
+.mapwrap{width:100%;background:var(--forest-d);border:1px solid var(--forest-l);border-radius:14px;padding:6px;overflow:hidden}
+.mapwrap svg{width:100%;height:auto;display:block;touch-action:pinch-zoom}
+.daynode{cursor:pointer}
+.daynode:active circle{fill:var(--gold-l)}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--muted)}
+.map-legend span{display:inline-flex;align-items:center;gap:5px}
+.map-legend i{width:16px;height:3px;border-radius:2px;display:inline-block}
+.map-legend i.dash{background-image:none;height:0;border-top:3px dashed #E0592E;width:16px}
+.map-legend i.dot{width:11px;height:11px;border-radius:50%}
+.map-legend i.sdot{width:7px;height:7px;border-radius:50%}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 h2.sec{
   font-size:16px;color:var(--forest);margin:4px 0 12px;padding-bottom:7px;
@@ -286,6 +299,7 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
     <div id="days"></div>
     <div class="alert info" style="margin-top:14px">
       <h4>路线总览</h4>
+      <p><a class="maplink" onclick="showMap();return false" href="#">🗺 查看全程地图总览 →</a></p>
       <p>海拉尔 → 莫尔格勒河 → 黑山头 → X904 边境公路 → 室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河 → 满归 → 漠河 → 北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村 → 漠河</p>
       <p style="margin-top:6px;font-size:12.5px;opacity:.85">点击每一天可展开详情。当天会自动标红置顶。</p>
     </div>
@@ -507,6 +521,90 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
       <h4>📴 离线可用</h4>
       <p>这个页面已缓存到手机，<b>林区没信号也能打开</b>。建议在 Safari / 浏览器里选「添加到主屏幕」，用起来跟 App 一样。</p>
       <p>但导航按钮需要网络——<b>务必另外下载高德或百度的离线地图</b>。</p>
+    </div>
+  </section>
+
+  <!-- ============ 全程地图总览 ============ -->
+  <section class="page" id="p-map">
+    <div class="maphd">
+      <h2 class="sec" style="margin:0"><span class="i">🗺</span>全程地图总览</h2>
+      <a class="map-back" onclick="showTrip();return false" href="#">← 返回行程</a>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">方位比例忠实的示意图 · 双指可放大 · <b>点日节点直接跳到当天详情</b></p>
+    <div class="mapwrap">
+      <svg viewBox="0 0 360 492" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="呼伦贝尔-漠河自驾全程路线示意图">
+        <!-- 参照层（淡） -->
+        <g opacity="0.9">
+          <polyline points="40,372 30,325 34,278 52,228 72,190 80,162" fill="none" stroke="#5b8fb0" stroke-width="1.3" opacity="0.42" stroke-linecap="round"/>
+          <text x="30" y="300" transform="rotate(-82 30 300)" text-anchor="middle" fill="#5b8fb0" opacity="0.5" font-size="5.4">中俄界 · 额尔古纳河</text>
+          <polyline points="205,235 212,178 198,122 172,92 150,68" fill="none" stroke="#c9b98a" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.34"/>
+          <text x="150" y="252" text-anchor="middle" fill="#c9b98a" opacity="0.4" font-size="5.4">内蒙古</text>
+          <text x="258" y="150" text-anchor="middle" fill="#c9b98a" opacity="0.4" font-size="5.4">黑龙江</text>
+          <!-- 指北针 -->
+          <line x1="26" y1="44" x2="26" y2="27" stroke="#9fb0aa" stroke-width="1.2"/>
+          <polygon points="26,23 23,30 29,30" fill="#9fb0aa"/>
+          <text x="26" y="52" text-anchor="middle" fill="#9fb0aa" font-size="6">N</text>
+          <!-- 比例尺 100km -->
+          <line x1="250" y1="478" x2="333" y2="478" stroke="#9fb0aa" stroke-width="1.2"/>
+          <line x1="250" y1="475" x2="250" y2="481" stroke="#9fb0aa" stroke-width="1.2"/>
+          <line x1="333" y1="475" x2="333" y2="481" stroke="#9fb0aa" stroke-width="1.2"/>
+          <text x="291" y="473" text-anchor="middle" fill="#9fb0aa" font-size="5.4">约 100 km</text>
+        </g>
+
+        <!-- 路线主线 -->
+        <polyline points="62,442 86,412 48,300 80,205 94,196 98,230 110,270 96,342 172,292" fill="none" stroke="#D9A62E" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="224,102 272,58 250,30 296,46 206,54 224,102" fill="none" stroke="#D9A62E" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- 两段硬路（警示虚线） -->
+        <polyline points="172,292 206,200" fill="none" stroke="#E0592E" stroke-width="2.6" stroke-dasharray="5 3" stroke-linecap="round"/>
+        <polyline points="206,200 224,102" fill="none" stroke="#E0592E" stroke-width="2.6" stroke-dasharray="5 3" stroke-linecap="round"/>
+        <text x="181" y="252" text-anchor="start" fill="#E0592E" font-size="5.4" font-weight="700" transform="rotate(-62 181 252)">S204 施工便道</text>
+        <text x="209" y="156" text-anchor="start" fill="#E0592E" font-size="5.4" font-weight="700" transform="rotate(-79 209 156)">S219 砂石</text>
+
+        <!-- 途经景点（小点） -->
+        <g fill="#D9A62E">
+          <circle cx="86" cy="412" r="2.4"/><circle cx="94" cy="196" r="2.4"/><circle cx="98" cy="230" r="2.4"/>
+          <circle cx="110" cy="270" r="2.4"/><circle cx="96" cy="342" r="2.4"/><circle cx="246" cy="84" r="2.4"/>
+          <circle cx="250" cy="30" r="2.4"/><circle cx="296" cy="46" r="2.4"/><circle cx="206" cy="54" r="2.4"/>
+        </g>
+        <g fill="#8ea39b" font-size="5.2">
+          <text x="92" y="410" text-anchor="start">莫尔格勒河</text>
+          <text x="100" y="191" text-anchor="start">临江屯</text>
+          <text x="104" y="232" text-anchor="start">恩和</text>
+          <text x="116" y="270" text-anchor="start">白桦林</text>
+          <text x="102" y="344" text-anchor="start">额尔古纳湿地</text>
+          <text x="246" y="97" text-anchor="middle">九曲十八弯</text>
+          <text x="250" y="22" text-anchor="middle" fill="#c9b98a">乌苏里浅滩 · 最北</text>
+          <text x="302" y="48" text-anchor="start">龙江第一湾</text>
+          <text x="198" y="56" text-anchor="end">北极村</text>
+        </g>
+
+        <!-- 落地/起飞徽标 -->
+        <text x="56" y="454" text-anchor="middle" font-size="8">✈️</text>
+        <text x="212" y="94" text-anchor="middle" font-size="8">✈️</text>
+
+        <!-- 日节点（可点击跳当天） -->
+        <g class="daynode" onclick="goDay(0)"><circle cx="62" cy="442" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="62" y="445" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">1</text>
+          <text x="74" y="437" fill="#D9A62E" font-size="5.6" font-weight="700">D1 · 9/15 ✈️落地</text><text x="74" y="445" fill="#FBF9F4" font-size="7" font-weight="700">海拉尔</text><text x="74" y="453" fill="#9fb0aa" font-size="5.2">宿 溪隐酒店</text></g>
+        <g class="daynode" onclick="goDay(1)"><circle cx="48" cy="300" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="48" y="303" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">2</text>
+          <text x="60" y="295" fill="#D9A62E" font-size="5.6" font-weight="700">D2 · 9/16</text><text x="60" y="303" fill="#FBF9F4" font-size="7" font-weight="700">黑山头</text><text x="60" y="311" fill="#9fb0aa" font-size="5.2">宿 野马无缰</text></g>
+        <g class="daynode" onclick="goDay(2)"><circle cx="80" cy="205" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="80" y="208" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">3</text>
+          <text x="68" y="199" text-anchor="end" fill="#D9A62E" font-size="5.6" font-weight="700">D3 · 9/17</text><text x="68" y="207" text-anchor="end" fill="#FBF9F4" font-size="7" font-weight="700">室韦</text><text x="68" y="215" text-anchor="end" fill="#9fb0aa" font-size="5.2">宿 巴扬宾馆</text></g>
+        <g class="daynode" onclick="goDay(3)"><circle cx="172" cy="292" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="172" y="295" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">4</text>
+          <text x="184" y="288" fill="#D9A62E" font-size="5.6" font-weight="700">D4 · 9/18</text><text x="184" y="296" fill="#FBF9F4" font-size="7" font-weight="700">根河</text><text x="184" y="304" fill="#9fb0aa" font-size="5.2">宿 林城伴山</text></g>
+        <g class="daynode" onclick="goDay(4)"><circle cx="206" cy="200" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="206" y="203" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">5</text>
+          <text x="218" y="194" fill="#D9A62E" font-size="5.6" font-weight="700">D5 · 9/19</text><text x="218" y="202" fill="#FBF9F4" font-size="7" font-weight="700">满归</text><text x="218" y="210" fill="#9fb0aa" font-size="5.2">宿 北兴宾馆</text></g>
+        <g class="daynode" onclick="goDay(5)"><circle cx="272" cy="58" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="272" y="61" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">6</text>
+          <text x="284" y="52" fill="#D9A62E" font-size="5.6" font-weight="700">D6 · 9/20</text><text x="284" y="60" fill="#FBF9F4" font-size="7" font-weight="700">北红村</text><text x="284" y="68" fill="#9fb0aa" font-size="5.2">宿 金红雪屋</text></g>
+        <g class="daynode" onclick="goDay(6)"><circle cx="224" cy="102" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="224" y="105" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">7</text>
+          <text x="236" y="106" fill="#D9A62E" font-size="5.6" font-weight="700">D7·9/21 · D8✈️起飞</text><text x="236" y="114" fill="#FBF9F4" font-size="7" font-weight="700">漠河</text><text x="236" y="122" fill="#9fb0aa" font-size="5.2">宿 麗枫酒店</text></g>
+      </svg>
+    </div>
+    <div class="map-legend">
+      <span><i style="background:#D9A62E"></i>驾车路线</span>
+      <span><i class="dash" style="background:#E0592E"></i>S204/S219 硬路</span>
+      <span><i class="dot" style="background:#B8860B"></i>过夜日节点（可点）</span>
+      <span><i class="sdot" style="background:#D9A62E"></i>途经景点</span>
+      <span>✈️ 落地 / 起飞</span>
     </div>
   </section>
 </main>
@@ -783,6 +881,28 @@ document.querySelectorAll("nav button").forEach(b=>{
     window.scrollTo({top:0,behavior:"smooth"});
   };
 });
+
+function showMap(){
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.getElementById("p-map").classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function showTrip(){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelector('nav button[data-p="trip"]').classList.add("on");
+  document.getElementById("p-trip").classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goDay(i){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelector('nav button[data-p="trip"]').classList.add("on");
+  document.getElementById("p-trip").classList.add("on");
+  const art=document.querySelector(`.day[data-i="${i}"]`);
+  if(art){art.classList.add("open");art.scrollIntoView({behavior:"smooth",block:"start"});}
+}
 
 renderStatus();renderDays();renderCk();renderDrone();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
