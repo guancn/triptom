@@ -66,6 +66,19 @@ main{padding:16px 14px 8px;max-width:720px;margin:0 auto}
 .map-legend i.dash{background-image:none;height:0;border-top:3px dashed #E0592E;width:16px}
 .map-legend i.dot{width:11px;height:11px;border-radius:50%}
 .map-legend i.sdot{width:7px;height:7px;border-radius:50%}
+.maproute{border-top:1px solid var(--forest-l);margin-top:6px;padding:10px 6px 4px}
+.maproute h4{margin:0 0 8px;font-size:13px;color:var(--gold-l)}
+.mr{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,.07);text-decoration:none;color:#FBF9F4}
+.mr:last-of-type{border-bottom:0}
+.mn{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--forest-d);font-size:12px;display:flex;align-items:center;justify-content:center}
+.mr>div{flex:1;min-width:0}
+.mt{display:flex;justify-content:space-between;font-size:12px;color:var(--gold-l)}
+.mt em{font-style:normal;color:#9fb0aa}
+.mp{font-size:14px;font-weight:600;line-height:1.45;margin-top:1px}
+.mp i{font-style:normal;color:#E0592E}
+.ms{font-size:12px;color:#9fb0aa}
+.mr.hard .mn{background:#E0592E;color:#FBF9F4}
+.mtot{font-size:12px;color:#9fb0aa;text-align:right;padding-top:6px}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 h2.sec{
   font-size:16px;color:var(--forest);margin:4px 0 12px;padding-bottom:7px;
@@ -557,6 +570,8 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
         <!-- 两段硬路（警示虚线） -->
         <polyline points="172,292 206,200" fill="none" stroke="#E0592E" stroke-width="2.6" stroke-dasharray="5 3" stroke-linecap="round"/>
         <polyline points="206,200 224,102" fill="none" stroke="#E0592E" stroke-width="2.6" stroke-dasharray="5 3" stroke-linecap="round"/>
+        <!-- 行进方向箭头 -->
+        <g fill="#FBF9F4" opacity="0.92"><polygon points="76.2,424.2 74.6,430.8 70.2,427.3"/><polygon points="65.8,352.6 70.5,357.6 65.2,359.4"/><polygon points="65.1,249.1 65.8,255.9 60.5,254.1"/><polygon points="96.4,216.6 92.9,210.7 98.5,210.1"/><polygon points="105.0,253.4 100.6,248.3 105.9,246.7"/><polygon points="102.3,309.5 100.7,302.9 106.2,304.0"/><polygon points="137.0,315.0 133.4,320.8 130.3,316.1"/><polygon points="190.2,242.6 190.7,249.4 185.5,247.5"/><polygon points="215.7,147.5 217.3,154.1 211.8,153.1"/><polygon points="250.7,77.6 248.0,83.8 244.2,79.7"/><polygon points="258.8,41.2 264.8,44.3 260.4,47.8"/><polygon points="276.4,39.2 269.6,39.8 271.5,34.5"/><polygon points="247.4,50.3 253.3,47.0 253.8,52.6"/><polygon points="216.3,81.4 211.5,76.5 216.7,74.6"/></g>
         <text x="181" y="252" text-anchor="start" fill="#E0592E" font-size="5.4" font-weight="700" transform="rotate(-62 181 252)">S204 施工便道</text>
         <text x="209" y="156" text-anchor="start" fill="#E0592E" font-size="5.4" font-weight="700" transform="rotate(-79 209 156)">S219 砂石</text>
 
@@ -598,6 +613,18 @@ footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px
         <g class="daynode" onclick="goDay(6)"><circle cx="224" cy="102" r="8.4" fill="#B8860B" stroke="#FBF9F4" stroke-width="1.4"/><text x="224" y="105" text-anchor="middle" fill="#12261F" font-size="7.2" font-weight="800">7</text>
           <text x="236" y="106" fill="#D9A62E" font-size="5.6" font-weight="700">D7·9/21 · D8✈️起飞</text><text x="236" y="114" fill="#FBF9F4" font-size="7" font-weight="700">漠河</text><text x="236" y="122" fill="#9fb0aa" font-size="5.2">宿 麗枫酒店</text></g>
       </svg>
+      <div class="maproute">
+        <h4>路线总览（按天，点一行跳到当天）</h4>
+        <a class="mr" onclick="goDay(0);return false" href="#"><b class="mn">1</b><div><div class="mt"><span>9/15 周二</span><em>10 km</em></div><div class="mp">✈️ 海拉尔机场 → 海拉尔市区</div><div class="ms">宿 溪隐酒店</div></div></a>
+        <a class="mr" onclick="goDay(1);return false" href="#"><b class="mn">2</b><div><div class="mt"><span>9/16 周三</span><em>约 190 km</em></div><div class="mp">海拉尔 → 莫尔格勒河 → 黑山头</div><div class="ms">宿 野马无缰天边民宿</div></div></a>
+        <a class="mr" onclick="goDay(2);return false" href="#"><b class="mn">3</b><div><div class="mt"><span>9/17 周四</span><em>约 165 km</em></div><div class="mp">黑山头 → X904 边境公路 → 室韦</div><div class="ms">宿 巴扬宾馆</div></div></a>
+        <a class="mr" onclick="goDay(3);return false" href="#"><b class="mn">4</b><div><div class="mt"><span>9/18 周五</span><em>约 285 km</em></div><div class="mp">室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河</div><div class="ms">宿 林城伴山酒店</div></div></a>
+        <a class="mr hard" onclick="goDay(4);return false" href="#"><b class="mn">5</b><div><div class="mt"><span>9/19 周六</span><em>约 210 km</em></div><div class="mp">根河 → <i>S204 施工便道</i> → 满归</div><div class="ms">宿 北兴宾馆</div></div></a>
+        <a class="mr hard" onclick="goDay(5);return false" href="#"><b class="mn">6</b><div><div class="mt"><span>9/20 周日</span><em>约 288 km</em></div><div class="mp">满归 → <i>S219 砂石</i> → 漠河 → 九曲十八弯 → 北红村</div><div class="ms">宿 金红雪屋农家院</div></div></a>
+        <a class="mr" onclick="goDay(6);return false" href="#"><b class="mn">7</b><div><div class="mt"><span>9/21 周一</span><em>约 200 km</em></div><div class="mp">北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村 → 漠河</div><div class="ms">宿 麗枫酒店</div></div></a>
+        <a class="mr" onclick="goDay(7);return false" href="#"><b class="mn">8</b><div><div class="mt"><span>9/22 周二</span><em>约 20 km</em></div><div class="mp">漠河市区 → 古莲机场 ✈️ 12:45 起飞</div><div class="ms">返程</div></div></a>
+        <div class="mtot">全程约 1370 km · 八天七晚</div>
+      </div>
     </div>
     <div class="map-legend">
       <span><i style="background:#D9A62E"></i>驾车路线</span>
