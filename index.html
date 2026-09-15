@@ -57,6 +57,10 @@ main{padding:16px 14px 8px;max-width:720px;margin:0 auto}
 .maphd{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .map-back{color:var(--gold);font-weight:700;text-decoration:none;font-size:13px;white-space:nowrap}
 .mapwrap{width:100%;background:var(--forest-d);border:1px solid var(--forest-l);border-radius:14px;padding:6px;overflow:hidden}
+.wxrow{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:12px;padding:8px 10px;border-radius:9px;background:#F3F1EA;border:1px solid var(--line);font-size:12.5px;color:var(--ink)}
+.wxrow .wx-d{font-weight:700}
+.wxrow .wx-hot{color:var(--red);font-weight:700}
+.wxrow .wx-src{margin-left:auto;color:var(--muted);font-size:11.5px}
 .mapstage{position:relative;border-radius:10px;overflow:hidden;background:#FBF8F2}
 .mapstage img{display:block;width:100%;height:auto}
 .mapstage svg{position:absolute;inset:0;width:100%;height:100%;touch-action:pinch-zoom}
@@ -752,6 +756,43 @@ function openMap(scheme,web){
   location.href=scheme;
 }
 
+// 日出日落为天文计算值，固定可靠；天气为 9/15 预报快照，联网时自动刷新
+const WMO={0:"晴",1:"晴到多云",2:"多云",3:"阴",45:"雾",48:"雾凇",51:"毛毛雨",53:"小雨",55:"细雨",56:"冻雨",57:"冻雨",61:"小雨",63:"中雨",65:"大雨",66:"冻雨",67:"冻雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"阵雨",81:"阵雨",82:"强阵雨",85:"阵雪",86:"阵雪",95:"雷阵雨",96:"雷阵雨",99:"雷阵雨"};
+const WX=[
+ {lat:49.2321,lon:119.8172,desc:"阴",tmin:4,tmax:17,pop:3,rise:"05:36",set:"18:14"},
+ {lat:50.2136,lon:119.5711,desc:"阴",tmin:6,tmax:22,pop:0,rise:"05:38",set:"18:14"},
+ {lat:51.3384,lon:119.9005,desc:"毛毛雨",tmin:8,tmax:20,pop:10,rise:"05:37",set:"18:11"},
+ {lat:50.7812,lon:121.5252,desc:"阵雨",tmin:6,tmax:22,pop:73,rise:"05:33",set:"18:01"},
+ {lat:52.0393,lon:122.0490,desc:"阵雨",tmin:3,tmax:8,pop:92,rise:"05:32",set:"17:58"},
+ {lat:53.5021,lon:123.0658,desc:"毛毛雨",tmin:3,tmax:11,pop:41,rise:"05:29",set:"17:52"},
+ {lat:52.9714,lon:122.5330,desc:"阴",tmin:0,tmax:8,pop:22,rise:"05:33",set:"17:51"},
+ {lat:52.9714,lon:122.5330,desc:"阴",tmin:0,tmax:7,pop:9,rise:"05:34",set:"17:49"}];
+let WXSRC="9/15 预报";
+function wxHTML(w){
+  return `<span class="wx-d">🌤 ${w.desc}</span><span>${w.tmin} ~ ${w.tmax}℃</span>`+
+    `<span class="${w.pop>=70?"wx-hot":""}">降水 ${w.pop}%${w.pop>=70?" ⚠️":""}</span>`+
+    `<span>🌅 日出 ${w.rise}</span><span>🌇 日落 ${w.set}</span><span class="wx-src">${WXSRC}</span>`;
+}
+function refreshWX(){
+  if(!navigator.onLine)return;
+  const u="https://api.open-meteo.com/v1/forecast?latitude="+WX.map(w=>w.lat).join(",")+
+    "&longitude="+WX.map(w=>w.lon).join(",")+
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset"+
+    "&timezone=Asia%2FShanghai&start_date=2026-09-15&end_date=2026-09-22";
+  fetch(u).then(r=>r.json()).then(j=>{
+    const arr=Array.isArray(j)?j:[j];
+    arr.forEach((b,i)=>{
+      const d=b&&b.daily; if(!d||!WX[i]||d.weather_code[i]==null)return;
+      WX[i].desc=WMO[d.weather_code[i]]||WX[i].desc;
+      WX[i].tmin=Math.round(d.temperature_2m_min[i]);
+      WX[i].tmax=Math.round(d.temperature_2m_max[i]);
+      WX[i].pop=Math.round(d.precipitation_probability_max[i]);
+      WX[i].rise=d.sunrise[i].slice(-5); WX[i].set=d.sunset[i].slice(-5);
+    });
+    WXSRC="刚刚更新";
+    WX.forEach((w,i)=>{const el=document.getElementById("wx-"+i);if(el)el.innerHTML=wxHTML(w);});
+  }).catch(()=>{});
+}
 function renderDays(){
   const ti=todayIdx();
   document.getElementById("days").innerHTML=DAYS.map((d,i)=>{
@@ -767,6 +808,7 @@ function renderDays(){
         <span class="chev">▶</span>
       </div>
       <div class="day-b">
+        ${WX[i]?`<div class="wxrow" id="wx-${i}">${wxHTML(WX[i])}</div>`:""}
         ${d.warn?`<div class="alert warn" style="margin-top:12px;margin-bottom:0">${d.warn}</div>`:""}
         ${d.alert?`<div class="alert gold" style="margin-top:12px;margin-bottom:0">${d.alert}</div>`:""}
         <ul>${d.items.map(x=>"<li>"+x+"</li>").join("")}</ul>
@@ -867,7 +909,7 @@ function goDay(i){
   if(art){art.classList.add("open");art.scrollIntoView({behavior:"smooth",block:"start"});}
 }
 
-renderStatus();renderDays();renderCk();renderDrone();
+renderStatus();renderDays();renderCk();renderDrone();refreshWX();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
