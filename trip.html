@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1F4037">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="北疆2026">
+<title>呼伦贝尔·漠河自驾 2026 V2 | 行程手册</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --forest:#1F4037; --forest-d:#12261F; --forest-l:#2F5D4E;
+  --gold:#B8860B; --gold-l:#D9A62E; --paper:#FBF9F4;
+  --ink:#23282b; --muted:#6B7078; --line:#E6E1D6; --red:#A63A2E;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--paper); color:var(--ink); line-height:1.7; font-size:15px;
+  padding-bottom:calc(64px + var(--safe-b));
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+/* ---------- Header ---------- */
+header{
+  background:linear-gradient(155deg,var(--forest-d),var(--forest) 55%,var(--forest-l));
+  color:#fff; padding:22px 18px 16px; position:relative; overflow:hidden;
+}
+header::after{
+  content:"";position:absolute;inset:auto 0 -30px 0;height:110px;
+  background:radial-gradient(ellipse at 25% 100%,rgba(217,166,46,.30),transparent 62%),
+             radial-gradient(ellipse at 85% 95%,rgba(184,134,11,.22),transparent 58%);
+}
+.h-in{position:relative;z-index:2}
+.h-kick{font-size:10px;letter-spacing:.38em;color:var(--gold-l);font-weight:700;margin-bottom:8px}
+h1{margin:0;font-size:23px;font-weight:700;letter-spacing:.02em;line-height:1.35}
+.h-sub{font-size:12.5px;color:#B9CCC0;margin-top:6px;letter-spacing:.06em}
+.status{
+  margin-top:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:11px;
+  backdrop-filter:blur(6px);
+}
+.status .big{font-size:25px;font-weight:800;color:var(--gold-l);line-height:1}
+.status .txt{font-size:12.5px;color:#D8E4DC;line-height:1.5}
+.status .txt b{color:#fff;display:block;font-size:14px;margin-bottom:1px}
+
+/* ---------- Sections ---------- */
+main{padding:16px 14px 8px;max-width:720px;margin:0 auto}
+.page{display:none;animation:fade .22s ease}
+.page.on{display:block}
+.maplink{display:inline-block;margin:2px 0 8px;color:var(--gold);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--gold-l)}
+.maphd{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.map-back{color:var(--gold);font-weight:700;text-decoration:none;font-size:13px;white-space:nowrap}
+.mapwrap{width:100%;background:var(--forest-d);border:1px solid var(--forest-l);border-radius:14px;padding:6px;overflow:hidden}
+.wxrow{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:12px;padding:8px 10px;border-radius:9px;background:#F3F1EA;border:1px solid var(--line);font-size:12.5px;color:var(--ink)}
+.wxrow .wx-d{font-weight:700}
+.wxrow .wx-hot{color:var(--red);font-weight:700}
+.wxrow .wx-src{margin-left:auto;color:var(--muted);font-size:11.5px}
+.mapstage{position:relative;border-radius:10px;overflow:hidden;background:#FBF8F2}
+.mapstage img{display:block;width:100%;height:auto}
+.mapstage svg{position:absolute;inset:0;width:100%;height:100%;touch-action:pinch-zoom}
+.daynode{cursor:pointer}
+.daynode:active circle{fill:var(--gold-l)}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--muted)}
+.map-legend span{display:inline-flex;align-items:center;gap:5px}
+.map-legend i{width:16px;height:3px;border-radius:2px;display:inline-block}
+.map-legend i.dash{background-image:none;height:0;border-top:3px dashed #D23B2A;width:16px}
+.map-legend i.dot{width:11px;height:11px;border-radius:50%}
+.map-legend i.sdot{width:7px;height:7px;border-radius:50%}
+.maproute{border-top:1px solid var(--forest-l);margin-top:6px;padding:10px 6px 4px}
+.maproute h4{margin:0 0 8px;font-size:13px;color:var(--gold-l)}
+.mr{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,.07);text-decoration:none;color:#FBF9F4}
+.mr:last-of-type{border-bottom:0}
+.mn{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--forest-d);font-size:12px;display:flex;align-items:center;justify-content:center}
+.mr>div{flex:1;min-width:0}
+.mt{display:flex;justify-content:space-between;font-size:12px;color:var(--gold-l)}
+.mt em{font-style:normal;color:#9fb0aa}
+.mp{font-size:14px;font-weight:600;line-height:1.45;margin-top:1px}
+.mp i{font-style:normal;color:#E0592E}
+.ms{font-size:12px;color:#9fb0aa}
+.mr.hard .mn{background:#E0592E;color:#FBF9F4}
+.mtot{font-size:12px;color:#9fb0aa;text-align:right;padding-top:6px}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{
+  font-size:16px;color:var(--forest);margin:4px 0 12px;padding-bottom:7px;
+  border-bottom:2px solid var(--gold);letter-spacing:.03em;display:flex;align-items:center;gap:8px;
+}
+h2.sec span.i{font-size:17px}
+
+/* ---------- Day cards ---------- */
+.day{
+  background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:11px;margin-bottom:11px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(31,64,55,.05);transition:border-color .2s;
+}
+.day.today{border-left-color:var(--red);box-shadow:0 2px 12px rgba(166,58,46,.14)}
+.day.hero{border-left-color:var(--forest)}
+.day-h{padding:13px 15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.dno{
+  background:var(--forest);color:#fff;font-size:13px;font-weight:800;
+  padding:3px 9px;border-radius:6px;letter-spacing:.03em;flex-shrink:0;
+}
+.day.today .dno{background:var(--red)}
+.d-tt{flex:1;min-width:0}
+.d-tt .t{font-size:15px;font-weight:700;color:var(--forest);line-height:1.4}
+.d-tt .m{font-size:11.5px;color:var(--muted);margin-top:2px}
+.chev{color:var(--muted);font-size:12px;transition:transform .25s;flex-shrink:0}
+.day.open .chev{transform:rotate(90deg)}
+.day-b{display:none;padding:0 15px 14px;border-top:1px dashed var(--line)}
+.day.open .day-b{display:block}
+.day-b ul{margin:11px 0;padding-left:17px}
+.day-b li{margin-bottom:6px;font-size:14px}
+.day-b li::marker{color:var(--gold)}
+.day-b ul ul{margin:5px 0;font-size:13px;color:#4A5055}
+
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.tag{
+  font-size:11px;padding:3px 9px;border-radius:20px;
+  background:#F1F0E9;color:var(--forest);border:1px solid var(--line);white-space:nowrap;
+}
+.tag.gold{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
+.tag.red{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
+
+/* 风景评级 */
+.view{
+  display:flex;gap:9px;align-items:flex-start;border-radius:9px;
+  padding:9px 12px;margin-top:9px;font-size:12.5px;line-height:1.6;
+  background:#F6F3E8;border:1px solid #E4DCC2;color:#5F4E1F;
+}
+.view .vl{font-weight:800;white-space:nowrap;flex-shrink:0}
+.stars{color:#B8860B;letter-spacing:1px;font-size:11px}
+.vbadge{
+  font-size:10.5px;padding:2px 6px;border-radius:5px;font-weight:700;
+  white-space:nowrap;flex-shrink:0;background:#FBF3DE;border:1px solid #E8D5A0;color:#8A6508;
+}
+/* 无人机判定 */
+.drone{
+  display:flex;gap:9px;align-items:flex-start;border-radius:9px;
+  padding:9px 12px;margin-top:11px;font-size:12.5px;line-height:1.6;border:1px solid;
+}
+.drone .dl{font-weight:800;white-space:nowrap;flex-shrink:0}
+.drone.no{background:#FDF3F1;border-color:#EFC9C1;color:#7A2C22}
+.drone.warn{background:#FDF8EC;border-color:#E8D5A0;color:#6E5106}
+.drone.ok{background:#F1F7F2;border-color:#C6DCCB;color:#1F4037}
+.dbadge{
+  font-size:10.5px;padding:2px 7px;border-radius:5px;font-weight:700;
+  white-space:nowrap;flex-shrink:0;border:1px solid;
+}
+.dbadge.no{background:#FBECE9;border-color:#EFC9C1;color:var(--red)}
+.dbadge.warn{background:#FBF3DE;border-color:#E8D5A0;color:#8A6508}
+.dbadge.ok{background:#EAF3EC;border-color:#C6DCCB;color:var(--forest)}
+
+.stay{
+  background:#F7F5EF;border-radius:8px;padding:9px 12px;margin-top:11px;font-size:13px;
+}
+.stay b{color:var(--forest);font-size:11px;letter-spacing:.1em;display:block;margin-bottom:2px}
+
+/* ---------- 导航条目 ---------- */
+.navlist{margin-top:11px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.navitem{display:flex;align-items:center;padding:9px 12px;gap:8px;border-bottom:1px solid var(--line)}
+.navitem:last-child{border-bottom:none}
+.navlabel{flex:1;font-size:13px;color:var(--ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navbtns{display:flex;gap:5px;flex-shrink:0}
+.nbtn{font-size:11.5px;padding:5px 11px;border-radius:6px;text-decoration:none;font-weight:600;white-space:nowrap;cursor:pointer;border:1.5px solid;background:transparent}
+.nbtn.am{border-color:#0D9E5F;color:#0D9E5F}
+.nbtn.bd{border-color:#2F54EB;color:#2F54EB}
+.hotel-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.hbtn{text-align:center;text-decoration:none;border-radius:9px;padding:10px 6px;font-size:13px;font-weight:700;border:none;display:block;cursor:pointer}
+.hbtn.am{background:#0D9E5F;color:#fff}
+.hbtn.bd{background:#2F54EB;color:#fff}
+
+/* ---------- Alerts ---------- */
+.alert{
+  border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13.5px;
+  border:1px solid; line-height:1.65;
+}
+.alert.warn{background:#FDF3F1;border-color:#EFC9C1;color:#7A2C22}
+.alert.info{background:#F1F7F2;border-color:#C6DCCB;color:#1F4037}
+.alert.gold{background:#FDF8EC;border-color:#E8D5A0;color:#6E5106}
+.alert h4{margin:0 0 5px;font-size:14.5px;font-weight:800}
+.alert p{margin:0 0 6px}
+.alert p:last-child{margin-bottom:0}
+.alert .src{font-size:11px;opacity:.72;border-top:1px dashed currentColor;padding-top:6px;margin-top:8px}
+
+/* ---------- Buttons ---------- */
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.btn{
+  min-width:0;text-align:center;text-decoration:none;
+  background:var(--forest);color:#fff;border-radius:9px;padding:10px 6px;
+  font-size:12.5px;font-weight:600;border:none;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.btn:active{opacity:.75}
+.btn.g{background:var(--gold)}
+.btn.o{background:#fff;color:var(--forest);border:1.5px solid var(--forest)}
+.btn.r{background:var(--red)}
+
+/* 应急拨号 */
+.calls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.call{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 12px;
+  text-decoration:none;display:block;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.call:active{background:#F7F5EF}
+.call .n{font-size:21px;font-weight:800;color:var(--red);letter-spacing:.02em}
+.call .l{font-size:12px;color:var(--muted);margin-top:3px}
+.call.g .n{color:var(--forest)}
+
+/* ---------- Checklist ---------- */
+.ck-group{margin-bottom:18px}
+.ck-group h3{
+  font-size:13.5px;color:var(--forest);margin:0 0 8px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.ck-group h3 .cnt{font-size:11px;color:var(--muted);font-weight:500}
+.ck{
+  display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:9px;padding:11px 13px;margin-bottom:7px;cursor:pointer;font-size:14px;
+}
+.ck input{
+  appearance:none;width:19px;height:19px;border:2px solid var(--line);border-radius:5px;
+  margin:2px 0 0;flex-shrink:0;position:relative;background:#fff;
+}
+.ck input:checked{background:var(--forest);border-color:var(--forest)}
+.ck input:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+.ck.done{opacity:.5}
+.ck.done .lb{text-decoration:line-through}
+.lb{flex:1;line-height:1.55}
+.lb small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.reset{
+  width:100%;background:none;border:1px solid var(--line);color:var(--muted);
+  border-radius:9px;padding:11px;font-size:13px;margin-top:4px;
+}
+
+/* ---------- Info blocks ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px 15px;margin-bottom:12px}
+.card h3{margin:0 0 9px;font-size:14.5px;color:var(--forest);font-weight:700}
+.card p{margin:0 0 7px;font-size:13.5px}
+.card p:last-child{margin-bottom:0}
+.card ol,.card ul{margin:8px 0 0;padding-left:18px;font-size:13.5px}
+.card li{margin-bottom:5px}
+.kv{display:flex;font-size:13px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.kv:last-child{border:none}
+.kv .k{width:96px;color:var(--muted);flex-shrink:0}
+.kv .v{flex:1}
+mark{background:linear-gradient(transparent 56%,#F5E3B0 56%);color:inherit;padding:0 1px}
+strong{color:var(--forest)}
+
+/* ---------- Bottom nav ---------- */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);display:flex;
+  padding-bottom:var(--safe-b);
+}
+nav button{
+  flex:1;background:none;border:none;padding:9px 2px 8px;
+  font-size:10.5px;color:var(--muted);font-family:inherit;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+nav button .ic{font-size:19px;line-height:1;filter:grayscale(1) opacity(.55)}
+nav button.on{color:var(--forest);font-weight:700}
+nav button.on .ic{filter:none}
+footer{text-align:center;font-size:11px;color:var(--muted);padding:18px 14px 6px;line-height:1.8}
+</style>
+</head>
+<body>
+<div style="background:#B8860B;color:#fff;text-align:center;font-size:13px;padding:8px 14px;line-height:1.5">这是出行时使用的<b>存档版本</b>，内容保留原样 · <a href="./" style="color:#fff;font-weight:700">查看分享版 →</a></div>
+
+<header>
+  <div class="h-in">
+    <div class="h-kick">Y U A N · N O R T H　2 0 2 6　V 2</div>
+    <h1>呼伦贝尔 · 漠河<br>边境自驾</h1>
+    <div class="h-sub">9 月 15 日 — 22 日 ｜ 八天七晚 ｜ 3 人 · 1 辆 SUV ｜ 约 1350 km ｜ ✅ 已完成</div>
+    <div class="status" id="status"></div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 行程 ============ -->
+  <section class="page on" id="p-trip">
+    <h2 class="sec"><span class="i">🗺</span>逐日行程</h2>
+    <div class="alert gold" style="margin-bottom:14px">
+      <h4>✅ 旅程已于 9 月 22 日顺利完成</h4>
+      <p>以下为<b>实际走过的行程</b>。与原计划唯一的不同：S204 实际非常好走、没有走施工便道，D5 从根河一天直达漠河、不再住满归；D6 改为从漠河出发去北红村。</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--gold);margin-bottom:14px">
+      <h3>🍁 哪几天风景最美</h3>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D5</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>大兴安岭秋色最浓</b><div style="font-size:12.5px;margin-top:2px">S204 接漠满公路，一整天穿越腹地原始林，金黄落叶松 + 白桦 + 墨绿樟子松。<b>实际 S204 很好走，未走施工便道</b>。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D3</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>全程综合最美</b><div style="font-size:12.5px;margin-top:2px">X904「中国最美边境公路」，165 km 沿界河，一侧俄罗斯、一侧金黄丘陵草原。属草原风光，非森林秋色。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--forest)">D7</b></div>
+        <div class="v"><span class="stars">★★★★★</span> <b>单点最震撼</b><div style="font-size:12.5px;margin-top:2px">龙江第一湾 998 级台阶俯瞰 Ω 形江湾，官方描述秋日「山色斑斓」，全程最出片的单一机位。</div></div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--muted)">D4</b></div>
+        <div class="v"><span class="stars">★★★★☆</span> 白桦林 + 额尔古纳湿地——<b>大兴安岭秋色正式开场</b>，白桦是「兴安秋色铁三角」中最上镜的一员</div>
+      </div>
+      <div class="kv" style="align-items:flex-start">
+        <div class="k" style="width:auto;min-width:38px"><b style="color:var(--muted)">D6</b></div>
+        <div class="v"><span class="stars">★★★★☆</span> 漠河 → 北红村，沿途<b>九曲十八弯</b>湿地观景台，入住中国最北的村庄</div>
+      </div>
+      <p style="margin-top:10px;font-size:12px;color:var(--muted)">
+        <b>9/16–9/23 正踩在窗口上</b>：大兴安岭秋季短暂，从 9 月初初秋到 9 月底深秋约一个月，9 月中下旬为峰值。国庆后叶大量掉落。
+      </p>
+    </div>
+
+    <div id="days"></div>
+    <div class="alert info" style="margin-top:14px">
+      <h4>路线总览</h4>
+      <p><a class="maplink" onclick="showMap();return false" href="#">🗺 查看全程地图总览 →</a></p>
+      <p>海拉尔 → 莫尔格勒河 → 黑山头 → X904 边境公路 → 室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河 → 满归 → 漠河 → 北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村 → 漠河</p>
+      <p style="margin-top:6px;font-size:12.5px;opacity:.85">点击每一天可展开详情。当天会自动标红置顶。</p>
+    </div>
+  </section>
+
+  <!-- ============ 路况 ============ -->
+  <section class="page" id="p-road">
+    <h2 class="sec"><span class="i">⚠️</span>路况与提醒</h2>
+
+    <div class="alert info" style="border-width:2px">
+      <h4>✅ 实际路况（9/19 实地走过）</h4>
+      <p><b>S204 根河—满归全程非常好走，没有走施工便道。</b>这与 4 月、8 月的官方施工通报不符，通报明显滞后于实际路况。下方是出发前依据官方通报做的预案，保留作参考。</p>
+    </div>
+
+    <div class="alert warn" style="border-width:2px">
+      <h4>🚙 SUV 通过性良好——两段硬路面均可正常行驶</h4>
+      <p>7 座 SUV 离地间隙约 <b>200 mm</b>，远优于 MPV（143–147 mm），可从容应对本行程两段硬路：</p>
+      <p>· <b>D5 S204 施工便道 210 km</b>——7 座桥同时拆建，便道 + 冻土波浪路<br>
+      · <b>D6 S219 漠满线</b>——部分砂石路段</p>
+      <p>当地班车和普通轿车都在跑，SUV 通过无压力。但仍需：<b>减速慢行（波浪路段 20–30 km/h）、避开深坑、出发前确认备胎完好</b>。</p>
+    </div>
+
+    <div class="alert warn">
+      <h4>⛔ S204 满归—根河段封闭施工，便道通行</h4>
+      <p>满西大桥等 <b>7 座危桥同时拆除重建</b>，桥位从 K12+169 排到 K103+578，<mark>封闭至 2026 年 10 月 30 日，全段封闭施工、利用便道通行</mark>。我们 9 月 20 日（D4）通过，正在施工期内。</p>
+      <p>6 月曾因汛期洪水冲毁临时便道而紧急封闭加固——<b>这条便道雨后会断</b>。</p>
+      <p style="margin-top:8px"><b>D4 出发前一天务必拨 12328 核实通行状态。</b></p>
+      <div class="src">来源：根河市交通运输局 2026-04-08 封闭施工公告、2026-06-16 应急抢险公告</div>
+    </div>
+
+    <div class="alert warn">
+      <h4>⛔ 绕行的莫尔道嘎方向同样封闭</h4>
+      <p>S302 金河至莫尔道嘎 K0+000–K18+200 段封闭至 10 月 30 日，官方绕行路线是「金河→S204→根河→X325→莫尔道嘎」——<mark>绕一圈还是要走那条施工便道</mark>。莫尔道嘎森林公园本次放弃。</p>
+    </div>
+
+    <div class="card">
+      <h3>☎️ D5 出发前（9/19 晚）：S204 怎么问、怎么办</h3>
+      <p><b>最可靠的信息源不是热线，是根河当地人。</b>D4 傍晚你们就住根河——办入住时问老板、加油站或跑运输的司机「明天去满归好走吗」，比打电话准。<mark>根河到满归的长途客运班车今天正常发，路就是通的</mark>，这是最硬的指标。</p>
+      <p style="margin-top:9px"><b>打 12328 要这么问</b>（别问「通不通」）：</p>
+      <p style="background:#F7F5EF;border-radius:7px;padding:9px 11px;font-size:12.5px;margin-top:5px">
+        「省道 204 线满归至根河段，危桥改造施工路段，<b>9 月 20 日上午小型客车能否通行</b>？便道是<b>全天通行还是限时放行</b>？大概要走多久？」
+      </p>
+      <p style="margin-top:8px;font-size:12.5px">三个追问决定出发时间：<b>有无单向放行时段</b>、<b>大车管制时间</b>、<b>预计通过耗时</b>。记下答复时间和工号。</p>
+    </div>
+
+    <div class="alert info">
+      <h4>✅ 若答复「通行」（大概率）</h4>
+      <p>按原计划 <b>07:00 出发</b>。这通电话的真正价值是问出<b>限时放行时段</b>——据此把出发时间提前或推后一小时。出发前加满油、备足水和食物。</p>
+    </div>
+
+    <div class="alert gold">
+      <h4>⏸ 若答复「临时封闭」——先看时长</h4>
+      <p>历史先例是好消息：<b>6 月那次应急抢险，封闭时间是 6 月 16 日 18 时到 17 日 0 时，只有 6 小时</b>。且那是汛期洪水所致，<mark>9 月中下旬已过汛期，风险显著低于夏季</mark>。</p>
+      <p style="margin-top:8px"><b>短时封闭（几小时）</b>——不要硬等在路上。在根河多待半天，下午再走，晚一点到满归即可。<b>8 天方案在这里有整整半天的缓冲</b>，这是 7 天方案没有的。</p>
+      <p>若整天封闭，D5 留宿根河、次日再走，把 D6 改为「满归→漠河」直接住漠河，D7 再跑北红村片区，仍能保住 D8 航班。</p>
+    </div>
+
+    <div class="alert warn">
+      <h4>⛔ 若答复「多日中断」——说实话，没有好办法</h4>
+      <p><b>没有合理的自驾绕行方案。</b>S302 莫尔道嘎方向也封着，官方绕行还是回到 S204；退回漠河经加格达奇兜到海拉尔要多跑一千多公里，两天都不够。</p>
+      <p>现实做法：<b>留在呼伦贝尔</b>，改成草原深度游，从海拉尔飞走——但你们的返程票在漠河，须立即改签，<b>这是反向行程特有的风险</b>。</p>
+      <p style="margin-top:8px"><b>所以订车时就要问清一句：万一行程变更，能否把还车点从海拉尔改回漠河、怎么收费。</b>现在问是免费的，真出事时它就是唯一退路。</p>
+    </div>
+
+    <div class="alert warn">
+      <h4>🚧 万一走到一半被拦</h4>
+      <p>服从现场指挥、原地等待放行，两车保持在一起。<b>绝对不要试图绕便道走林间小路</b>——防火期内进林区本身违规，而且没信号、没救援。</p>
+    </div>
+
+    <div class="card">
+      <h3>⛽ 两处强制加满点</h3>
+      <div class="kv"><div class="k">D3 黑山头</div><div class="v">X904 边境公路 <b>150+ km 全程无加油站</b></div></div>
+      <div class="kv"><div class="k">D5 根河</div><div class="v">S204 便道段之前<b>最后一个加油站</b>，之后 210 km 无补给</div></div>
+      <div class="kv"><div class="k">D6 漠河</div><div class="v">进北红村前最后一个像样的补给点</div></div>
+      <p style="margin-top:9px;font-size:12.5px;color:var(--muted)">两车一起加，绝不分开行动。</p>
+    </div>
+
+    <div class="alert gold">
+      <h4>🌲 秋季森林防火期 9/15 – 11/15</h4>
+      <p><b>9/16 出发，全程都在防火期内</b>（大兴安岭地区 2026 年森林防火命令）。防火区内<b>禁止烧荒、吸烟、野炊、燃放烟花爆竹</b>，入山人员车辆须接受防火检查。<mark>篝火晚会、野外烧烤一律取消。</mark></p>
+      <p>发现火情立即拨 <b>12119</b>。</p>
+    </div>
+
+    <div class="alert warn">
+      <h4>🌇 天黑比夏天早 1.5 小时</h4>
+      <p>9 月下旬 <b>17:30 前后日落</b>，林区路 16:30 已明显昏暗。长途段一律 <b>07:00–07:30 出发、17:00 前抵达</b>。</p>
+      <p><b>严禁跑夜路</b>——狍子、野猪横穿是真实风险。</p>
+    </div>
+
+    <div class="card">
+      <h3>🚗 单车出行 · 注意事项</h3>
+      <ol>
+        <li><b>没有僚车支援</b>——单车在 S204 便道和 X904 无信号路段抛锚，只能等救援。<b>搭电线、拖车绳、气泵、补胎胶条必带</b></li>
+        <li><b>至少 2 人能开</b>，D5 便道日、D6 砂石路日务必轮换</li>
+        <li>出发前确认<b>备胎完好、随车工具齐全</b></li>
+        <li><b>不跑夜路</b>——单车夜间在林区抛锚，救援时间显著拉长</li>
+        <li>每天出发前把路线和预计抵达时间告知家人，抵达后报平安</li>
+      </ol>
+    </div>
+
+    <div class="alert info">
+      <h4>🛂 边防证：本线路无需办理</h4>
+      <p><b>实测确认：12367 小程序目前只开放新疆、西藏两地申领</b>，无内蒙古、黑龙江选项。</p>
+      <p>执行口径上，国内游客走呼伦贝尔常规环线（海拉尔—额尔古纳—室韦—黑山头）不强制办证；漠河北极村、北红村、乌苏里浅滩历来<mark>凭身份证通行</mark>。</p>
+      <p><b>真正的硬门槛是身份证原件，6 人一个都不能少。</b></p>
+    </div>
+
+    <h2 class="sec" style="margin-top:22px"><span class="i">🚁</span>无人机：逐日许可</h2>
+
+    <div class="alert warn">
+      <h4>先说结论：这条线不建议带无人机</h4>
+      <p>八天里<b>五天完全禁飞</b>（D1、D3、D6、D7、D8），另外三天需现场确认。<mark>而风景最好的 D3 边境公路，恰恰是一点都不能飞的</mark>。带上它的实际收益很低，风险却是设备没收。</p>
+    </div>
+
+    <div class="card">
+      <h3>📋 逐日判定</h3>
+      <div id="dronetable"></div>
+      <p style="margin-top:10px;font-size:12px;color:var(--muted)">
+        判定依据地理位置与边境距离推算，<b>边境敏感区的禁飞范围不完全公开在大疆地图上</b>，边防部门有独立管理权。凡标「需确认」的，起飞前务必现场问景区或边防。
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>⚖️ 法规依据（2026 年已收紧）</h3>
+      <p><b>《无人驾驶航空器飞行管理暂行条例》</b>（2024-01-01 施行）第 19 条：<mark>国界线、实际控制线、边境线向我方一侧一定范围的区域上方，划设为管制空域</mark>；机场及周边、真高 120 米以上同属管制空域。管制空域外才是微型/轻型/小型的适飞空域，适飞空域内飞行免申请。</p>
+      <p style="margin-top:8px"><b>2026 年 1 月 1 日起，新修订的《治安管理处罚法》施行，首次把无人机「黑飞」明列为妨害公共安全的行为</b>——这是今年的新变化，比往年更严。</p>
+      <p style="margin-top:8px"><b>罚则</b>：未经批准在管制空域飞行，公安可处 500 元以下罚款；情节严重的<b>没收无人机</b>并处 1000–10000 元罚款。在边境一线违规，还可能牵涉涉外事件。</p>
+    </div>
+
+    <div class="card">
+      <h3>✅ 若仍要带，出发前必做</h3>
+      <ol>
+        <li><b>实名登记</b>——在民航局 UOM 平台完成登记并激活，这是法定要求</li>
+        <li><b>查禁飞地图</b>——DJI FlySafe（<span style="word-break:break-all">fly-safe.dji.com/nfz/nfz-query</span>），但<b>别把它当免责依据</b>，边境敏感区未必标注</li>
+        <li><b>现场问一句</b>——景区售票口、边防执勤人员，问了再飞</li>
+        <li><b>真高 120 米以下</b>、目视范围内、不飞人群上空</li>
+      </ol>
+    </div>
+
+    <div class="alert warn">
+      <h4>🚫 无论在哪，这几条绝对不碰</h4>
+      <p><b>不拍边境哨所、界碑铁丝网、军事设施、边防人员</b>；不越过界河中心线（哪怕图传显示还在我方）；不在机场净空区起飞。</p>
+      <p>另外：边境地区手机会漫游到俄罗斯网络，<b>无人机图传与 GPS 同样可能受干扰</b>，炸机或失控飘向对岸的后果远超设备本身价值。</p>
+    </div>
+
+    <div class="card">
+      <h3>🚫 边境线红线</h3>
+      <ul>
+        <li><b>不越界</b>——室韦、黑山头、乌苏里浅滩听从执勤指引</li>
+        <li><b>禁飞无人机</b>——边境管制区，别抱侥幸</li>
+        <li><b>不碾压草原</b>——只在硬化路边停车，牧民索赔 500–2000 元</li>
+        <li><b>关闭数据漫游</b>——边境公路手机会漫游到俄罗斯网络</li>
+        <li>X904 限速 60–80，<b>区间测速密集</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 清单 ============ -->
+  <section class="page" id="p-pack">
+    <h2 class="sec"><span class="i">✅</span>清单（可勾选）</h2>
+    <div class="alert gold" style="font-size:12.5px">
+      勾选状态保存在本机浏览器，关掉页面也不会丢。六个人各自勾各自的。
+    </div>
+    <div id="checklists"></div>
+    <button class="reset" onclick="resetCk()">清空所有勾选</button>
+  </section>
+
+  <!-- ============ 应急 ============ -->
+  <section class="page" id="p-sos">
+    <h2 class="sec"><span class="i">🆘</span>应急与实用</h2>
+    <div class="calls">
+      <a class="call" href="tel:110"><div class="n">110</div><div class="l">报警</div></a>
+      <a class="call" href="tel:120"><div class="n">120</div><div class="l">急救</div></a>
+      <a class="call" href="tel:122"><div class="n">122</div><div class="l">交通事故</div></a>
+      <a class="call" href="tel:12119"><div class="n">12119</div><div class="l">森林火警</div></a>
+      <a class="call g" href="tel:12328"><div class="n">12328</div><div class="l">路况咨询</div></a>
+      <a class="call g" href="tel:12367"><div class="n">12367</div><div class="l">出入境咨询</div></a>
+    </div>
+
+    <div class="card">
+      <h3>📞 出发前要打的电话</h3>
+      <div class="kv"><div class="k">9/18</div><div class="v"><b>12328</b> 核实 S204 便道通行状态（D5 前一天）</div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">租车门店确认<b>跨省异地还车</b>可行性与总价（两辆车）</div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">黑山头住宿确认 <b>9 月下旬是否营业、有无供暖</b></div></div>
+      <div class="kv"><div class="k">行前</div><div class="v">北红村、室韦民宿确认<b>供暖</b>与独立卫浴</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🌡 天气与穿着</h3>
+      <p>9 月下旬漠河白天 <b>10–15℃</b>，<mark>夜间接近 0℃</mark>，部分年份月底初雪霜冻；草原早晚 0–15℃。</p>
+      <p><b>三层叠穿</b>：速干打底 + 抓绒 + 轻羽绒服。手套、毛线帽、围脖必带。</p>
+      <p>鞋要防水防滑——998 级台阶、湿地木栈道、可能的霜冻路面。</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--gold)">
+      <h3>💰 3 人（含机票）</h3>
+      <div class="kv"><div class="k">租车</div><div class="v"><b>6,100 元</b>（SUV，含保险 + 跨省还车费，全包）<small style="color:var(--muted)">已确认 · 摊 2,033/人</small></div></div>
+      <div class="kv"><div class="k">油费路费</div><div class="v">1,200 – 1,600 元</div></div>
+      <div class="kv"><div class="k">住宿 7 晚</div><div class="v"><b>6,000 元</b>（3,000/间 × 2 间，7 晚合计）<small style="color:var(--muted)">已确认 · 摊 2,000/人</small></div></div>
+      <div class="kv"><div class="k">门票</div><div class="v">约 1,200 元（400/人）</div></div>
+      <div class="kv"><div class="k">骑马</div><div class="v">约 600 元</div></div>
+      <div class="kv"><div class="k">餐饮</div><div class="v">2,400 – 3,200 元</div></div>
+      <div class="kv"><div class="k">小计</div><div class="v">1.75 – 1.87 万元<small style="color:var(--muted)">地面费用</small></div></div>
+      <div class="kv"><div class="k">机票</div><div class="v"><b>约 8,100 元</b>（中转联程 约 2,700/人 × 3）<small style="color:var(--muted)">待出票确认</small></div></div>
+      <div class="kv"><div class="k"><b>合计</b></div><div class="v"><b>约 2.5 – 2.7 万元</b></div></div>
+      <div class="kv"><div class="k">人均</div><div class="v"><b>约 8,500 – 9,000 元</b></div></div>
+      <div class="kv"><div class="k"><small style="color:var(--muted)">说明</small></div><div class="v"><small style="color:var(--muted)">住宿已确认 6,000 元（2 间），SUV 6,100 元；住宿+租车合计 12,100 元</small></div></div>
+    </div>
+
+    
+    </div>
+
+    <div class="card">
+      <h3>🎫 门票速查</h3>
+      <div class="kv"><div class="k">北极村</div><div class="v">88 元<small style="color:var(--muted)">（2025 年已从 68 元上调）</small></div></div>
+      <div class="kv"><div class="k">龙江第一湾</div><div class="v">+ 乌苏里浅滩联票 约 50 元</div></div>
+      <div class="kv"><div class="k">额尔古纳湿地</div><div class="v">约 65 元（含电瓶车）</div></div>
+      <div class="kv"><div class="k">白桦林</div><div class="v">约 50 元 · 16:00 停止售票</div></div>
+      <div class="kv"><div class="k">莫尔格勒河</div><div class="v">约 80 元 · <b>须提前 7 天预约</b></div></div>
+      <div class="kv"><div class="k">黑山头骑马</div><div class="v">约 100 元 / 小时</div></div>
+    </div>
+
+    <div class="alert info">
+      <h4>📴 离线可用</h4>
+      <p>这个页面已缓存到手机，<b>林区没信号也能打开</b>。建议在 Safari / 浏览器里选「添加到主屏幕」，用起来跟 App 一样。</p>
+      <p>但导航按钮需要网络——<b>务必另外下载高德或百度的离线地图</b>。</p>
+    </div>
+  </section>
+
+  <!-- ============ 全程地图总览 ============ -->
+  <section class="page" id="p-map">
+    <div class="maphd">
+      <h2 class="sec" style="margin:0"><span class="i">🗺</span>全程地图总览</h2>
+      <a class="map-back" onclick="showTrip();return false" href="#">← 返回行程</a>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">底图 © 高德地图 · 路线按实际道路绘制 · 双指可放大 · <b>点日节点直接跳到当天详情</b></p>
+    <div class="mapwrap">
+      <div class="mapstage"><img src="map-base.jpg" width="1600" height="2401" alt="呼伦贝尔至漠河地图底图"><svg class="mapsvg" viewBox="0 0 1600 2401" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="呼伦贝尔-漠河自驾全程路线图"><defs><filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="28"/></filter></defs><polygon points="627,311 844,275 1061,187 1309,150 1463,182 1711,337 1742,2550 782,2550 612,2172 534,1764 504,1348 550,899" fill="#2E7D32" opacity=".13" filter="url(#soft)"/><text x="1432" y="974" font-size="104" font-weight="800" fill="#1B5E20" opacity=".5" text-anchor="middle" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">大</text><text x="1410" y="1102" font-size="104" font-weight="800" fill="#1B5E20" opacity=".5" text-anchor="middle" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">兴</text><text x="1388" y="1230" font-size="104" font-weight="800" fill="#1B5E20" opacity=".5" text-anchor="middle" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">安</text><text x="1366" y="1358" font-size="104" font-weight="800" fill="#1B5E20" opacity=".5" text-anchor="middle" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">岭</text><text x="1392" y="1466" font-size="36" font-weight="700" fill="#2E6B32" text-anchor="middle" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">林区（范围示意）</text><polyline points="292,2300 294,2302 278,2302 277,2293 265,2292 266,2276 253,2209 252,2196 257,2192 252,2196 247,2175 260,2130 275,2104 294,2080 309,2051 334,2016 344,1992 359,1977 372,1955 376,1943 407,1896 414,1865 402,1834 403,1826 398,1826 394,1818 350,1842 334,1845 330,1852 315,1857 302,1855 289,1850 276,1849 265,1843 260,1836 251,1833 244,1833 224,1828 216,1830" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="292,2300 294,2302 278,2302 277,2293 265,2292 266,2276 253,2209 252,2196 257,2192 252,2196 247,2175 260,2130 275,2104 294,2080 309,2051 334,2016 344,1992 359,1977 372,1955 376,1943 407,1896 414,1865 402,1834 403,1826 398,1826 394,1818 350,1842 334,1845 330,1852 315,1857 302,1855 289,1850 276,1849 265,1843 260,1836 251,1833 244,1833 224,1828 216,1830" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="365,1971 351,2005 330,1984"/></g><polyline points="216,1830 209,1832 208,1820 206,1817 207,1811 193,1788 176,1783 159,1756 133,1742 133,1729 126,1728 118,1721 121,1702 117,1690 126,1661 135,1645 158,1622 157,1617 162,1610 175,1606 178,1600 191,1601 192,1592 202,1579 205,1572 198,1567 203,1558 196,1529 207,1510 201,1498 223,1474 225,1466 230,1460 235,1466 247,1455 252,1443 256,1441 261,1432 263,1432 275,1402 275,1390 278,1388 284,1361 280,1358 281,1354 292,1340 292,1331 303,1315 303,1311 309,1304 313,1297 314,1284 318,1279" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="216,1830 209,1832 208,1820 206,1817 207,1811 193,1788 176,1783 159,1756 133,1742 133,1729 126,1728 118,1721 121,1702 117,1690 126,1661 135,1645 158,1622 157,1617 162,1610 175,1606 178,1600 191,1601 192,1592 202,1579 205,1572 198,1567 203,1558 196,1529 207,1510 201,1498 223,1474 225,1466 230,1460 235,1466 247,1455 252,1443 256,1441 261,1432 263,1432 275,1402 275,1390 278,1388 284,1361 280,1358 281,1354 292,1340 292,1331 303,1315 303,1311 309,1304 313,1297 314,1284 318,1279" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="129,1655 132,1692 103,1682"/><polygon points="252,1450 237,1484 217,1462"/></g><polyline points="318,1279 319,1283 332,1291 344,1303 353,1346 363,1378 364,1402 359,1410 361,1420 367,1427 365,1442 367,1451 357,1467 358,1478 349,1499 344,1517 328,1534 320,1534 322,1532 336,1542 348,1544 357,1548 373,1547 382,1551 388,1560 395,1559 399,1561 421,1588 424,1599 420,1610 409,1619 391,1643 396,1650 396,1657 394,1664 386,1675 383,1699 388,1707 389,1717 414,1746 429,1780 425,1789 413,1803 407,1816 402,1817 408,1813 483,1814 485,1805 493,1801 498,1787 520,1773 533,1779 539,1777 552,1763 572,1766 594,1760 610,1731 632,1724 659,1711 668,1698 673,1680 684,1666 699,1654 702,1637 708,1629 739,1616 750,1600 776,1593 790,1576 807,1571 811,1560 822,1558 821,1554" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="318,1279 319,1283 332,1291 344,1303 353,1346 363,1378 364,1402 359,1410 361,1420 367,1427 365,1442 367,1451 357,1467 358,1478 349,1499 344,1517 328,1534 320,1534 322,1532 336,1542 348,1544 357,1548 373,1547 382,1551 388,1560 395,1559 399,1561 421,1588 424,1599 420,1610 409,1619 391,1643 396,1650 396,1657 394,1664 386,1675 383,1699 388,1707 389,1717 414,1746 429,1780 425,1789 413,1803 407,1816 402,1817 408,1813 483,1814 485,1805 493,1801 498,1787 520,1773 533,1779 539,1777 552,1763 572,1766 594,1760 610,1731 632,1724 659,1711 668,1698 673,1680 684,1666 699,1654 702,1637 708,1629 739,1616 750,1600 776,1593 790,1576 807,1571 811,1560 822,1558 821,1554" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="342,1523 336,1486 365,1494"/><polygon points="387,1823 414,1797 424,1825"/><polygon points="705,1649 688,1682 669,1659"/></g><polyline points="821,1554 824,1543 815,1520 814,1511 810,1510 809,1513 788,1494 778,1491 777,1487 772,1487 768,1481 768,1474 760,1462 756,1446 750,1441 751,1433 747,1433 746,1431 751,1419 741,1404 742,1373 748,1372 749,1369 751,1344 757,1324 769,1317 784,1313 792,1303 799,1302 798,1298 808,1288 814,1278 819,1254 828,1239 826,1234 820,1231 834,1224 838,1218 847,1213 853,1215 857,1207 873,1201 879,1192 878,1189 882,1179 890,1170 894,1158 905,1144 916,1138 923,1140 926,1130 934,1125 928,1118 932,1113 930,1106 919,1103 917,1099 916,1090 915,1081 929,1065 924,1047 935,1027 932,1024 926,1023 926,1016 931,1008 935,1007 940,1004 942,999 939,996 940,992 948,982 958,976 961,970 967,969 967,964 962,962 964,953 958,946 970,946 971,942 969,936 972,932 980,924 983,929" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="821,1554 824,1543 815,1520 814,1511 810,1510 809,1513 788,1494 778,1491 777,1487 772,1487 768,1481 768,1474 760,1462 756,1446 750,1441 751,1433 747,1433 746,1431 751,1419 741,1404 742,1373 748,1372 749,1369 751,1344 757,1324 769,1317 784,1313 792,1303 799,1302 798,1298 808,1288 814,1278 819,1254 828,1239 826,1234 820,1231 834,1224 838,1218 847,1213 853,1215 857,1207 873,1201 879,1192 878,1189 882,1179 890,1170 894,1158 905,1144 916,1138 923,1140 926,1130 934,1125 928,1118 932,1113 930,1106 919,1103 917,1099 916,1090 915,1081 929,1065 924,1047 935,1027 932,1024 926,1023 926,1016 931,1008 935,1007 940,1004 942,999 939,996 940,992 948,982 958,976 961,970 967,969 967,964 962,962 964,953 958,946 970,946 971,942 969,936 972,932 980,924 983,929" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="845,1205 842,1242 816,1227"/></g><polyline points="983,929 982,926 988,925 993,919 990,909 994,892 993,888 988,886 988,882 994,872 995,865 1004,857 1008,846 1015,840 1022,827 1032,818 1060,807 1068,809 1078,796 1100,789 1111,779 1115,767 1112,764 1119,758 1125,736 1129,726 1134,722 1133,718 1140,693 1142,692 1147,695 1156,693 1164,679 1173,670 1181,649 1177,643 1177,633 1171,626 1168,616 1171,600 1166,588 1164,569 1161,562 1162,552 1153,538 1154,529 1149,523 1148,507 1139,495 1139,481 1142,475 1149,470 1149,467 1143,462 1139,452 1133,455" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="983,929 982,926 988,925 993,919 990,909 994,892 993,888 988,886 988,882 994,872 995,865 1004,857 1008,846 1015,840 1022,827 1032,818 1060,807 1068,809 1078,796 1100,789 1111,779 1115,767 1112,764 1119,758 1125,736 1129,726 1134,722 1133,718 1140,693 1142,692 1147,695 1156,693 1164,679 1173,670 1181,649 1177,643 1177,633 1171,626 1168,616 1171,600 1166,588 1164,569 1161,562 1162,552 1153,538 1154,529 1149,523 1148,507 1139,495 1139,481 1142,475 1149,470 1149,467 1143,462 1139,452 1133,455" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="1141,689 1147,726 1118,718"/></g><polyline points="1133,455 1129,456 1128,454 1116,459 1108,435 1086,427 1081,416 1083,409 1079,396 1070,382 1069,368 1066,359 1047,327 1036,315 1041,308 1039,299 1040,287 1056,274 1056,271 1063,269 1080,281 1088,284 1101,286 1107,284 1117,288 1136,268 1139,268 1143,260 1151,255 1163,251 1178,252 1185,249 1210,255 1218,251 1223,244 1250,234 1270,236 1286,242 1298,240 1302,243 1305,237 1303,223 1296,216 1295,212 1297,194 1294,186 1295,181 1298,180" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="1133,455 1129,456 1128,454 1116,459 1108,435 1086,427 1081,416 1083,409 1079,396 1070,382 1069,368 1066,359 1047,327 1036,315 1041,308 1039,299 1040,287 1056,274 1056,271 1063,269 1080,281 1088,284 1101,286 1107,284 1117,288 1136,268 1139,268 1143,260 1151,255 1163,251 1178,252 1185,249 1210,255 1218,251 1223,244 1250,234 1270,236 1286,242 1298,240 1302,243 1305,237 1303,223 1296,216 1295,212 1297,194 1294,186 1295,181 1298,180" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="1120,279 1093,305 1083,276"/></g><polyline points="1298,180 1295,181 1294,186 1297,194 1295,212 1296,216 1303,222 1305,237 1302,243 1305,244 1328,242 1333,235 1344,235 1352,232 1348,229 1344,218 1347,218 1351,204 1358,192 1363,188 1364,184 1357,167 1367,155 1364,152 1359,152 1364,152 1366,156 1376,161 1384,160 1387,164 1399,169 1410,169 1407,172 1409,178 1415,181 1414,190 1421,187 1425,190 1437,183 1436,181 1437,183 1425,190 1421,187 1414,190 1415,181 1409,178 1407,171 1411,170 1403,170 1400,182 1396,184 1394,190 1380,199 1378,204 1379,214 1381,219 1389,222 1378,225 1377,231 1365,231 1358,236 1349,232 1344,235 1333,235 1328,242 1305,244 1298,240 1286,242 1270,236 1250,234 1223,244 1218,251 1210,255 1185,249 1178,252 1163,251 1146,257 1139,268 1136,268 1117,288 1107,284 1101,286 1088,284 1080,281 1066,269 1057,271 1056,274 1057,270 1048,263 1047,256 1048,241 1044,235 1044,226 1065,215 1076,202 1077,192 1076,202 1065,215 1044,225 1044,235 1048,241 1047,256 1048,263 1057,272 1040,287 1039,299 1041,308 1036,316 1047,327 1066,359 1069,368 1070,382 1079,396 1083,409 1081,416 1086,427 1108,435 1116,459 1129,454 1129,456 1133,455" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="1298,180 1295,181 1294,186 1297,194 1295,212 1296,216 1303,222 1305,237 1302,243 1305,244 1328,242 1333,235 1344,235 1352,232 1348,229 1344,218 1347,218 1351,204 1358,192 1363,188 1364,184 1357,167 1367,155 1364,152 1359,152 1364,152 1366,156 1376,161 1384,160 1387,164 1399,169 1410,169 1407,172 1409,178 1415,181 1414,190 1421,187 1425,190 1437,183 1436,181 1437,183 1425,190 1421,187 1414,190 1415,181 1409,178 1407,171 1411,170 1403,170 1400,182 1396,184 1394,190 1380,199 1378,204 1379,214 1381,219 1389,222 1378,225 1377,231 1365,231 1358,236 1349,232 1344,235 1333,235 1328,242 1305,244 1298,240 1286,242 1270,236 1250,234 1223,244 1218,251 1210,255 1185,249 1178,252 1163,251 1146,257 1139,268 1136,268 1117,288 1107,284 1101,286 1088,284 1080,281 1066,269 1057,271 1056,274 1057,270 1048,263 1047,256 1048,241 1044,235 1044,226 1065,215 1076,202 1077,192 1076,202 1065,215 1044,225 1044,235 1048,241 1047,256 1048,263 1057,272 1040,287 1039,299 1041,308 1036,316 1047,327 1066,359 1069,368 1070,382 1079,396 1083,409 1081,416 1086,427 1108,435 1116,459 1129,454 1129,456 1133,455" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"><polygon points="1355,186 1361,223 1332,215"/><polygon points="1265,234 1303,233 1291,261"/><polygon points="1053,282 1030,253 1059,245"/></g><polyline points="1133,455 1129,456 1129,462 1112,477 1101,477 1098,479 1099,480" fill="none" stroke="#fff" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="1133,455 1129,456 1129,462 1112,477 1101,477 1098,479 1099,480" fill="none" stroke="#1F4037" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/><g fill="#fff" stroke="#1F4037" stroke-width="3"></g><circle cx="257" cy="2191" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="231" y="2203" font-size="38" font-weight="600" fill="#23282b" text-anchor="end" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">莫尔格勒河</text><circle cx="321" cy="1534" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="347" y="1546" font-size="38" font-weight="600" fill="#23282b" text-anchor="start" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">恩和</text><circle cx="386" cy="1677" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="412" y="1689" font-size="38" font-weight="600" fill="#23282b" text-anchor="start" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">白桦林</text><circle cx="402" cy="1817" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="428" y="1831" font-size="38" font-weight="600" fill="#23282b" text-anchor="start" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">额尔古纳湿地</text><circle cx="1358" cy="149" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="1344" y="123" font-size="38" font-weight="600" fill="#23282b" text-anchor="end" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">乌苏里浅滩 · 最北</text><circle cx="1416" cy="192" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="1416" y="254" font-size="38" font-weight="600" fill="#23282b" text-anchor="middle" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">龙江第一湾</text><circle cx="1078" cy="192" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="1052" y="204" font-size="38" font-weight="600" fill="#23282b" text-anchor="end" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">北极村</text><g class="daynode" onclick="goDay(0)"><circle cx="292" cy="2300" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="292" y="2313" text-anchor="middle" font-size="36" font-weight="800" fill="#12261F">1</text><text x="332" y="2264" font-size="34" font-weight="800" fill="#8A6508" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D1 · 9/15 ✈️落地</text><text x="332" y="2310" font-size="50" font-weight="800" fill="#12261F" text-anchor="start" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">海拉尔</text><text x="332" y="2350" font-size="34" font-weight="600" fill="#4b5358" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 溪隐酒店</text></g><g class="daynode" onclick="goDay(1)"><circle cx="216" cy="1830" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="216" y="1843" text-anchor="middle" font-size="36" font-weight="800" fill="#12261F">2</text><text x="252" y="1876" font-size="34" font-weight="800" fill="#8A6508" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D2 · 9/16</text><text x="252" y="1922" font-size="50" font-weight="800" fill="#12261F" text-anchor="start" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">黑山头</text><text x="252" y="1962" font-size="34" font-weight="600" fill="#4b5358" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 野马无缰</text></g><g class="daynode" onclick="goDay(2)"><circle cx="318" cy="1279" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="318" y="1292" text-anchor="middle" font-size="36" font-weight="800" fill="#12261F">3</text><text x="278" y="1243" font-size="34" font-weight="800" fill="#8A6508" text-anchor="end" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D3 · 9/17</text><text x="278" y="1289" font-size="50" font-weight="800" fill="#12261F" text-anchor="end" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">室韦</text><text x="278" y="1329" font-size="34" font-weight="600" fill="#4b5358" text-anchor="end" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 巴扬宾馆</text></g><g class="daynode" onclick="goDay(3)"><circle cx="821" cy="1554" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="821" y="1567" text-anchor="middle" font-size="36" font-weight="800" fill="#12261F">4</text><text x="861" y="1518" font-size="34" font-weight="800" fill="#8A6508" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D4 · 9/18</text><text x="861" y="1564" font-size="50" font-weight="800" fill="#12261F" text-anchor="start" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">根河</text><text x="861" y="1604" font-size="34" font-weight="600" fill="#4b5358" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 林城伴山</text></g><circle cx="983" cy="929" r="12" fill="#B8860B" stroke="#fff" stroke-width="5"/><text x="1009" y="941" font-size="38" font-weight="600" fill="#23282b" text-anchor="start" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">满归</text><g class="daynode" onclick="goDay(5)"><circle cx="1298" cy="180" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="1298" y="193" text-anchor="middle" font-size="36" font-weight="800" fill="#12261F">6</text><text x="1274" y="268" font-size="34" font-weight="800" fill="#8A6508" text-anchor="end" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D6 · 9/20</text><text x="1274" y="314" font-size="50" font-weight="800" fill="#12261F" text-anchor="end" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">北红村</text><text x="1274" y="354" font-size="34" font-weight="600" fill="#4b5358" text-anchor="end" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 金红雪屋</text></g><g class="daynode" onclick="goDay(6)"><circle cx="1133" cy="455" r="30" fill="#B8860B" stroke="#fff" stroke-width="7"/><text x="1133" y="468" text-anchor="middle" font-size="25" font-weight="800" fill="#12261F">5·7</text><text x="1173" y="435" font-size="34" font-weight="800" fill="#8A6508" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">D5 9/19 · D7 9/21 · D8 ✈️起飞</text><text x="1173" y="481" font-size="50" font-weight="800" fill="#12261F" text-anchor="start" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke">漠河</text><text x="1173" y="521" font-size="34" font-weight="600" fill="#4b5358" text-anchor="start" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">宿 漠河（两晚）</text></g><text x="255" y="2352" font-size="46" text-anchor="middle">✈️</text><text x="1061" y="525" font-size="46" text-anchor="middle">✈️</text><g stroke="#23282b" stroke-width="6"><line x1="1078" y1="2331" x2="1520" y2="2331"/><line x1="1078" y1="2315" x2="1078" y2="2347"/><line x1="1520" y1="2315" x2="1520" y2="2347"/></g><text x="1299" y="2305" font-size="38" font-weight="700" fill="#23282b" text-anchor="middle" stroke="#fff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">100 km</text></svg></div>
+      <div class="maproute">
+        <h4>路线总览（按天，点一行跳到当天）</h4>
+        <a class="mr" onclick="goDay(0);return false" href="#"><b class="mn">1</b><div><div class="mt"><span>9/15 周二</span><em>10 km</em></div><div class="mp">✈️ 海拉尔机场 → 海拉尔市区</div><div class="ms">宿 溪隐酒店</div></div></a>
+        <a class="mr" onclick="goDay(1);return false" href="#"><b class="mn">2</b><div><div class="mt"><span>9/16 周三</span><em>约 190 km</em></div><div class="mp">海拉尔 → 莫尔格勒河 → 黑山头</div><div class="ms">宿 野马无缰天边民宿</div></div></a>
+        <a class="mr" onclick="goDay(2);return false" href="#"><b class="mn">3</b><div><div class="mt"><span>9/17 周四</span><em>约 165 km</em></div><div class="mp">黑山头 → X904 边境公路 → 室韦</div><div class="ms">宿 巴扬宾馆</div></div></a>
+        <a class="mr" onclick="goDay(3);return false" href="#"><b class="mn">4</b><div><div class="mt"><span>9/18 周五</span><em>约 285 km</em></div><div class="mp">室韦 → 恩和 → 白桦林 → 额尔古纳湿地 → 根河</div><div class="ms">宿 林城伴山酒店</div></div></a>
+        <a class="mr" onclick="goDay(4);return false" href="#"><b class="mn">5</b><div><div class="mt"><span>9/19 周六</span><em>约 345 km</em></div><div class="mp">根河 → S204 → 满归 → 漠满公路 → 漠河</div><div class="ms">宿 漠河（实际一天直达，未住满归）</div></div></a>
+        <a class="mr" onclick="goDay(5);return false" href="#"><b class="mn">6</b><div><div class="mt"><span>9/20 周日</span><em>约 130 km</em></div><div class="mp">漠河 → 九曲十八弯 → 北红村</div><div class="ms">宿 金红雪屋农家院</div></div></a>
+        <a class="mr" onclick="goDay(6);return false" href="#"><b class="mn">7</b><div><div class="mt"><span>9/21 周一</span><em>约 200 km</em></div><div class="mp">北红村 → 乌苏里浅滩 → 龙江第一湾 → 北极村 → 漠河</div><div class="ms">宿 麗枫酒店</div></div></a>
+        <a class="mr" onclick="goDay(7);return false" href="#"><b class="mn">8</b><div><div class="mt"><span>9/22 周二</span><em>约 20 km</em></div><div class="mp">漠河市区 → 古莲机场 ✈️ 12:45 起飞</div><div class="ms">返程</div></div></a>
+        <div class="mtot">全程约 1350 km · 八天七晚 · ✅ 已完成</div>
+      </div>
+    </div>
+    <div class="map-legend">
+      <span><i style="background:#1F4037"></i>驾车路线</span>
+      <span><i class="dot" style="background:#B8860B"></i>过夜日节点（可点）</span>
+      <span><i class="sdot" style="background:#B8860B"></i>途经景点</span>
+      <span>✈️ 落地 / 起飞</span>
+      <span><i class="dot" style="background:rgba(46,125,50,.28);width:16px;height:11px;border-radius:3px"></i>大兴安岭林区（示意）</span>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button class="on" data-p="trip"><span class="ic">🗺</span>行程</button>
+  <button data-p="road"><span class="ic">⚠️</span>路况</button>
+  <button data-p="pack"><span class="ic">✅</span>清单</button>
+  <button data-p="sos"><span class="ic">🆘</span>应急</button>
+</nav>
+
+<footer>
+  呼伦贝尔 · 漠河边境自驾 <b>2026 V2</b> &nbsp;|&nbsp; 八天七晚 · 3 人 · 1 辆 SUV<br>
+  <span style="opacity:.7">路况依据根河市交通运输局 2026 年封闭施工公告 · 门票以景区实时公告为准</span><br>
+  <a href="v1.html" style="color:var(--muted);font-size:10.5px">V1 · 7 天正向（漠河进）</a> &nbsp;·&nbsp; <a href="v1-r.html" style="color:var(--muted);font-size:10.5px">V1 · 7 天反向</a> &nbsp;·&nbsp; <a href="2025.html" style="color:var(--muted);font-size:10.5px">2025 旧版</a>
+</footer>
+
+<script>
+/* ========== 行程数据 ========== */
+const DAYS=[
+{n:"D1",date:"9-15",wk:"周二",title:"抵达海拉尔",meta:"15:25 落地 · 10 km",
+ drone:{lv:"no",t:"海拉尔东山机场净空区，全域禁飞"},
+ view:{s:1,t:"落地日，无景观安排。"},
+ tags:["轻松"],
+ items:["<b>08:00 南京禄口 T2 起飞</b>（深航 ZH9700）→ 10:25 落地<b>沈阳桃仙 T3</b>",
+  "<b>沈阳中转约 3 小时</b>——深航与吉祥非同一航司，<b>行李大概率不直挂，需提取后重新托运</b>；桃仙为同一航站区，留足安检时间",
+  "<b>13:30 沈阳起飞</b>（吉祥 HO1187）→ <b>15:25 落地海拉尔东山机场 T2</b>",
+  "<b>神州机场店取车（SUV）</b>。⚠️ 提前致电报航班号、确认有人值守",
+  "机场 → 海拉尔市区约 10 km，20 分钟；<b>此时天还亮</b>（海拉尔约 17:50 日落，落地后尚有约 2 小时白天）",
+  "傍晚可就近逛<b>成吉思汗广场 / 伊敏河边</b>，或直接休整；晚餐蒙餐（手把肉、烤羊排）",
+  "睡前：加满油、下载离线地图、核对身份证随身携带"],
+ stay:"✅ <b>海拉尔·溪隐酒店（古城店）</b>——浴缸轻奢大床套房 ×2（已订）",hotel:"海拉尔溪隐酒店古城店",hamap:"溪隐酒店 海拉尔",nav:["海拉尔东山机场","海拉尔市"]},
+
+{n:"D2",date:"9-16",wk:"周三",title:"莫尔格勒河 → 黑山头",meta:"约 190 km · 骑马看日落",
+ drone:{lv:"warn",t:"莫尔格勒河须问景区；海拉尔东山机场净空区禁飞，越靠近海拉尔越严"},
+ view:{s:4,t:"<b>草原开篇。</b>莫尔格勒河「天下第一曲水」在金秋草原上蜿蜒，9 月草色转金；傍晚骑马进草原看日落，是这个季节最好的两小时。属草原风光，不是大兴安岭秋色。"},
+ tags:["草原开篇","骑马看日落"],
+ items:["上午：<b>莫尔格勒河</b>「天下第一曲水」（约 80 元，<b>须提前 7 天预约，即 9 月 9 日抢票</b>）——金秋草原上的九曲十八弯，2 小时",
+  "中午：返回海拉尔或路上午餐",
+  "下午：海拉尔 → 黑山头（约 150 km），沿途草原风光",
+  "<b>17:30 骑马进草原看日落</b>（约 100 元/小时，2 小时日落路线）——秋日斜光下的金色草原",
+  "晚间：草原星空；晚餐蒙餐"],
+ warn:"防火期内<b>无篝火晚会</b>。",
+ stay:"✅ <b>黑山头·野马无缰天边民宿（黑山头镇店）</b>——双子牧歌标准间（中央空调+零压床垫）×2（已订）",
+ hotel:"黑山头野马无缰天边民宿",hamap:"野马无缰天边民宿 黑山头",nav:["莫尔格勒河","黑山头镇"]},
+
+{n:"D3",date:"9-17",wk:"周四",title:"X904 边境公路 → 室韦",meta:"约 165 km · 全程风景最佳",
+ drone:{lv:"no",t:"X904 全程沿额尔古纳界河、黑山头临口岸，边境管制区绝对禁飞——风景最好的一天恰恰一点都不能飞"},
+ view:{s:5,t:"<b>🏆 全程综合最美。</b>X904 被称为「中国最美边境公路」，165 km 沿额尔古纳界河而行，一侧俄罗斯村落、一侧丘陵草原，9 月下旬满目金黄。属界河草原风光，大兴安岭森林秋色在 D5–D6。"},
+ tags:["🏆 风景最高点"],hero:1,
+ alert:"⛽ 出发前<b>黑山头务必加满油——X904 边境公路 150+ km 全程无加油站</b>。",
+ items:["08:30 黑山头出发，走 <b>X904 边境公路 → 室韦，约 165 km</b>。沿额尔古纳界河而行，一侧俄罗斯、一侧丘陵草原，9 月下旬满目金黄，<b>呼伦贝尔公认最美自驾路段</b><ul><li>限速 60–80，<b>区间测速密集</b></li><li>手机可能漫游到俄罗斯网络，<b>提前关闭数据漫游</b></li><li><b>禁飞无人机</b>；严禁碾压草原（索赔 500–2000 元）</li></ul>",
+  "13:30 前后抵达室韦，午餐",
+  "下午：室韦 / 临江屯，额尔古纳河畔散步，远眺对岸俄罗斯奥洛契村",
+  "晚餐：俄式家宴——大列巴、苏伯汤、蓝莓酱、俄式烤肉"],
+ stay:"✅ <b>室韦·巴扬宾馆</b>——俄式木屋舒适家庭房（零压床垫·智能马桶·干湿分离）×2（已订）",
+ hotel:"室韦巴扬宾馆",hamap:"巴扬宾馆 室韦",nav:["黑山头镇","室韦镇","临江屯"]},
+
+{n:"D4",date:"9-18",wk:"周五",title:"恩和 → 白桦林 → 湿地 → 根河",meta:"约 285 km · 秋色摄影日",
+ drone:{lv:"warn",t:"额尔古纳湿地为国家湿地公园、白桦林为景区，须先问景区；室韦一带靠界河禁飞，越往南越松"},
+ view:{s:4,t:"<b>秋色摄影日。</b>白桦林是「兴安秋色铁三角」（白桦、落叶松、樟子松）中最上镜的一员——纯白树干配满树金叶；额尔古纳湿地秋日晨雾与斑斓色彩是全年最佳。<b>大兴安岭秋色从今天正式开场。</b>"},
+ tags:["秋色摄影日","07:30 出发"],
+ items:["<b>07:30 出发</b>——今天景点多、路程长，早走才从容",
+  "上午：室韦 → <b>恩和俄罗斯民族乡</b>（67 km），逛木刻楞村落",
+  "恩和 → <b>额尔古纳白桦林景区</b>（50 km，约 50 元，1.5 h）——纯白树干配满树金叶，<b>16:00 停止售票</b>",
+  "午后：<b>额尔古纳湿地</b>（亚洲第一湿地，约 65 元，含电瓶车上山顶观景台 + 2 km 木栈道，约 2 h）",
+  "傍晚：额尔古纳 → 根河（125 km，2 h，柏油路好走），17:30 前入住"],
+ stay:"✅ <b>根河·林城伴山酒店</b>——特色火炕家庭房 ×2（已订）",
+ hotel:"根河林城伴山酒店",hamap:"林城伴山酒店 根河",nav:["恩和","白桦林景区","额尔古纳湿地","根河市"]},
+
+{n:"D5",date:"9-19",wk:"周六",title:"根河 → 满归 → 漠河",meta:"约 345 km · 实际一天直达",
+ drone:{lv:"warn",t:"根河、满归一带属内陆适飞空域；但防火期高火险时段可能临时管控，起飞前查禁飞地图"},
+ view:{s:5,t:"<b>🌲 全天在大兴安岭腹地林海中穿行。</b>S204 接漠满公路，落叶松金黄、白桦银白、樟子松墨绿，是纯正的兴安秋色。"},
+ tags:["实际变更","一天直达"],
+ alert:"✅ <b>实际执行：</b>原计划 D5 住满归、D6 再去漠河。实际 <b>S204 非常好走、全程没有走施工便道</b>，于是当天从根河一天直达漠河，<b>不住满归</b>。",
+ items:["根河出发 → <b>S204</b> → 满归（道路测算约 205 km）。<b>实际路况很好，没有走施工便道</b>",
+  "满归 → <b>漠满公路</b> → 漠河（道路测算约 140 km）",
+  "当晚入住漠河"],
+ stay:"✅ <b>漠河</b>（原订满归·北兴宾馆未入住）",
+ nav:["满归镇","漠河市"]},
+
+{n:"D6",date:"9-20",wk:"周日",title:"漠河 → 九曲十八弯 → 北红村",meta:"约 130 km",
+ drone:{lv:"no",t:"北红村位于中俄界河一线，严禁放飞；途中漠河段可查禁飞地图后谨慎评估"},
+ view:{s:4,t:"沿途<b>九曲十八弯</b>湿地观景台；北红村是中国最北的村庄，界江边散步。"},
+ tags:["实际变更","轻松日"],
+ items:["从漠河出发（前一晚已住漠河），<b>加满油、补给</b>（这是进北红村前最后一个像样的补给点）",
+  "漠河 → 北红村（道路测算约 130 km，山路），沿途<b>九曲十八弯</b>观景台可停",
+  "抵达北红村，入住火炕民宿，村里界江边散步",
+  "夜间：北红村几无光污染，秋分前后地磁较活跃，<b>有小概率见到北极光</b>"],
+ stay:"✅ <b>北红村·金红雪屋农家院</b>——豪华双床房（全屋智能·干湿分离·零压床垫）（已订；携程按母级「漠河市」显示，实际在北红村）",
+ hotel:"北红村金红雪屋农家院",hamap:"金红雪屋 北红村",nav:["漠河市","九曲十八弯","北红村"]},
+
+{n:"D7",date:"9-21",wk:"周一",title:"最北点 → 龙江第一湾 → 北极村 → 漠河",meta:"约 200 km · 单点最震撼",
+ drone:{lv:"no",t:"乌苏里浅滩、龙江第一湾、北极村全在中俄界河一线，严禁放飞，设备可能被没收"},
+ view:{s:5,t:"<b>单点最震撼的一天。</b>龙江第一湾登 998 级台阶俯瞰 Ω 形江湾，大兴安岭行署官方描述秋日「山色斑斓」——金黄落叶松、橙红灌木与墨绿樟子松层层铺满江湾两岸，是全程最出片的单一机位。"},
+ tags:["07:00 出发","🍁 单点最震撼"],
+ warn:"<b>07:00 出发是今天的关键。</b>行程排到北极村再回漠河，早走才能在日落（约 17:25）前抵达，避免夜路。",
+ items:["<b>07:00 北红村出发</b> → <b>乌苏里浅滩</b>（25 km），中国最北点 N53°33′43″ 打卡，<b>晨光斜射最好拍</b>",
+  "08:30 → <b>龙江第一湾</b>（25 km），998 级台阶登顶俯瞰 Ω 形江湾（<b>预留 2 h</b>，全程最震撼的机位）",
+  "11:00 山下午餐",
+  "12:00 → 鄂温克<b>驯鹿园</b>（40 分钟）",
+  "13:30 抵达<b>北极村</b>（70 km，门票 88 元）——神州北极石、最北一家、最北邮局（寄「最北」邮戳明信片）、北极沙洲、界碑，<b>游览 2.5 h</b>",
+  "<b>16:00 北极村出发</b> → 漠河（80 km，漠北公路柏油好走），<b>17:30 前抵达</b>",
+  "晚餐：漠河市区，铁锅炖 / 冷水鱼 / 山野菜——最后一顿东北菜"],
+ tip:"北极村不住、当天返回漠河，代价是北极村只能游 2.5 小时（够看完核心景点）。换来的是明早能从容逛漠河市区，且不用担心次日 93 km 赶飞机。",
+ stay:"✅ <b>漠河·麗枫酒店（北极星广场松苑公园店）</b>——标准大床房 ×2（已订）",
+ hotel:"漠河麗枫酒店北极星广场松苑公园店",hamap:"丽枫酒店 漠河北极星广场",nav:["乌苏里浅滩","龙江第一湾","漠河北极村","漠河市"]},
+
+{n:"D8",date:"9-22",wk:"周二",title:"漠河市区 → 机场 → 返程",meta:"约 20 km · 12:45 起飞",
+ drone:{lv:"no",t:"漠河古莲机场净空区禁飞"},
+ view:{s:2,t:"松苑原始森林公园是 1987 年「五·六」大火中市区唯一未被烧毁的原始林，秋日金黄，就在市区内，步行可达。"},
+ tags:["上午游漠河","缓冲充足"],
+ items:["07:30 起床，早餐后退房",
+  "<b>08:00–09:30 漠河市区游览</b>（三处都在市区，彼此很近）<ul><li><b>松苑原始森林公园</b>——1987 年大火中市区唯一幸存的原始林，秋色金黄，免费</li><li><b>北极星广场</b>——俯瞰漠河城区</li><li><b>五·六火灾纪念馆</b>——了解 1987 年那场大火，免费</li></ul>",
+  "09:40 出发 → 漠河古莲机场（13 km，20 分钟）",
+  "10:00 抵达机场，还车前<b>把油加满</b>",
+  "10:30 <b>神州机场店还车</b>",
+  "11:15 值机安检，<b>12:45 漠河起飞</b>（成都航空 EU1896，经停加格达奇）→ 16:00 落地<b>哈尔滨太平 T2</b>",
+  "<b>哈尔滨中转约 5 小时</b>——EU 与深航非同一航司，<b>行李需重新托运</b>；T2 同一航站楼，时间充裕，可市区觅食或机场休整",
+  "<b>21:00 哈尔滨起飞</b>（深航 ZH9771）→ <b>23:55 落地南京禄口 T2</b>"],
+ timeline:"<b>12:45 起飞倒推：08:00 逛漠河 → 09:40 出发 → 10:00 到机场 → 10:30 还车 → 11:15 值机。</b><br>市区离机场仅 13 km，上午仍能留出约 1.5 小时游览。<br><b>⚠️ 返程为两段中转（漠河→哈尔滨→南京），当日 23:55 才到南京，是漫长的一天。</b>",
+ stay:"—",nav:["松苑原始森林公园","漠河古莲机场"]}
+];
+
+/* ========== 清单数据 ========== */
+const CK=[
+["出发前必办",[
+ ["✔ 机票已定（均为中转联程）","去程 9/15：ZH9700 08:00 南京→10:25 沈阳，转 HO1187 13:30→15:25 海拉尔；回程 9/22：EU1896 12:45 漠河→(加格达奇经停)16:00 哈尔滨，转 ZH9771 21:00→23:55 南京"],
+ ["✔ 15:25 落地海拉尔，告知车行并报航班号","支线机场柜台按航班开门，确保有人值守"],
+ ["✔ 租车已完全确认","神州 SUV 6,100元总价，含保险+跨省还车费，全包"],
+ ["SUV 备胎确认完好","出发前检查备胎气压，S204 便道唯一的硬件风险"],
+ ["✅ 7 晚住宿全部订妥","海拉尔溪隐→黑山头野马无缰→室韦巴扬→根河林城伴山→满归北兴→北红村金红雪屋→漠河麗枫"],
+ ["北极村门票 88 元（D7 日游）","从北红村当天往返、非住店，按普通游客购票；确认联票是否含龙江第一湾/乌苏里浅滩"],
+ ["核对全员身份证在有效期内","边境检查站查的就是它"],
+ ["9/9 预约莫尔格勒河","提前 7 天开放，抢 9/16 时段票"],
+ ["9/18 打 12328 核实 S204 便道","D5 前一天"],
+ ["下载离线地图（高德/百度）","林区大段无信号"],
+ ["⚠️ 两段中转均需重新托运行李","去程沈阳转、回程哈尔滨转，跨航司行李不直挂；预留提取+值机时间，勿托运违禁品"]
+]],
+["随身证件",[
+ ["身份证原件（全员）","最重要"],["驾照原件","主驾与备驾"],["行驶证随车",""],["银行卡 / 现金","小镇移动支付偶有不畅"]
+]],
+["保暖穿着",[
+ ["轻羽绒服","必带，夜间近 0℃"],["抓绒衣",""],["速干打底",""],
+ ["手套 · 毛线帽 · 围脖",""],["防水防滑徒步鞋","998 级台阶 + 霜冻路面"],["墨镜 + 防晒霜","草原秋季紫外线仍强"]
+]],
+["车上装备（单车出行·更重要）",[
+ ["大容量充电宝","低温掉电快"],["车充 / 多口 USB",""],
+ ["搭电线","单车无僚车支援"],["拖车绳",""],["便携气泵 + 补胎胶条",""],
+ ["急救包",""],["强光手电",""],["纸巾 / 湿巾 / 垃圾袋",""],
+ ["零食和饮用水","便道段 210 km 无补给"]
+]],
+["个人物品",[
+ ["常用药 · 感冒药 · 肠胃药",""],["驱蚊液","湿地用，一小瓶足够"],["润唇膏 · 保湿霜","北方干燥"],
+ ["相机 + 备用电池","低温耗电快，电池贴身放"],["保温杯",""]
+]]
+];
+
+/* ========== 渲染 ========== */
+const TRIP_Y=2026;
+const DR={
+  no:{b:"🚁 禁飞",t:"🚁 禁飞"},
+  warn:{b:"🚁 需确认",t:"🚁 需确认"},
+  ok:{b:"🚁 可飞",t:"🚁 相对可飞"}
+};
+function dstr(d){const[m,dd]=d.split("-");return new Date(TRIP_Y,m-1,dd)}
+function todayIdx(){
+  const t=new Date();t.setHours(0,0,0,0);
+  return DAYS.findIndex(d=>{const x=dstr(d.date);x.setHours(0,0,0,0);return +x===+t});
+}
+function baiduQ(q){return"baidumap://map/place/search?query="+encodeURIComponent(q)+"&output=html&src=mtoh"}
+function amapWeb(q){return"https://uri.amap.com/search?keyword="+encodeURIComponent(q)+"&src=mtoh&callnative=1"}
+function baiduWeb(q){return"https://map.baidu.com/search/"+encodeURIComponent(q)}
+function openMap(scheme,web){
+  const t=setTimeout(()=>{location.href=web},1200);
+  window.addEventListener('blur',()=>clearTimeout(t),{once:true});
+  location.href=scheme;
+}
+
+// 日出日落为天文计算值；天气为 Open-Meteo 气象模型对当日当地的回溯值，非站点实测
+const WX=[
+ {lat:49.2321,lon:119.8172,desc:"阴",tmin:4,tmax:18,pop:3,rise:"05:36",set:"18:14"},
+ {lat:50.2136,lon:119.5711,desc:"阴",tmin:5,tmax:23,pop:4,rise:"05:38",set:"18:14"},
+ {lat:51.3384,lon:119.9005,desc:"阴",tmin:10,tmax:22,pop:6,rise:"05:37",set:"18:11"},
+ {lat:50.7812,lon:121.5252,desc:"阵雨",tmin:6,tmax:21,pop:96,rise:"05:33",set:"18:01"},
+ {lat:52.9714,lon:122.5330,desc:"阵雪",tmin:0,tmax:9,pop:98,rise:"05:29",set:"17:56"},
+ {lat:53.5021,lon:123.0658,desc:"多云",tmin:-2,tmax:11,pop:0,rise:"05:29",set:"17:52"},
+ {lat:52.9714,lon:122.5330,desc:"阴",tmin:-4,tmax:10,pop:0,rise:"05:33",set:"17:51"},
+ {lat:52.9714,lon:122.5330,desc:"多云",tmin:0,tmax:12,pop:0,rise:"05:34",set:"17:49"}];
+const WXSRC="模型回溯";
+function wxHTML(w){
+  return `<span class="wx-d">🌤 ${w.desc}</span><span>${w.tmin} ~ ${w.tmax}℃</span>`+
+    `<span class="${w.pop>=70?"wx-hot":""}">降水 ${w.pop}%${w.pop>=70?" ⚠️":""}</span>`+
+    `<span>🌅 日出 ${w.rise}</span><span>🌇 日落 ${w.set}</span><span class="wx-src">${WXSRC}</span>`;
+}
+function renderDays(){
+  const ti=todayIdx();
+  document.getElementById("days").innerHTML=DAYS.map((d,i)=>{
+    const isT=i===ti;
+    const cls="day"+(isT?" today":"")+(d.hero?" hero":"")+(isT||(ti<0&&i===0)?" open":"");
+    return `<article class="${cls}" data-i="${i}">
+      <div class="day-h" onclick="tog(${i})">
+        <span class="dno">${d.n}</span>
+        <div class="d-tt"><div class="t">${d.title}</div>
+          <div class="m">${d.date.replace("-"," 月 ")} 日 · ${d.wk}　·　${d.meta}${isT?'　·　<b style="color:#A63A2E">今天</b>':""}</div></div>
+        ${d.view&&d.view.s>=5?'<span class="vbadge">★★★★★</span>':""}
+        <span class="dbadge ${d.drone.lv}">${DR[d.drone.lv].b}</span>
+        <span class="chev">▶</span>
+      </div>
+      <div class="day-b">
+        ${WX[i]?`<div class="wxrow" id="wx-${i}">${wxHTML(WX[i])}</div>`:""}
+        ${d.warn?`<div class="alert warn" style="margin-top:12px;margin-bottom:0">${d.warn}</div>`:""}
+        ${d.alert?`<div class="alert gold" style="margin-top:12px;margin-bottom:0">${d.alert}</div>`:""}
+        <ul>${d.items.map(x=>"<li>"+x+"</li>").join("")}</ul>
+        ${d.tip?`<div class="alert info" style="font-size:12.5px"><b>💡 小窍门　</b>${d.tip}</div>`:""}
+        ${d.timeline?`<div class="alert gold" style="font-size:12.5px"><b>⏱ 时间倒推　</b>${d.timeline}</div>`:""}
+        ${d.tags?`<div class="tagrow">${d.tags.map(t=>`<span class="tag ${t.includes("🏆")?"gold":(t.includes("出发")||t.includes("硬")||t.includes("便道"))?"red":""}">${t}</span>`).join("")}</div>`:""}
+        ${d.view&&d.view.s>=4?`<div class="view"><span class="vl">🍁 风景</span><span><span class="stars">${"★".repeat(d.view.s)}${"☆".repeat(5-d.view.s)}</span>　${d.view.t}</span></div>`:""}
+        <div class="drone ${d.drone.lv}"><span class="dl">${DR[d.drone.lv].t}</span><span>${d.drone.t}</span></div>
+        ${d.stay!=="—"?`<div class="stay"><b>住 宿</b>${d.stay}</div>`:""}
+        ${d.hotel?`<div class="hotel-btns"><a class="hbtn am" href="${amapWeb(d.hamap||d.hotel)}" target="_blank" rel="noopener">🏨 高德→今晚酒店</a><a class="hbtn bd" onclick="openMap(baiduQ('${d.hotel}'),baiduWeb('${d.hotel}'));return false" href="#">🏨 百度→今晚酒店</a></div>`:""}
+        <div class="navlist">${d.nav.map(p=>`<div class="navitem"><span class="navlabel">📍 ${p}</span><div class="navbtns"><a class="nbtn am" href="${amapWeb(p)}" target="_blank" rel="noopener">高德</a><a class="nbtn bd" onclick="openMap(baiduQ('${p}'),baiduWeb('${p}'));return false" href="#">百度</a></div></div>`).join("")}</div>
+      </div></article>`;
+  }).join("");
+}
+function tog(i){document.querySelector(`.day[data-i="${i}"]`).classList.toggle("open")}
+
+function renderDrone(){
+  const el=document.getElementById("dronetable");
+  if(!el)return;
+  el.innerHTML=DAYS.map(d=>`
+    <div class="kv" style="align-items:flex-start">
+      <div class="k" style="width:auto;min-width:34px"><b style="color:var(--forest)">${d.n}</b></div>
+      <div class="v">
+        <span class="dbadge ${d.drone.lv}">${DR[d.drone.lv].b}</span>
+        <div style="margin-top:4px;font-size:12.5px;line-height:1.6">${d.drone.t}</div>
+      </div>
+    </div>`).join("");
+}
+
+function renderCk(){
+  const s=JSON.parse(localStorage.getItem("mtoh26v2ck")||"{}");
+  document.getElementById("checklists").innerHTML=CK.map(([g,items],gi)=>{
+    const done=items.filter((_,ii)=>s[gi+"-"+ii]).length;
+    return `<div class="ck-group"><h3>${g}<span class="cnt" id="c-${gi}">${done} / ${items.length}</span></h3>`+
+    items.map(([lb,sub],ii)=>{
+      const k=gi+"-"+ii,on=!!s[k];
+      return `<label class="ck${on?" done":""}" data-k="${k}">
+        <input type="checkbox" ${on?"checked":""} onchange="ckc(this,'${k}',${gi})">
+        <span class="lb">${lb}${sub?`<small>${sub}</small>`:""}</span></label>`;
+    }).join("")+"</div>";
+  }).join("");
+}
+function ckc(el,k,gi){
+  const s=JSON.parse(localStorage.getItem("mtoh26v2ck")||"{}");
+  if(el.checked)s[k]=1;else delete s[k];
+  localStorage.setItem("mtoh26v2ck",JSON.stringify(s));
+  el.closest(".ck").classList.toggle("done",el.checked);
+  const items=CK[gi][1],done=items.filter((_,ii)=>s[gi+"-"+ii]).length;
+  document.getElementById("c-"+gi).textContent=done+" / "+items.length;
+}
+function resetCk(){if(confirm("清空所有勾选？")){localStorage.removeItem("mtoh26v2ck");renderCk()}}
+
+function renderStatus(){
+  const t=new Date();t.setHours(0,0,0,0);
+  const s=new Date(TRIP_Y,8,16),e=new Date(TRIP_Y,8,23);
+  const ti=todayIdx();let h="";
+  if(ti>=0){
+    const d=DAYS[ti];
+    h=`<div class="big">${d.n}</div><div class="txt"><b>今天 · ${d.title}</b>${d.meta}</div>`;
+  }else if(t<s){
+    const n=Math.ceil((s-t)/864e5);
+    h=`<div class="big">${n}</div><div class="txt"><b>天后出发</b>9 月 15 日抵达海拉尔</div>`;
+  }else{
+    h=`<div class="big">✓</div><div class="txt"><b>旅程已结束</b>约 1350 km · 八天七晚</div>`;
+  }
+  document.getElementById("status").innerHTML=h;
+}
+
+document.querySelectorAll("nav button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    document.getElementById("p-"+b.dataset.p).classList.add("on");
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+});
+
+function showMap(){
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.getElementById("p-map").classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function showTrip(){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelector('nav button[data-p="trip"]').classList.add("on");
+  document.getElementById("p-trip").classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goDay(i){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelector('nav button[data-p="trip"]').classList.add("on");
+  document.getElementById("p-trip").classList.add("on");
+  const art=document.querySelector(`.day[data-i="${i}"]`);
+  if(art){art.classList.add("open");art.scrollIntoView({behavior:"smooth",block:"start"});}
+}
+
+renderStatus();renderDays();renderCk();renderDrone();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
